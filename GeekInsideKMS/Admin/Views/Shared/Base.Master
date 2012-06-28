@@ -1,0 +1,86 @@
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+    </title>
+    <link href="/Content/css/main.css" rel="stylesheet" type="text/css" />
+    <script src="/Scripts/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div id="wrapper">
+		<div id="visual-nav">
+			<ul id="portal-siteactions" class="topNavTabs">
+				<li><%: Html.ActionLink("我的工作台", "Workshop", "User")%></li>
+                <li><%: Html.ActionLink("zhaoyulee", "Profile", "User")%></li>
+				<li style="margin-right:10px;_margin-right:7px"></li>
+			</ul>
+			<div id="geekinside-services">
+				<ul class="topNavTabs">
+					<li style="margin-left:5px;"></li>
+					<li class="selected"><%: Html.ActionLink("文档库", "Index", "Index")%></a></li>
+					<li><%: Html.ActionLink("公告", "Index", "News")%></li>
+				</ul>
+			</div>
+			<div class="visualClear"></div>
+		</div>
+		<div id="visual-content">
+			<div id="portal-top">
+				<h1 id="portal-logo">
+					<a href="/Index/Index">后台管理</a>
+				</h1>
+				<div class="visualClear"></div>
+			</div>
+            <div id="portal-globalnav">
+				<ul class="tabs">
+					<li 
+                    <% if (ViewContext.Controller.ToString().EndsWith("IndexController")) 
+                       {
+                           Response.Write("class=\"selected\""); 
+                       }
+                    %>><%: Html.ActionLink("平台管理", "Index", "Index")%></li>
+					<li 
+                    <% if (ViewContext.Controller.ToString().EndsWith("EmployeeController")) 
+                       {
+                           Response.Write("class=\"selected\""); 
+                       }
+                    %>><%: Html.ActionLink("人员管理", "Index", "Employee")%></li>
+					<li 
+                    <% if (ViewContext.Controller.ToString().EndsWith("AuthController")) 
+                       {
+                           Response.Write("class=\"selected\""); 
+                       }
+                    %>><%: Html.ActionLink("权限控制", "Index", "Auth")%></li>
+					<li 
+                    <% if (ViewContext.Controller.ToString().EndsWith("DocumentController")) 
+                       {
+                           Response.Write("class=\"selected\""); 
+                       }
+                    %>><%: Html.ActionLink("文档管理", "Index", "Document")%></li>
+					<li 
+                    <% if (ViewContext.Controller.ToString().EndsWith("NewsController")) 
+                       {
+                           Response.Write("class=\"selected\""); 
+                       }
+                    %>><%: Html.ActionLink("公告管理", "Index", "News")%></li>
+				</ul>
+			</div>
+			<table id="portal-columns">
+			<tbody>
+				<tr>
+                    <asp:ContentPlaceHolder ID="MainContentPlaceHolder" runat="server" />
+				</tr>
+			</tbody>
+			</table>
+			<div id="footer">
+				<p>Geek Inside 小组全力打造</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

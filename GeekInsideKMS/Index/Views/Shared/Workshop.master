@@ -1,0 +1,52 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/Views/Shared/Base.Master" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<%-- 我的工作台母版页 左侧导航已添加 右侧隐藏 如果继承此母版则只可定义MiddlePlaceHolder --%>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
+    我的工作台 - Geek Inside 知识管理系统
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
+    <asp:ContentPlaceHolder ID="head" runat="server" />
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
+    <td id="portal-column-one">
+        <div class="visualPadding">
+            <div id="workDeskNav">
+                <dl class="portlet portlet-navigation-tree">
+                    <dt class="portletHeader">相关操作 </dt>
+                    <dd class="portletItem">
+                        <ul class="portletNavigationTree navTreeLevel0" id="left-view-list">
+                            <li class="navTreeItem"><a href="#">
+                                <img src="/Content/images/icons/file.gif" class="iconimg">发布新文档</a> </li>
+                        </ul>
+                    </dd>
+                </dl>
+                <dl class="portlet portlet-navigation-tree">
+                    <dt class="portletHeader">我的工作台 </dt>
+                    <dd class="portletItem">
+                        <ul class="portletNavigationTree navTreeLevel0" id="left-view-list">
+                            <li class="navTreeItem"><a href="#">
+                                <img src="/Content/images/icons/file.gif" class="iconimg">我发布的文档</a> </li>
+                            <li class="navTreeItem"><a href="#">
+                                <img src="/Content/images/icons/file.gif" class="iconimg">待审核的文档</a> </li>
+                            <li class="navTreeItem"><a href="#">
+                                <img src="/Content/images/icons/favorite.gif" class="iconimg">收藏夹</a> </li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </td>
+    <td id="portal-column-content">
+        <asp:ContentPlaceHolder ID="MiddlePlaceHolder" runat="server" />
+    </td>
+    <td id="portal-column-two">
+        <style>
+            #portal-column-two
+            {
+                display: none;
+                width: 0;
+            }
+        </style>
+    </td>
+</asp:Content>

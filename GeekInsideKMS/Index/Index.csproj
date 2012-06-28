@@ -66,14 +66,37 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\DocumentController.cs" />
+    <Compile Include="Controllers\IndexController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\css\main.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\images\bg-login.gif" />
+    <Content Include="Content\images\folder.gif" />
+    <Content Include="Content\images\icons\download.gif" />
+    <Content Include="Content\images\icons\edit.png" />
+    <Content Include="Content\images\icons\favorite.gif" />
+    <Content Include="Content\images\icons\file.gif" />
+    <Content Include="Content\images\icons\ms-word.gif" />
+    <Content Include="Content\images\icons\open.gif" />
+    <Content Include="Content\images\icons\pdf.gif" />
+    <Content Include="Content\images\icons\trash.gif" />
+    <Content Include="Content\images\login-left.png" />
+    <Content Include="Content\images\login_18.png" />
+    <Content Include="Content\images\magnifier.png" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\jquery-1.7.2.min.js" />
+    <Content Include="Views\Document\Detail.aspx" />
+    <Content Include="Views\Index\Index.aspx" />
+    <Content Include="Views\Index\Login.aspx" />
+    <Content Include="Views\User\Profile.aspx" />
+    <Content Include="Views\User\Workshop.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -81,24 +104,28 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery-1.4.1.js" />
-    <Content Include="Scripts\jquery-1.4.1.min.js" />
-    <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\MicrosoftAjax.js" />
-    <Content Include="Scripts\MicrosoftAjax.debug.js" />
-    <Content Include="Scripts\MicrosoftMvcAjax.js" />
-    <Content Include="Scripts\MicrosoftMvcAjax.debug.js" />
-    <Content Include="Scripts\MicrosoftMvcValidation.js" />
-    <Content Include="Scripts\MicrosoftMvcValidation.debug.js" />
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Shared\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Base.Master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Workshop.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Main.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Profile.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Detail.master" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\Admin.master" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
