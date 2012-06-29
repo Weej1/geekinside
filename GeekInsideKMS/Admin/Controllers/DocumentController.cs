@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Admin.Controllers
 {
     public class DocumentController : Controller
     {
-        //
-        // GET: /Document/
-
+        [Authorize]
         public ActionResult Index()
         {
             return View();

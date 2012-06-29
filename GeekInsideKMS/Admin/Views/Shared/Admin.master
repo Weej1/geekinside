@@ -1,4 +1,5 @@
 ﻿<%@ Master Language="C#" MasterPageFile="~/Views/Shared/Base.Master" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
 </asp:Content>
@@ -6,25 +7,65 @@
     <asp:ContentPlaceHolder ID="head" runat="server" />
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContentPlaceHolder" runat="server">
-    <td id="portal-column-one">
-        <style>
-            #portal-column-one
-            {
-                display: none;
-                width: 0;
-            }
-        </style>
-    </td>
-    <td id="portal-column-content">
-        <asp:ContentPlaceHolder ID="MiddlePlaceHolder" runat="server" />
-    </td>
-    <td id="portal-column-two">
-        <style>
-            #portal-column-two
-            {
-                display: none;
-                width: 0;
-            }
-        </style>
-    </td>
+    <div id="portal-globalnav">
+        <ul class="tabs">
+            <li <% if (ViewContext.Controller.ToString().EndsWith("IndexController")) 
+                       {
+                           Response.Write("class=\"selected\""); 
+                       }
+                    %>>
+                <%: Html.ActionLink("平台管理", "Index", "Index")%></li>
+            <li <% if (ViewContext.Controller.ToString().EndsWith("EmployeeController")) 
+                       {
+                           Response.Write("class=\"selected\""); 
+                       }
+                    %>>
+                <%: Html.ActionLink("人员管理", "Index", "Employee")%></li>
+            <li <% if (ViewContext.Controller.ToString().EndsWith("AuthController")) 
+                       {
+                           Response.Write("class=\"selected\""); 
+                       }
+                    %>>
+                <%: Html.ActionLink("权限控制", "Index", "Auth")%></li>
+            <li <% if (ViewContext.Controller.ToString().EndsWith("DocumentController")) 
+                       {
+                           Response.Write("class=\"selected\""); 
+                       }
+                    %>>
+                <%: Html.ActionLink("文档管理", "Index", "Document")%></li>
+            <li <% if (ViewContext.Controller.ToString().EndsWith("NewsController")) 
+                       {
+                           Response.Write("class=\"selected\""); 
+                       }
+                    %>>
+                <%: Html.ActionLink("公告管理", "Index", "News")%></li>
+        </ul>
+    </div>
+    <table id="portal-columns">
+        <tbody>
+            <tr>
+                <td id="portal-column-one">
+                    <style>
+                        #portal-column-one
+                        {
+                            display: none;
+                            width: 0;
+                        }
+                    </style>
+                </td>
+                <td id="portal-column-content">
+                    <asp:ContentPlaceHolder ID="MiddlePlaceHolder" runat="server" />
+                </td>
+                <td id="portal-column-two">
+                    <style>
+                        #portal-column-two
+                        {
+                            display: none;
+                            width: 0;
+                        }
+                    </style>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </asp:Content>

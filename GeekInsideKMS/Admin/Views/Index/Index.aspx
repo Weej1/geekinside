@@ -10,14 +10,14 @@
         <div id="content">
             <div class="admin-intro">
                 关于Geek Inside文档管理系统的信息修改</div>
-            <form action="#" name="form" method="post">
+            <form action="" name="form" method="post">
             <div class="row">
                 <div class="field">
                     <label class="horizontal">
                         <span>站点标题</span>
                     </label>
                     <div>
-                        <input type="text" name="" value="Geek Inside文档管理系统"></div>
+                        <input type="text" name="sitename" value="Geek Inside 文档管理系统"></div>
                 </div>
             </div>
             <div class="row">
@@ -26,7 +26,7 @@
                         <span>SMTP服务器地址</span>
                     </label>
                     <div>
-                        <input type="text" name=""></div>
+                        <input type="text" name="smtpaddress"></div>
                 </div>
             </div>
             <div class="row">
@@ -35,7 +35,7 @@
                         <span>SMTP用户名</span>
                     </label>
                     <div>
-                        <input type="text" name=""></div>
+                        <input type="text" name="smtpusername"></div>
                 </div>
             </div>
             <div class="row">
@@ -44,7 +44,7 @@
                         <span>SMTP用户密码</span>
                     </label>
                     <div>
-                        <input type="text" name=""></div>
+                        <input type="text" name="smtppassword"></div>
                 </div>
             </div>
             <input type="submit" value="保存信息">
