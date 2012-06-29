@@ -21,7 +21,7 @@ namespace Admin.Controllers
         public ActionResult Login(UserAdminModel userAdminModel)
         {
             BLLAdminAcount bllAdminAccount = new BLLAdminAcount();
-            Boolean result = bllAdminAccount.CheckLogin(userAdminModel);
+            Boolean result = bllAdminAccount.CheckAdminLogin(userAdminModel);
             if (result == true)
             {
                 FormsAuthentication.SetAuthCookie(userAdminModel.Username, true);

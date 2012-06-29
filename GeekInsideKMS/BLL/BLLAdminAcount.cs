@@ -10,7 +10,7 @@ namespace BLL
 {
     public class BLLAdminAcount
     {
-        public Boolean CheckLogin(UserAdminModel userAdminModel)
+        public Boolean CheckAdminLogin(UserAdminModel userAdminModel)
         {
             IDALAdminAcount dalAdminAccount = new DALAdminAcount();
             UserAdminModel userAdminModelResult = dalAdminAccount.getUserByUsername(userAdminModel.Username);

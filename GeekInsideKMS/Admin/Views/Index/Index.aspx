@@ -10,14 +10,20 @@
         <div id="content">
             <div class="admin-intro">
                 关于Geek Inside文档管理系统的信息修改</div>
-            <form action="" name="form" method="post">
+            <form action="/Index/doIndex" name="form" method="post">
+            <% if ( TempData["errorMsg"] != ""){ %>
+            <p style="color:red;font-weight:bold;"><%: TempData["errorMsg"]%></p>
+            <% } %>
+            <% if ( TempData["successMsg"] != ""){ %>
+            <p style="color:green;font-weight:bold;"><%: TempData["successMsg"]%></p>
+            <% } %>
             <div class="row">
                 <div class="field">
                     <label class="horizontal">
                         <span>站点标题</span>
                     </label>
                     <div>
-                        <input type="text" name="sitename" value="Geek Inside 文档管理系统"></div>
+                        <input type="text" name="sitename" value="<%: ViewData["sitename"]%>"></div>
                 </div>
             </div>
             <div class="row">
@@ -26,7 +32,7 @@
                         <span>SMTP服务器地址</span>
                     </label>
                     <div>
-                        <input type="text" name="smtpaddress"></div>
+                        <input type="text" name="smtpaddress" value="<%: ViewData["smtpaddress"]%>"></div>
                 </div>
             </div>
             <div class="row">
@@ -35,7 +41,7 @@
                         <span>SMTP用户名</span>
                     </label>
                     <div>
-                        <input type="text" name="smtpusername"></div>
+                        <input type="text" name="smtpusername" value="<%: ViewData["smtpusername"]%>"></div>
                 </div>
             </div>
             <div class="row">
@@ -44,7 +50,7 @@
                         <span>SMTP用户密码</span>
                     </label>
                     <div>
-                        <input type="text" name="smtppassword"></div>
+                        <input type="text" name="smtppassword" value="<%: ViewData["smtppassword"]%>"></div>
                 </div>
             </div>
             <input type="submit" value="保存信息">
