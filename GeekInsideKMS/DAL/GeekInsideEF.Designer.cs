@@ -18,8 +18,10 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM 关系源元数据
 
-[assembly: EdmRelationshipAttribute("geekinsidekmsModel", "FK_Document_Category", "Category", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Category), "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Document), true)]
+[assembly: EdmRelationshipAttribute("geekinsidekmsModel", "FK_Department_Folder", "Folder", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Folder), "Department", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Department), true)]
+[assembly: EdmRelationshipAttribute("geekinsidekmsModel", "FK_UserEmployee_Department", "Department", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Department), "UserEmployee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.UserEmployee), true)]
 [assembly: EdmRelationshipAttribute("geekinsidekmsModel", "FK_Document_FileType", "FileType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.FileType), "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Document), true)]
+[assembly: EdmRelationshipAttribute("geekinsidekmsModel", "FK_Document_Folder", "Folder", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Folder), "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Document), true)]
 [assembly: EdmRelationshipAttribute("geekinsidekmsModel", "FK_DocumentTag_Document", "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Document), "DocumentTag", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.DocumentTag), true)]
 [assembly: EdmRelationshipAttribute("geekinsidekmsModel", "FK_Favorite_Document", "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Document), "Favorite", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Favorite), true)]
 [assembly: EdmRelationshipAttribute("geekinsidekmsModel", "FK_DocumentTag_Tag", "Tag", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Tag), "DocumentTag", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.DocumentTag), true)]
@@ -77,18 +79,18 @@ namespace DAL
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        public ObjectSet<Category> Categories
+        public ObjectSet<Department> Departments
         {
             get
             {
-                if ((_Categories == null))
+                if ((_Departments == null))
                 {
-                    _Categories = base.CreateObjectSet<Category>("Categories");
+                    _Departments = base.CreateObjectSet<Department>("Departments");
                 }
-                return _Categories;
+                return _Departments;
             }
         }
-        private ObjectSet<Category> _Categories;
+        private ObjectSet<Department> _Departments;
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -157,6 +159,22 @@ namespace DAL
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
+        public ObjectSet<Folder> Folders
+        {
+            get
+            {
+                if ((_Folders == null))
+                {
+                    _Folders = base.CreateObjectSet<Folder>("Folders");
+                }
+                return _Folders;
+            }
+        }
+        private ObjectSet<Folder> _Folders;
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
         public ObjectSet<SiteConfig> SiteConfigs
         {
             get
@@ -173,18 +191,18 @@ namespace DAL
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        public ObjectSet<SiteNew> SiteNews
+        public ObjectSet<SiteNews> SiteNews
         {
             get
             {
                 if ((_SiteNews == null))
                 {
-                    _SiteNews = base.CreateObjectSet<SiteNew>("SiteNews");
+                    _SiteNews = base.CreateObjectSet<SiteNews>("SiteNews");
                 }
                 return _SiteNews;
             }
         }
-        private ObjectSet<SiteNew> _SiteNews;
+        private ObjectSet<SiteNews> _SiteNews;
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -254,11 +272,11 @@ namespace DAL
         #region AddTo 方法
     
         /// <summary>
-        /// 用于向 Categories EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// 用于向 Departments EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
         /// </summary>
-        public void AddToCategories(Category category)
+        public void AddToDepartments(Department department)
         {
-            base.AddObject("Categories", category);
+            base.AddObject("Departments", department);
         }
     
         /// <summary>
@@ -294,6 +312,14 @@ namespace DAL
         }
     
         /// <summary>
+        /// 用于向 Folders EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
+        /// </summary>
+        public void AddToFolders(Folder folder)
+        {
+            base.AddObject("Folders", folder);
+        }
+    
+        /// <summary>
         /// 用于向 SiteConfigs EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
         /// </summary>
         public void AddToSiteConfigs(SiteConfig siteConfig)
@@ -304,9 +330,9 @@ namespace DAL
         /// <summary>
         /// 用于向 SiteNews EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
         /// </summary>
-        public void AddToSiteNews(SiteNew siteNew)
+        public void AddToSiteNews(SiteNews siteNews)
         {
-            base.AddObject("SiteNews", siteNew);
+            base.AddObject("SiteNews", siteNews);
         }
     
         /// <summary>
@@ -352,28 +378,26 @@ namespace DAL
     /// <summary>
     /// 没有元数据文档可用。
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="geekinsidekmsModel", Name="Category")]
+    [EdmEntityTypeAttribute(NamespaceName="geekinsidekmsModel", Name="Department")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class Category : EntityObject
+    public partial class Department : EntityObject
     {
         #region 工厂方法
     
         /// <summary>
-        /// 创建新的 Category 对象。
+        /// 创建新的 Department 对象。
         /// </summary>
         /// <param name="id">Id 属性的初始值。</param>
-        /// <param name="categoryName">CategoryName 属性的初始值。</param>
-        /// <param name="parentId">ParentId 属性的初始值。</param>
-        /// <param name="physicalPath">PhysicalPath 属性的初始值。</param>
-        public static Category CreateCategory(global::System.Int32 id, global::System.String categoryName, global::System.Int32 parentId, global::System.String physicalPath)
+        /// <param name="departmentName">DepartmentName 属性的初始值。</param>
+        /// <param name="folderId">FolderId 属性的初始值。</param>
+        public static Department CreateDepartment(global::System.Int32 id, global::System.String departmentName, global::System.Int32 folderId)
         {
-            Category category = new Category();
-            category.Id = id;
-            category.CategoryName = categoryName;
-            category.ParentId = parentId;
-            category.PhysicalPath = physicalPath;
-            return category;
+            Department department = new Department();
+            department.Id = id;
+            department.DepartmentName = departmentName;
+            department.FolderId = folderId;
+            return department;
         }
 
         #endregion
@@ -411,96 +435,48 @@ namespace DAL
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String CategoryName
+        public global::System.String DepartmentName
         {
             get
             {
-                return _CategoryName;
+                return _DepartmentName;
             }
             set
             {
-                OnCategoryNameChanging(value);
-                ReportPropertyChanging("CategoryName");
-                _CategoryName = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("CategoryName");
-                OnCategoryNameChanged();
+                OnDepartmentNameChanging(value);
+                ReportPropertyChanging("DepartmentName");
+                _DepartmentName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("DepartmentName");
+                OnDepartmentNameChanged();
             }
         }
-        private global::System.String _CategoryName;
-        partial void OnCategoryNameChanging(global::System.String value);
-        partial void OnCategoryNameChanged();
+        private global::System.String _DepartmentName;
+        partial void OnDepartmentNameChanging(global::System.String value);
+        partial void OnDepartmentNameChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 ParentId
+        public global::System.Int32 FolderId
         {
             get
             {
-                return _ParentId;
+                return _FolderId;
             }
             set
             {
-                OnParentIdChanging(value);
-                ReportPropertyChanging("ParentId");
-                _ParentId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ParentId");
-                OnParentIdChanged();
+                OnFolderIdChanging(value);
+                ReportPropertyChanging("FolderId");
+                _FolderId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FolderId");
+                OnFolderIdChanged();
             }
         }
-        private global::System.Int32 _ParentId;
-        partial void OnParentIdChanging(global::System.Int32 value);
-        partial void OnParentIdChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String Description
-        {
-            get
-            {
-                return _Description;
-            }
-            set
-            {
-                OnDescriptionChanging(value);
-                ReportPropertyChanging("Description");
-                _Description = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Description");
-                OnDescriptionChanged();
-            }
-        }
-        private global::System.String _Description;
-        partial void OnDescriptionChanging(global::System.String value);
-        partial void OnDescriptionChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String PhysicalPath
-        {
-            get
-            {
-                return _PhysicalPath;
-            }
-            set
-            {
-                OnPhysicalPathChanging(value);
-                ReportPropertyChanging("PhysicalPath");
-                _PhysicalPath = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("PhysicalPath");
-                OnPhysicalPathChanged();
-            }
-        }
-        private global::System.String _PhysicalPath;
-        partial void OnPhysicalPathChanging(global::System.String value);
-        partial void OnPhysicalPathChanged();
+        private global::System.Int32 _FolderId;
+        partial void OnFolderIdChanging(global::System.Int32 value);
+        partial void OnFolderIdChanged();
 
         #endregion
     
@@ -512,18 +488,56 @@ namespace DAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("geekinsidekmsModel", "FK_Document_Category", "Document")]
-        public EntityCollection<Document> Documents
+        [EdmRelationshipNavigationPropertyAttribute("geekinsidekmsModel", "FK_Department_Folder", "Folder")]
+        public Folder Folder
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Document>("geekinsidekmsModel.FK_Document_Category", "Document");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Folder>("geekinsidekmsModel.FK_Department_Folder", "Folder").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Folder>("geekinsidekmsModel.FK_Department_Folder", "Folder").Value = value;
+            }
+        }
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Folder> FolderReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Folder>("geekinsidekmsModel.FK_Department_Folder", "Folder");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Document>("geekinsidekmsModel.FK_Document_Category", "Document", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Folder>("geekinsidekmsModel.FK_Department_Folder", "Folder", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("geekinsidekmsModel", "FK_UserEmployee_Department", "UserEmployee")]
+        public EntityCollection<UserEmployee> UserEmployees
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserEmployee>("geekinsidekmsModel.FK_UserEmployee_Department", "UserEmployee");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserEmployee>("geekinsidekmsModel.FK_UserEmployee_Department", "UserEmployee", value);
                 }
             }
         }
@@ -548,7 +562,7 @@ namespace DAL
         /// <param name="fileDisplayName">FileDisplayName 属性的初始值。</param>
         /// <param name="fileDiskName">FileDiskName 属性的初始值。</param>
         /// <param name="description">Description 属性的初始值。</param>
-        /// <param name="categoryId">CategoryId 属性的初始值。</param>
+        /// <param name="folderId">FolderId 属性的初始值。</param>
         /// <param name="fileTypeId">FileTypeId 属性的初始值。</param>
         /// <param name="publisherNumber">PublisherNumber 属性的初始值。</param>
         /// <param name="publisherName">PublisherName 属性的初始值。</param>
@@ -559,14 +573,14 @@ namespace DAL
         /// <param name="viewNumber">ViewNumber 属性的初始值。</param>
         /// <param name="downloadNumber">DownloadNumber 属性的初始值。</param>
         /// <param name="isChecked">IsChecked 属性的初始值。</param>
-        public static Document CreateDocument(global::System.Int32 id, global::System.String fileDisplayName, global::System.String fileDiskName, global::System.String description, global::System.Int32 categoryId, global::System.Int32 fileTypeId, global::System.Int32 publisherNumber, global::System.String publisherName, global::System.DateTime pubTime, global::System.Int32 checkerNumber, global::System.String checkerName, global::System.String size, global::System.Int32 viewNumber, global::System.Int32 downloadNumber, global::System.Boolean isChecked)
+        public static Document CreateDocument(global::System.Int32 id, global::System.String fileDisplayName, global::System.String fileDiskName, global::System.String description, global::System.Int32 folderId, global::System.Int32 fileTypeId, global::System.Int32 publisherNumber, global::System.String publisherName, global::System.DateTime pubTime, global::System.Int32 checkerNumber, global::System.String checkerName, global::System.String size, global::System.Int32 viewNumber, global::System.Int32 downloadNumber, global::System.Boolean isChecked)
         {
             Document document = new Document();
             document.Id = id;
             document.FileDisplayName = fileDisplayName;
             document.FileDiskName = fileDiskName;
             document.Description = description;
-            document.CategoryId = categoryId;
+            document.FolderId = folderId;
             document.FileTypeId = fileTypeId;
             document.PublisherNumber = publisherNumber;
             document.PublisherName = publisherName;
@@ -687,24 +701,24 @@ namespace DAL
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 CategoryId
+        public global::System.Int32 FolderId
         {
             get
             {
-                return _CategoryId;
+                return _FolderId;
             }
             set
             {
-                OnCategoryIdChanging(value);
-                ReportPropertyChanging("CategoryId");
-                _CategoryId = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("CategoryId");
-                OnCategoryIdChanged();
+                OnFolderIdChanging(value);
+                ReportPropertyChanging("FolderId");
+                _FolderId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FolderId");
+                OnFolderIdChanged();
             }
         }
-        private global::System.Int32 _CategoryId;
-        partial void OnCategoryIdChanging(global::System.Int32 value);
-        partial void OnCategoryIdChanged();
+        private global::System.Int32 _FolderId;
+        partial void OnFolderIdChanging(global::System.Int32 value);
+        partial void OnFolderIdChanged();
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -956,44 +970,6 @@ namespace DAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("geekinsidekmsModel", "FK_Document_Category", "Category")]
-        public Category Category
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("geekinsidekmsModel.FK_Document_Category", "Category").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("geekinsidekmsModel.FK_Document_Category", "Category").Value = value;
-            }
-        }
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Category> CategoryReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Category>("geekinsidekmsModel.FK_Document_Category", "Category");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Category>("geekinsidekmsModel.FK_Document_Category", "Category", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("geekinsidekmsModel", "FK_Document_FileType", "FileType")]
         public FileType FileType
         {
@@ -1022,6 +998,44 @@ namespace DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<FileType>("geekinsidekmsModel.FK_Document_FileType", "FileType", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("geekinsidekmsModel", "FK_Document_Folder", "Folder")]
+        public Folder Folder
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Folder>("geekinsidekmsModel.FK_Document_Folder", "Folder").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Folder>("geekinsidekmsModel.FK_Document_Folder", "Folder").Value = value;
+            }
+        }
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Folder> FolderReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Folder>("geekinsidekmsModel.FK_Document_Folder", "Folder");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Folder>("geekinsidekmsModel.FK_Document_Folder", "Folder", value);
                 }
             }
         }
@@ -1514,6 +1528,210 @@ namespace DAL
     /// <summary>
     /// 没有元数据文档可用。
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="geekinsidekmsModel", Name="Folder")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Folder : EntityObject
+    {
+        #region 工厂方法
+    
+        /// <summary>
+        /// 创建新的 Folder 对象。
+        /// </summary>
+        /// <param name="id">Id 属性的初始值。</param>
+        /// <param name="folderName">FolderName 属性的初始值。</param>
+        /// <param name="parentId">ParentId 属性的初始值。</param>
+        /// <param name="physicalPath">PhysicalPath 属性的初始值。</param>
+        public static Folder CreateFolder(global::System.Int32 id, global::System.String folderName, global::System.Int32 parentId, global::System.String physicalPath)
+        {
+            Folder folder = new Folder();
+            folder.Id = id;
+            folder.FolderName = folderName;
+            folder.ParentId = parentId;
+            folder.PhysicalPath = physicalPath;
+            return folder;
+        }
+
+        #endregion
+        #region 基元属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (_Id != value)
+                {
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
+                }
+            }
+        }
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String FolderName
+        {
+            get
+            {
+                return _FolderName;
+            }
+            set
+            {
+                OnFolderNameChanging(value);
+                ReportPropertyChanging("FolderName");
+                _FolderName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("FolderName");
+                OnFolderNameChanged();
+            }
+        }
+        private global::System.String _FolderName;
+        partial void OnFolderNameChanging(global::System.String value);
+        partial void OnFolderNameChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ParentId
+        {
+            get
+            {
+                return _ParentId;
+            }
+            set
+            {
+                OnParentIdChanging(value);
+                ReportPropertyChanging("ParentId");
+                _ParentId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ParentId");
+                OnParentIdChanged();
+            }
+        }
+        private global::System.Int32 _ParentId;
+        partial void OnParentIdChanging(global::System.Int32 value);
+        partial void OnParentIdChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                OnDescriptionChanging(value);
+                ReportPropertyChanging("Description");
+                _Description = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Description");
+                OnDescriptionChanged();
+            }
+        }
+        private global::System.String _Description;
+        partial void OnDescriptionChanging(global::System.String value);
+        partial void OnDescriptionChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String PhysicalPath
+        {
+            get
+            {
+                return _PhysicalPath;
+            }
+            set
+            {
+                OnPhysicalPathChanging(value);
+                ReportPropertyChanging("PhysicalPath");
+                _PhysicalPath = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("PhysicalPath");
+                OnPhysicalPathChanged();
+            }
+        }
+        private global::System.String _PhysicalPath;
+        partial void OnPhysicalPathChanging(global::System.String value);
+        partial void OnPhysicalPathChanged();
+
+        #endregion
+    
+        #region 导航属性
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("geekinsidekmsModel", "FK_Department_Folder", "Department")]
+        public EntityCollection<Department> Departments
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Department>("geekinsidekmsModel.FK_Department_Folder", "Department");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Department>("geekinsidekmsModel.FK_Department_Folder", "Department", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("geekinsidekmsModel", "FK_Document_Folder", "Document")]
+        public EntityCollection<Document> Documents
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Document>("geekinsidekmsModel.FK_Document_Folder", "Document");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Document>("geekinsidekmsModel.FK_Document_Folder", "Document", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// 没有元数据文档可用。
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="geekinsidekmsModel", Name="SiteConfig")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -1643,30 +1861,30 @@ namespace DAL
     /// <summary>
     /// 没有元数据文档可用。
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="geekinsidekmsModel", Name="SiteNew")]
+    [EdmEntityTypeAttribute(NamespaceName="geekinsidekmsModel", Name="SiteNews")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
-    public partial class SiteNew : EntityObject
+    public partial class SiteNews : EntityObject
     {
         #region 工厂方法
     
         /// <summary>
-        /// 创建新的 SiteNew 对象。
+        /// 创建新的 SiteNews 对象。
         /// </summary>
         /// <param name="id">Id 属性的初始值。</param>
         /// <param name="title">Title 属性的初始值。</param>
         /// <param name="newsContent">NewsContent 属性的初始值。</param>
         /// <param name="pubTime">PubTime 属性的初始值。</param>
         /// <param name="isOnTop">IsOnTop 属性的初始值。</param>
-        public static SiteNew CreateSiteNew(global::System.Int32 id, global::System.String title, global::System.String newsContent, global::System.DateTime pubTime, global::System.Boolean isOnTop)
+        public static SiteNews CreateSiteNews(global::System.Int32 id, global::System.String title, global::System.String newsContent, global::System.DateTime pubTime, global::System.Boolean isOnTop)
         {
-            SiteNew siteNew = new SiteNew();
-            siteNew.Id = id;
-            siteNew.Title = title;
-            siteNew.NewsContent = newsContent;
-            siteNew.PubTime = pubTime;
-            siteNew.IsOnTop = isOnTop;
-            return siteNew;
+            SiteNews siteNews = new SiteNews();
+            siteNews.Id = id;
+            siteNews.Title = title;
+            siteNews.NewsContent = newsContent;
+            siteNews.PubTime = pubTime;
+            siteNews.IsOnTop = isOnTop;
+            return siteNews;
         }
 
         #endregion
@@ -2078,18 +2296,20 @@ namespace DAL
         /// <param name="id">Id 属性的初始值。</param>
         /// <param name="employeeNumber">EmployeeNumber 属性的初始值。</param>
         /// <param name="password">Password 属性的初始值。</param>
+        /// <param name="departmentId">DepartmentId 属性的初始值。</param>
+        /// <param name="isManager">IsManager 属性的初始值。</param>
         /// <param name="isChecker">IsChecker 属性的初始值。</param>
         /// <param name="isAvailable">IsAvailable 属性的初始值。</param>
-        /// <param name="isManager">IsManager 属性的初始值。</param>
-        public static UserEmployee CreateUserEmployee(global::System.Int32 id, global::System.Int32 employeeNumber, global::System.String password, global::System.Boolean isChecker, global::System.Boolean isAvailable, global::System.Boolean isManager)
+        public static UserEmployee CreateUserEmployee(global::System.Int32 id, global::System.Int32 employeeNumber, global::System.String password, global::System.Int32 departmentId, global::System.Boolean isManager, global::System.Boolean isChecker, global::System.Boolean isAvailable)
         {
             UserEmployee userEmployee = new UserEmployee();
             userEmployee.Id = id;
             userEmployee.EmployeeNumber = employeeNumber;
             userEmployee.Password = password;
+            userEmployee.DepartmentId = departmentId;
+            userEmployee.IsManager = isManager;
             userEmployee.IsChecker = isChecker;
             userEmployee.IsAvailable = isAvailable;
-            userEmployee.IsManager = isManager;
             return userEmployee;
         }
 
@@ -2176,6 +2396,54 @@ namespace DAL
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
+        public global::System.Int32 DepartmentId
+        {
+            get
+            {
+                return _DepartmentId;
+            }
+            set
+            {
+                OnDepartmentIdChanging(value);
+                ReportPropertyChanging("DepartmentId");
+                _DepartmentId = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("DepartmentId");
+                OnDepartmentIdChanged();
+            }
+        }
+        private global::System.Int32 _DepartmentId;
+        partial void OnDepartmentIdChanging(global::System.Int32 value);
+        partial void OnDepartmentIdChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsManager
+        {
+            get
+            {
+                return _IsManager;
+            }
+            set
+            {
+                OnIsManagerChanging(value);
+                ReportPropertyChanging("IsManager");
+                _IsManager = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsManager");
+                OnIsManagerChanged();
+            }
+        }
+        private global::System.Boolean _IsManager;
+        partial void OnIsManagerChanging(global::System.Boolean value);
+        partial void OnIsManagerChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
         public global::System.Boolean IsChecker
         {
             get
@@ -2242,33 +2510,50 @@ namespace DAL
         private Nullable<global::System.DateTime> _LastLoginTime;
         partial void OnLastLoginTimeChanging(Nullable<global::System.DateTime> value);
         partial void OnLastLoginTimeChanged();
+
+        #endregion
+    
+        #region 导航属性
     
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        public global::System.Boolean IsManager
+        [EdmRelationshipNavigationPropertyAttribute("geekinsidekmsModel", "FK_UserEmployee_Department", "Department")]
+        public Department Department
         {
             get
             {
-                return _IsManager;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Department>("geekinsidekmsModel.FK_UserEmployee_Department", "Department").Value;
             }
             set
             {
-                OnIsManagerChanging(value);
-                ReportPropertyChanging("IsManager");
-                _IsManager = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("IsManager");
-                OnIsManagerChanged();
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Department>("geekinsidekmsModel.FK_UserEmployee_Department", "Department").Value = value;
             }
         }
-        private global::System.Boolean _IsManager;
-        partial void OnIsManagerChanging(global::System.Boolean value);
-        partial void OnIsManagerChanged();
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Department> DepartmentReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Department>("geekinsidekmsModel.FK_UserEmployee_Department", "Department");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Department>("geekinsidekmsModel.FK_UserEmployee_Department", "Department", value);
+                }
+            }
+        }
 
         #endregion
-    
     }
     
     /// <summary>
