@@ -4,25 +4,30 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="geekinsidekmsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+      <Schema Namespace="geekinsidekmsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="geekinsidekmsModelStoreContainer">
-          <EntitySet Name="Category" EntityType="geekinsidekmsModel.Store.Category" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Department" EntityType="geekinsidekmsModel.Store.Department" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Document" EntityType="geekinsidekmsModel.Store.Document" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="DocumentTag" EntityType="geekinsidekmsModel.Store.DocumentTag" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Favorite" EntityType="geekinsidekmsModel.Store.Favorite" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="FileType" EntityType="geekinsidekmsModel.Store.FileType" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Folder" EntityType="geekinsidekmsModel.Store.Folder" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SiteConfig" EntityType="geekinsidekmsModel.Store.SiteConfig" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SiteNews" EntityType="geekinsidekmsModel.Store.SiteNews" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tag" EntityType="geekinsidekmsModel.Store.Tag" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserAdmin" EntityType="geekinsidekmsModel.Store.UserAdmin" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserEmployee" EntityType="geekinsidekmsModel.Store.UserEmployee" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserEmployeeDetail" EntityType="geekinsidekmsModel.Store.UserEmployeeDetail" store:Type="Tables" Schema="dbo" />
-          <AssociationSet Name="FK_Document_Category" Association="geekinsidekmsModel.Store.FK_Document_Category">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="Document" EntitySet="Document" />
+          <AssociationSet Name="FK_Department_Folder" Association="geekinsidekmsModel.Store.FK_Department_Folder">
+            <End Role="Folder" EntitySet="Folder" />
+            <End Role="Department" EntitySet="Department" />
           </AssociationSet>
           <AssociationSet Name="FK_Document_FileType" Association="geekinsidekmsModel.Store.FK_Document_FileType">
             <End Role="FileType" EntitySet="FileType" />
+            <End Role="Document" EntitySet="Document" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_Folder" Association="geekinsidekmsModel.Store.FK_Document_Folder">
+            <End Role="Folder" EntitySet="Folder" />
             <End Role="Document" EntitySet="Document" />
           </AssociationSet>
           <AssociationSet Name="FK_DocumentTag_Document" Association="geekinsidekmsModel.Store.FK_DocumentTag_Document">
@@ -37,16 +42,18 @@
             <End Role="Document" EntitySet="Document" />
             <End Role="Favorite" EntitySet="Favorite" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserEmployee_Department" Association="geekinsidekmsModel.Store.FK_UserEmployee_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="UserEmployee" EntitySet="UserEmployee" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Category">
+        <EntityType Name="Department">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryName" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="ParentId" Type="int" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="200" />
-          <Property Name="PhysicalPath" Type="nvarchar" Nullable="false" MaxLength="200" />
+          <Property Name="DepartmentName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="FolderId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Document">
           <Key>
@@ -56,11 +63,11 @@
           <Property Name="FileDisplayName" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="FileDiskName" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" Nullable="false" MaxLength="500" />
-          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="FolderId" Type="int" Nullable="false" />
           <Property Name="FileTypeId" Type="int" Nullable="false" />
           <Property Name="PublisherNumber" Type="int" Nullable="false" />
           <Property Name="PublisherName" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="PubTime" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="PubTime" Type="datetime" Nullable="false" />
           <Property Name="CheckerNumber" Type="int" Nullable="false" />
           <Property Name="CheckerName" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Size" Type="nvarchar" Nullable="false" MaxLength="50" />
@@ -91,6 +98,16 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="TypeName" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Folder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FolderName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ParentId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="200" />
+          <Property Name="PhysicalPath" Type="nvarchar" Nullable="false" MaxLength="200" />
+        </EntityType>
         <EntityType Name="SiteConfig">
           <Key>
             <PropertyRef Name="Id" />
@@ -107,7 +124,7 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="NewsContent" Type="ntext" Nullable="false" />
-          <Property Name="PubTime" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="PubTime" Type="datetime" Nullable="false" />
           <Property Name="IsOnTop" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Tag">
@@ -125,7 +142,7 @@
           <Property Name="EmployeeNumber" Type="int" Nullable="false" />
           <Property Name="Username" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
-          <Property Name="LastLoginTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="LastLoginTime" Type="datetime" />
         </EntityType>
         <EntityType Name="UserEmployee">
           <Key>
@@ -134,10 +151,11 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeNumber" Type="int" Nullable="false" />
           <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="DepartmentId" Type="int" Nullable="false" />
           <Property Name="IsManager" Type="bit" Nullable="false" />
           <Property Name="IsChecker" Type="bit" Nullable="false" />
           <Property Name="IsAvailable" Type="bit" Nullable="false" />
-          <Property Name="LastLoginTime" Type="datetime" StoreGeneratedPattern="Computed" />
+          <Property Name="LastLoginTime" Type="datetime" />
         </EntityType>
         <EntityType Name="UserEmployeeDetail">
           <Key>
@@ -149,15 +167,15 @@
           <Property Name="Email" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <Association Name="FK_Document_Category">
-          <End Role="Category" Type="geekinsidekmsModel.Store.Category" Multiplicity="1" />
-          <End Role="Document" Type="geekinsidekmsModel.Store.Document" Multiplicity="*" />
+        <Association Name="FK_Department_Folder">
+          <End Role="Folder" Type="geekinsidekmsModel.Store.Folder" Multiplicity="1" />
+          <End Role="Department" Type="geekinsidekmsModel.Store.Department" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Category">
+            <Principal Role="Folder">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Document">
-              <PropertyRef Name="CategoryId" />
+            <Dependent Role="Department">
+              <PropertyRef Name="FolderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -170,6 +188,18 @@
             </Principal>
             <Dependent Role="Document">
               <PropertyRef Name="FileTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Document_Folder">
+          <End Role="Folder" Type="geekinsidekmsModel.Store.Folder" Multiplicity="1" />
+          <End Role="Document" Type="geekinsidekmsModel.Store.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Folder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="FolderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -209,28 +239,50 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema></edmx:StorageModels>
+        <Association Name="FK_UserEmployee_Department">
+          <End Role="Department" Type="geekinsidekmsModel.Store.Department" Multiplicity="1" />
+          <End Role="UserEmployee" Type="geekinsidekmsModel.Store.UserEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserEmployee">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="geekinsidekmsModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="geekinsidekmsEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Categories" EntityType="geekinsidekmsModel.Category" />
+          <EntitySet Name="Departments" EntityType="geekinsidekmsModel.Department" />
           <EntitySet Name="Documents" EntityType="geekinsidekmsModel.Document" />
           <EntitySet Name="DocumentTags" EntityType="geekinsidekmsModel.DocumentTag" />
           <EntitySet Name="Favorites" EntityType="geekinsidekmsModel.Favorite" />
           <EntitySet Name="FileTypes" EntityType="geekinsidekmsModel.FileType" />
+          <EntitySet Name="Folders" EntityType="geekinsidekmsModel.Folder" />
           <EntitySet Name="SiteConfigs" EntityType="geekinsidekmsModel.SiteConfig" />
-          <EntitySet Name="SiteNews" EntityType="geekinsidekmsModel.SiteNew" />
+          <EntitySet Name="SiteNews" EntityType="geekinsidekmsModel.SiteNews" />
           <EntitySet Name="Tags" EntityType="geekinsidekmsModel.Tag" />
           <EntitySet Name="UserAdmins" EntityType="geekinsidekmsModel.UserAdmin" />
           <EntitySet Name="UserEmployees" EntityType="geekinsidekmsModel.UserEmployee" />
           <EntitySet Name="UserEmployeeDetails" EntityType="geekinsidekmsModel.UserEmployeeDetail" />
-          <AssociationSet Name="FK_Document_Category" Association="geekinsidekmsModel.FK_Document_Category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="Document" EntitySet="Documents" />
+          <AssociationSet Name="FK_Department_Folder" Association="geekinsidekmsModel.FK_Department_Folder">
+            <End Role="Folder" EntitySet="Folders" />
+            <End Role="Department" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserEmployee_Department" Association="geekinsidekmsModel.FK_UserEmployee_Department">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="UserEmployee" EntitySet="UserEmployees" />
           </AssociationSet>
           <AssociationSet Name="FK_Document_FileType" Association="geekinsidekmsModel.FK_Document_FileType">
             <End Role="FileType" EntitySet="FileTypes" />
+            <End Role="Document" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Document_Folder" Association="geekinsidekmsModel.FK_Document_Folder">
+            <End Role="Folder" EntitySet="Folders" />
             <End Role="Document" EntitySet="Documents" />
           </AssociationSet>
           <AssociationSet Name="FK_DocumentTag_Document" Association="geekinsidekmsModel.FK_DocumentTag_Document">
@@ -246,16 +298,15 @@
             <End Role="DocumentTag" EntitySet="DocumentTags" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Category">
+        <EntityType Name="Department">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="ParentId" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
-          <Property Name="PhysicalPath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="Documents" Relationship="geekinsidekmsModel.FK_Document_Category" FromRole="Category" ToRole="Document" />
+          <Property Name="DepartmentName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="FolderId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Folder" Relationship="geekinsidekmsModel.FK_Department_Folder" FromRole="Department" ToRole="Folder" />
+          <NavigationProperty Name="UserEmployees" Relationship="geekinsidekmsModel.FK_UserEmployee_Department" FromRole="Department" ToRole="UserEmployee" />
         </EntityType>
         <EntityType Name="Document">
           <Key>
@@ -265,19 +316,19 @@
           <Property Name="FileDisplayName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="FileDiskName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
-          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="FolderId" Type="Int32" Nullable="false" />
           <Property Name="FileTypeId" Type="Int32" Nullable="false" />
           <Property Name="PublisherNumber" Type="Int32" Nullable="false" />
           <Property Name="PublisherName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="PubTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="PubTime" Type="DateTime" Nullable="false" />
           <Property Name="CheckerNumber" Type="Int32" Nullable="false" />
           <Property Name="CheckerName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Size" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="ViewNumber" Type="Int32" Nullable="false" />
           <Property Name="DownloadNumber" Type="Int32" Nullable="false" />
           <Property Name="IsChecked" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Category" Relationship="geekinsidekmsModel.FK_Document_Category" FromRole="Document" ToRole="Category" />
           <NavigationProperty Name="FileType" Relationship="geekinsidekmsModel.FK_Document_FileType" FromRole="Document" ToRole="FileType" />
+          <NavigationProperty Name="Folder" Relationship="geekinsidekmsModel.FK_Document_Folder" FromRole="Document" ToRole="Folder" />
           <NavigationProperty Name="DocumentTags" Relationship="geekinsidekmsModel.FK_DocumentTag_Document" FromRole="Document" ToRole="DocumentTag" />
           <NavigationProperty Name="Favorites" Relationship="geekinsidekmsModel.FK_Favorite_Document" FromRole="Document" ToRole="Favorite" />
         </EntityType>
@@ -308,6 +359,18 @@
           <Property Name="TypeName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Documents" Relationship="geekinsidekmsModel.FK_Document_FileType" FromRole="FileType" ToRole="Document" />
         </EntityType>
+        <EntityType Name="Folder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FolderName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ParentId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="PhysicalPath" Type="String" Nullable="false" MaxLength="200" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Departments" Relationship="geekinsidekmsModel.FK_Department_Folder" FromRole="Folder" ToRole="Department" />
+          <NavigationProperty Name="Documents" Relationship="geekinsidekmsModel.FK_Document_Folder" FromRole="Folder" ToRole="Document" />
+        </EntityType>
         <EntityType Name="SiteConfig">
           <Key>
             <PropertyRef Name="Id" />
@@ -317,14 +380,14 @@
           <Property Name="PropertyValue" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
           <Property Name="PropertyDescription" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
         </EntityType>
-        <EntityType Name="SiteNew">
+        <EntityType Name="SiteNews">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="NewsContent" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="PubTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="PubTime" Type="DateTime" Nullable="false" />
           <Property Name="IsOnTop" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Tag">
@@ -343,7 +406,7 @@
           <Property Name="EmployeeNumber" Type="Int32" Nullable="false" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="LastLoginTime" Type="DateTime" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="LastLoginTime" Type="DateTime" />
         </EntityType>
         <EntityType Name="UserEmployee">
           <Key>
@@ -352,10 +415,12 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeNumber" Type="Int32" Nullable="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="DepartmentId" Type="Int32" Nullable="false" />
+          <Property Name="IsManager" Type="Boolean" Nullable="false" />
           <Property Name="IsChecker" Type="Boolean" Nullable="false" />
           <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
-          <Property Name="LastLoginTime" Type="DateTime" annotation:StoreGeneratedPattern="Computed" />
-          <Property Type="Boolean" Name="IsManager" Nullable="false" />
+          <Property Name="LastLoginTime" Type="DateTime" />
+          <NavigationProperty Name="Department" Relationship="geekinsidekmsModel.FK_UserEmployee_Department" FromRole="UserEmployee" ToRole="Department" />
         </EntityType>
         <EntityType Name="UserEmployeeDetail">
           <Key>
@@ -367,15 +432,27 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Phone" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
         </EntityType>
-        <Association Name="FK_Document_Category">
-          <End Role="Category" Type="geekinsidekmsModel.Category" Multiplicity="1" />
-          <End Role="Document" Type="geekinsidekmsModel.Document" Multiplicity="*" />
+        <Association Name="FK_Department_Folder">
+          <End Role="Folder" Type="geekinsidekmsModel.Folder" Multiplicity="1" />
+          <End Role="Department" Type="geekinsidekmsModel.Department" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Category">
+            <Principal Role="Folder">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Document">
-              <PropertyRef Name="CategoryId" />
+            <Dependent Role="Department">
+              <PropertyRef Name="FolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserEmployee_Department">
+          <End Role="Department" Type="geekinsidekmsModel.Department" Multiplicity="1" />
+          <End Role="UserEmployee" Type="geekinsidekmsModel.UserEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserEmployee">
+              <PropertyRef Name="DepartmentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -388,6 +465,18 @@
             </Principal>
             <Dependent Role="Document">
               <PropertyRef Name="FileTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Document_Folder">
+          <End Role="Folder" Type="geekinsidekmsModel.Folder" Multiplicity="1" />
+          <End Role="Document" Type="geekinsidekmsModel.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Folder">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="FolderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -433,19 +522,17 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="geekinsidekmsModelStoreContainer" CdmEntityContainer="geekinsidekmsEntities">
-          <EntitySetMapping Name="Categories"><EntityTypeMapping TypeName="geekinsidekmsModel.Category"><MappingFragment StoreEntitySet="Category">
+          <EntitySetMapping Name="Departments"><EntityTypeMapping TypeName="geekinsidekmsModel.Department"><MappingFragment StoreEntitySet="Department">
             <ScalarProperty Name="Id" ColumnName="Id" />
-            <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
-            <ScalarProperty Name="ParentId" ColumnName="ParentId" />
-            <ScalarProperty Name="Description" ColumnName="Description" />
-            <ScalarProperty Name="PhysicalPath" ColumnName="PhysicalPath" />
+            <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+            <ScalarProperty Name="FolderId" ColumnName="FolderId" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Documents"><EntityTypeMapping TypeName="geekinsidekmsModel.Document"><MappingFragment StoreEntitySet="Document">
             <ScalarProperty Name="Id" ColumnName="Id" />
             <ScalarProperty Name="FileDisplayName" ColumnName="FileDisplayName" />
             <ScalarProperty Name="FileDiskName" ColumnName="FileDiskName" />
             <ScalarProperty Name="Description" ColumnName="Description" />
-            <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+            <ScalarProperty Name="FolderId" ColumnName="FolderId" />
             <ScalarProperty Name="FileTypeId" ColumnName="FileTypeId" />
             <ScalarProperty Name="PublisherNumber" ColumnName="PublisherNumber" />
             <ScalarProperty Name="PublisherName" ColumnName="PublisherName" />
@@ -471,13 +558,20 @@
             <ScalarProperty Name="Id" ColumnName="Id" />
             <ScalarProperty Name="TypeName" ColumnName="TypeName" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Folders"><EntityTypeMapping TypeName="geekinsidekmsModel.Folder"><MappingFragment StoreEntitySet="Folder">
+            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="FolderName" ColumnName="FolderName" />
+            <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+            <ScalarProperty Name="Description" ColumnName="Description" />
+            <ScalarProperty Name="PhysicalPath" ColumnName="PhysicalPath" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="SiteConfigs"><EntityTypeMapping TypeName="geekinsidekmsModel.SiteConfig"><MappingFragment StoreEntitySet="SiteConfig">
             <ScalarProperty Name="Id" ColumnName="Id" />
             <ScalarProperty Name="PropertyName" ColumnName="PropertyName" />
             <ScalarProperty Name="PropertyValue" ColumnName="PropertyValue" />
             <ScalarProperty Name="PropertyDescription" ColumnName="PropertyDescription" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="SiteNews"><EntityTypeMapping TypeName="geekinsidekmsModel.SiteNew"><MappingFragment StoreEntitySet="SiteNews">
+          <EntitySetMapping Name="SiteNews"><EntityTypeMapping TypeName="geekinsidekmsModel.SiteNews"><MappingFragment StoreEntitySet="SiteNews">
             <ScalarProperty Name="Id" ColumnName="Id" />
             <ScalarProperty Name="Title" ColumnName="Title" />
             <ScalarProperty Name="NewsContent" ColumnName="NewsContent" />
@@ -496,10 +590,11 @@
             <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="UserEmployees"><EntityTypeMapping TypeName="geekinsidekmsModel.UserEmployee"><MappingFragment StoreEntitySet="UserEmployee">
-            <ScalarProperty Name="IsManager" ColumnName="IsManager" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="Id" ColumnName="Id" />
             <ScalarProperty Name="EmployeeNumber" ColumnName="EmployeeNumber" />
             <ScalarProperty Name="Password" ColumnName="Password" />
+            <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+            <ScalarProperty Name="IsManager" ColumnName="IsManager" />
             <ScalarProperty Name="IsChecker" ColumnName="IsChecker" />
             <ScalarProperty Name="IsAvailable" ColumnName="IsAvailable" />
             <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
@@ -525,48 +620,52 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="GeekInsideEF">
-        <EntityTypeShape EntityType="geekinsidekmsModel.Category" Width="1.5" PointX="0.75" PointY="3.5" Height="2.1610522460937505" IsExpanded="true" />
-        <EntityTypeShape EntityType="geekinsidekmsModel.Document" Width="1.5" PointX="3" PointY="2.25" Height="4.6443082682291656" IsExpanded="true" />
-        <EntityTypeShape EntityType="geekinsidekmsModel.DocumentTag" Width="1.5" PointX="5.25" PointY="3.5" Height="1.9700325520833331" IsExpanded="true" />
-        <EntityTypeShape EntityType="geekinsidekmsModel.Favorite" Width="1.5" PointX="5.25" PointY="6.375" Height="1.7790128580729157" IsExpanded="true" />
-        <EntityTypeShape EntityType="geekinsidekmsModel.FileType" Width="1.5" PointX="0.75" PointY="0.75" Height="1.5879931640624996" IsExpanded="true" />
-        <EntityTypeShape EntityType="geekinsidekmsModel.SiteConfig" Width="1.5" PointX="7.75" PointY="1.875" Height="1.7790128580729165" IsExpanded="true" />
-        <EntityTypeShape EntityType="geekinsidekmsModel.SiteNew" Width="1.5" PointX="7.75" PointY="4.875" Height="1.9700325520833317" IsExpanded="true" />
-        <EntityTypeShape EntityType="geekinsidekmsModel.Tag" Width="1.5" PointX="3" PointY="8.75" Height="1.5879931640624996" IsExpanded="true" />
-        <EntityTypeShape EntityType="geekinsidekmsModel.UserAdmin" Width="1.5" PointX="7.75" PointY="7.875" Height="1.9700325520833326" IsExpanded="true" />
-        <EntityTypeShape EntityType="geekinsidekmsModel.UserEmployee" Width="1.5" PointX="9.75" PointY="1.875" Height="2.1610522460937531" IsExpanded="true" />
-        <EntityTypeShape EntityType="geekinsidekmsModel.UserEmployeeDetail" Width="1.5" PointX="9.75" PointY="4.875" Height="1.9700325520833317" IsExpanded="true" />
-        <AssociationConnector Association="geekinsidekmsModel.FK_Document_Category" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="4.5805261230468748" />
-          <ConnectorPoint PointX="3" PointY="4.5805261230468748" />
+        <EntityTypeShape EntityType="geekinsidekmsModel.Department" Width="1.5" PointX="6.875" PointY="0.625" Height="1.9700325520833326" IsExpanded="true" />
+        <EntityTypeShape EntityType="geekinsidekmsModel.Document" Width="1.5" PointX="2.625" PointY="0.5" Height="4.6443082682291656" IsExpanded="true" />
+        <EntityTypeShape EntityType="geekinsidekmsModel.DocumentTag" Width="1.5" PointX="0.5" PointY="3" Height="1.9700325520833331" IsExpanded="true" />
+        <EntityTypeShape EntityType="geekinsidekmsModel.Favorite" Width="1.5" PointX="4.625" PointY="3.375" Height="1.7790128580729157" IsExpanded="true" />
+        <EntityTypeShape EntityType="geekinsidekmsModel.FileType" Width="1.5" PointX="0.5" PointY="0.875" Height="1.5879931640624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="geekinsidekmsModel.Folder" Width="1.5" PointX="4.625" PointY="0.5" Height="2.3520719401041683" IsExpanded="true" />
+        <EntityTypeShape EntityType="geekinsidekmsModel.SiteConfig" Width="1.5" PointX="2.5" PointY="6.125" Height="1.7790128580729174" IsExpanded="true" />
+        <EntityTypeShape EntityType="geekinsidekmsModel.SiteNews" Width="1.5" PointX="4.375" PointY="6" Height="1.9700325520833308" IsExpanded="true" />
+        <EntityTypeShape EntityType="geekinsidekmsModel.Tag" Width="1.5" PointX="0.5" PointY="5.625" Height="1.5879931640624996" IsExpanded="true" />
+        <EntityTypeShape EntityType="geekinsidekmsModel.UserAdmin" Width="1.5" PointX="6.5" PointY="6" Height="1.9700325520833317" IsExpanded="true" />
+        <EntityTypeShape EntityType="geekinsidekmsModel.UserEmployee" Width="1.5" PointX="9" PointY="0.5" Height="2.734111328125004" IsExpanded="true" />
+        <EntityTypeShape EntityType="geekinsidekmsModel.UserEmployeeDetail" Width="1.5" PointX="9" PointY="3.5" Height="1.9700325520833317" IsExpanded="true" />
+        <AssociationConnector Association="geekinsidekmsModel.FK_Department_Folder" ManuallyRouted="false">
+          <ConnectorPoint PointX="6.125" PointY="1.6100162760416663" />
+          <ConnectorPoint PointX="6.875" PointY="1.6100162760416663" />
+        </AssociationConnector>
+        <AssociationConnector Association="geekinsidekmsModel.FK_UserEmployee_Department" ManuallyRouted="false">
+          <ConnectorPoint PointX="8.375" PointY="1.6100162760416663" />
+          <ConnectorPoint PointX="9" PointY="1.6100162760416663" />
         </AssociationConnector>
         <AssociationConnector Association="geekinsidekmsModel.FK_Document_FileType" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="1.4999995" />
-          <ConnectorPoint PointX="3.75" PointY="1.4999995" />
-          <ConnectorPoint PointX="3.75" PointY="2.25" />
+          <ConnectorPoint PointX="2" PointY="1.6689965820312498" />
+          <ConnectorPoint PointX="2.625" PointY="1.6689965820312498" />
+        </AssociationConnector>
+        <AssociationConnector Association="geekinsidekmsModel.FK_Document_Folder" ManuallyRouted="false">
+          <ConnectorPoint PointX="4.625" PointY="1.6760359700520844" />
+          <ConnectorPoint PointX="4.125" PointY="1.6760359700520844" />
         </AssociationConnector>
         <AssociationConnector Association="geekinsidekmsModel.FK_DocumentTag_Document" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="4.4850162760416667" />
-          <ConnectorPoint PointX="5.25" PointY="4.4850162760416667" />
+          <ConnectorPoint PointX="2.625" PointY="3.9850162760416667" />
+          <ConnectorPoint PointX="2" PointY="3.9850162760416667" />
         </AssociationConnector>
         <AssociationConnector Association="geekinsidekmsModel.FK_Favorite_Document" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="6.6346541341145828" />
-          <ConnectorPoint PointX="4.791666666666667" PointY="6.6346541341145819" />
-          <ConnectorPoint PointX="4.958333333333333" PointY="6.6346541341145828" />
-          <ConnectorPoint PointX="5.25" PointY="6.6346541341145828" />
+          <ConnectorPoint PointX="4.125" PointY="4.2596541341145828" />
+          <ConnectorPoint PointX="4.625" PointY="4.2596541341145828" />
         </AssociationConnector>
         <AssociationConnector Association="geekinsidekmsModel.FK_DocumentTag_Tag" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="8.7511528461538468" />
-          <ConnectorPoint PointX="4.875" PointY="8.3761528461538468" />
-          <ConnectorPoint PointX="4.875" PointY="5.0087764140625008" />
-          <ConnectorPoint PointX="5.25" PointY="5.0087764140625008" />
+          <ConnectorPoint PointX="1.25" PointY="5.625" />
+          <ConnectorPoint PointX="1.25" PointY="4.9700325520833335" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
