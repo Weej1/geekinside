@@ -13,13 +13,12 @@ namespace BLL
         public Boolean CheckAdminLogin(UserAdminModel userAdminModel)
         {
             IDALAdminAcount dalAdminAccount = new DALAdminAcount();
-            UserAdminModel userAdminModelResult = dalAdminAccount.getUserByUsername(userAdminModel.Username);
-            if (userAdminModel.Username == userAdminModelResult.Username && userAdminModel.Password == userAdminModelResult.Password)
+            UserAdminModel admin = dalAdminAccount.getUserByUsername(userAdminModel.Username);
+            if (admin != null && admin.Password == userAdminModel.Password)
             {
                 return true;
-            } 
-            else
-            {
+            }
+            else {
                 return false;
             }
         }

@@ -189,22 +189,6 @@ namespace DAL
         /// <summary>
         /// 没有元数据文档可用。
         /// </summary>
-        public ObjectSet<sysdiagram> sysdiagrams
-        {
-            get
-            {
-                if ((_sysdiagrams == null))
-                {
-                    _sysdiagrams = base.CreateObjectSet<sysdiagram>("sysdiagrams");
-                }
-                return _sysdiagrams;
-            }
-        }
-        private ObjectSet<sysdiagram> _sysdiagrams;
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
         public ObjectSet<Tag> Tags
         {
             get
@@ -323,14 +307,6 @@ namespace DAL
         public void AddToSiteNews(SiteNew siteNew)
         {
             base.AddObject("SiteNews", siteNew);
-        }
-    
-        /// <summary>
-        /// 用于向 sysdiagrams EntitySet 添加新对象的方法，已弃用。请考虑改用关联的 ObjectSet&lt;T&gt; 属性的 .Add 方法。
-        /// </summary>
-        public void AddTosysdiagrams(sysdiagram sysdiagram)
-        {
-            base.AddObject("sysdiagrams", sysdiagram);
         }
     
         /// <summary>
@@ -583,7 +559,7 @@ namespace DAL
         /// <param name="viewNumber">ViewNumber 属性的初始值。</param>
         /// <param name="downloadNumber">DownloadNumber 属性的初始值。</param>
         /// <param name="isChecked">IsChecked 属性的初始值。</param>
-        public static Document CreateDocument(global::System.Int32 id, global::System.String fileDisplayName, global::System.String fileDiskName, global::System.String description, global::System.Int32 categoryId, global::System.Int32 fileTypeId, global::System.Int32 publisherNumber, global::System.String publisherName, global::System.Byte[] pubTime, global::System.Int32 checkerNumber, global::System.String checkerName, global::System.String size, global::System.Int32 viewNumber, global::System.Int32 downloadNumber, global::System.Boolean isChecked)
+        public static Document CreateDocument(global::System.Int32 id, global::System.String fileDisplayName, global::System.String fileDiskName, global::System.String description, global::System.Int32 categoryId, global::System.Int32 fileTypeId, global::System.Int32 publisherNumber, global::System.String publisherName, global::System.DateTime pubTime, global::System.Int32 checkerNumber, global::System.String checkerName, global::System.String size, global::System.Int32 viewNumber, global::System.Int32 downloadNumber, global::System.Boolean isChecked)
         {
             Document document = new Document();
             document.Id = id;
@@ -807,23 +783,23 @@ namespace DAL
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Byte[] PubTime
+        public global::System.DateTime PubTime
         {
             get
             {
-                return StructuralObject.GetValidValue(_PubTime);
+                return _PubTime;
             }
             set
             {
                 OnPubTimeChanging(value);
                 ReportPropertyChanging("PubTime");
-                _PubTime = StructuralObject.SetValidValue(value, true);
+                _PubTime = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("PubTime");
                 OnPubTimeChanged();
             }
         }
-        private global::System.Byte[] _PubTime;
-        partial void OnPubTimeChanging(global::System.Byte[] value);
+        private global::System.DateTime _PubTime;
+        partial void OnPubTimeChanging(global::System.DateTime value);
         partial void OnPubTimeChanged();
     
         /// <summary>
@@ -1826,161 +1802,6 @@ namespace DAL
     /// <summary>
     /// 没有元数据文档可用。
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="geekinsidekmsModel", Name="sysdiagram")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class sysdiagram : EntityObject
-    {
-        #region 工厂方法
-    
-        /// <summary>
-        /// 创建新的 sysdiagram 对象。
-        /// </summary>
-        /// <param name="name">name 属性的初始值。</param>
-        /// <param name="principal_id">principal_id 属性的初始值。</param>
-        /// <param name="diagram_id">diagram_id 属性的初始值。</param>
-        public static sysdiagram Createsysdiagram(global::System.String name, global::System.Int32 principal_id, global::System.Int32 diagram_id)
-        {
-            sysdiagram sysdiagram = new sysdiagram();
-            sysdiagram.name = name;
-            sysdiagram.principal_id = principal_id;
-            sysdiagram.diagram_id = diagram_id;
-            return sysdiagram;
-        }
-
-        #endregion
-        #region 基元属性
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                OnnameChanging(value);
-                ReportPropertyChanging("name");
-                _name = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("name");
-                OnnameChanged();
-            }
-        }
-        private global::System.String _name;
-        partial void OnnameChanging(global::System.String value);
-        partial void OnnameChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 principal_id
-        {
-            get
-            {
-                return _principal_id;
-            }
-            set
-            {
-                Onprincipal_idChanging(value);
-                ReportPropertyChanging("principal_id");
-                _principal_id = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("principal_id");
-                Onprincipal_idChanged();
-            }
-        }
-        private global::System.Int32 _principal_id;
-        partial void Onprincipal_idChanging(global::System.Int32 value);
-        partial void Onprincipal_idChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 diagram_id
-        {
-            get
-            {
-                return _diagram_id;
-            }
-            set
-            {
-                if (_diagram_id != value)
-                {
-                    Ondiagram_idChanging(value);
-                    ReportPropertyChanging("diagram_id");
-                    _diagram_id = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("diagram_id");
-                    Ondiagram_idChanged();
-                }
-            }
-        }
-        private global::System.Int32 _diagram_id;
-        partial void Ondiagram_idChanging(global::System.Int32 value);
-        partial void Ondiagram_idChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> version
-        {
-            get
-            {
-                return _version;
-            }
-            set
-            {
-                OnversionChanging(value);
-                ReportPropertyChanging("version");
-                _version = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("version");
-                OnversionChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _version;
-        partial void OnversionChanging(Nullable<global::System.Int32> value);
-        partial void OnversionChanged();
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.Byte[] definition
-        {
-            get
-            {
-                return StructuralObject.GetValidValue(_definition);
-            }
-            set
-            {
-                OndefinitionChanging(value);
-                ReportPropertyChanging("definition");
-                _definition = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("definition");
-                OndefinitionChanged();
-            }
-        }
-        private global::System.Byte[] _definition;
-        partial void OndefinitionChanging(global::System.Byte[] value);
-        partial void OndefinitionChanged();
-
-        #endregion
-    
-    }
-    
-    /// <summary>
-    /// 没有元数据文档可用。
-    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="geekinsidekmsModel", Name="Tag")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -2218,23 +2039,23 @@ namespace DAL
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Byte[] LastLoginTime
+        public Nullable<global::System.DateTime> LastLoginTime
         {
             get
             {
-                return StructuralObject.GetValidValue(_LastLoginTime);
+                return _LastLoginTime;
             }
             set
             {
                 OnLastLoginTimeChanging(value);
                 ReportPropertyChanging("LastLoginTime");
-                _LastLoginTime = StructuralObject.SetValidValue(value, true);
+                _LastLoginTime = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("LastLoginTime");
                 OnLastLoginTimeChanged();
             }
         }
-        private global::System.Byte[] _LastLoginTime;
-        partial void OnLastLoginTimeChanging(global::System.Byte[] value);
+        private Nullable<global::System.DateTime> _LastLoginTime;
+        partial void OnLastLoginTimeChanging(Nullable<global::System.DateTime> value);
         partial void OnLastLoginTimeChanged();
 
         #endregion
@@ -2401,23 +2222,23 @@ namespace DAL
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Byte[] LastLoginTime
+        public Nullable<global::System.DateTime> LastLoginTime
         {
             get
             {
-                return StructuralObject.GetValidValue(_LastLoginTime);
+                return _LastLoginTime;
             }
             set
             {
                 OnLastLoginTimeChanging(value);
                 ReportPropertyChanging("LastLoginTime");
-                _LastLoginTime = StructuralObject.SetValidValue(value, true);
+                _LastLoginTime = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("LastLoginTime");
                 OnLastLoginTimeChanged();
             }
         }
-        private global::System.Byte[] _LastLoginTime;
-        partial void OnLastLoginTimeChanging(global::System.Byte[] value);
+        private Nullable<global::System.DateTime> _LastLoginTime;
+        partial void OnLastLoginTimeChanging(Nullable<global::System.DateTime> value);
         partial void OnLastLoginTimeChanged();
 
         #endregion
