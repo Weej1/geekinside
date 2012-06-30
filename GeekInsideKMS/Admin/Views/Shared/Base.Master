@@ -43,7 +43,7 @@
         <div id="visual-content">
             <div id="portal-top">
                 <h1 id="portal-logo">
-                    <a href="/Index/Index">后台管理</a>
+                    <%: Html.ActionLink("后台管理", "Index", "Index") %>
                 </h1>
                 <div class="visualClear">
                 </div>
