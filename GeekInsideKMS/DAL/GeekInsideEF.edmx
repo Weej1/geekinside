@@ -107,7 +107,7 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="50" />
           <Property Name="NewsContent" Type="ntext" Nullable="false" />
-          <Property Name="PubTime" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
+          <Property Name="PubTime" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
           <Property Name="IsOnTop" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Tag">
@@ -134,6 +134,7 @@
           <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="EmployeeNumber" Type="int" Nullable="false" />
           <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsManager" Type="bit" Nullable="false" />
           <Property Name="IsChecker" Type="bit" Nullable="false" />
           <Property Name="IsAvailable" Type="bit" Nullable="false" />
           <Property Name="LastLoginTime" Type="datetime" StoreGeneratedPattern="Computed" />
@@ -323,7 +324,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="NewsContent" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="PubTime" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="PubTime" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="IsOnTop" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Tag">
@@ -354,6 +355,7 @@
           <Property Name="IsChecker" Type="Boolean" Nullable="false" />
           <Property Name="IsAvailable" Type="Boolean" Nullable="false" />
           <Property Name="LastLoginTime" Type="DateTime" annotation:StoreGeneratedPattern="Computed" />
+          <Property Type="Boolean" Name="IsManager" Nullable="false" />
         </EntityType>
         <EntityType Name="UserEmployeeDetail">
           <Key>
@@ -494,7 +496,8 @@
             <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="UserEmployees"><EntityTypeMapping TypeName="geekinsidekmsModel.UserEmployee"><MappingFragment StoreEntitySet="UserEmployee">
-            <ScalarProperty Name="Id" ColumnName="Id" />
+            <ScalarProperty Name="IsManager" ColumnName="IsManager" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
             <ScalarProperty Name="EmployeeNumber" ColumnName="EmployeeNumber" />
             <ScalarProperty Name="Password" ColumnName="Password" />
             <ScalarProperty Name="IsChecker" ColumnName="IsChecker" />

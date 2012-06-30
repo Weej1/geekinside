@@ -1658,7 +1658,7 @@ namespace DAL
         /// <param name="newsContent">NewsContent 属性的初始值。</param>
         /// <param name="pubTime">PubTime 属性的初始值。</param>
         /// <param name="isOnTop">IsOnTop 属性的初始值。</param>
-        public static SiteNew CreateSiteNew(global::System.Int32 id, global::System.String title, global::System.String newsContent, global::System.Byte[] pubTime, global::System.Boolean isOnTop)
+        public static SiteNew CreateSiteNew(global::System.Int32 id, global::System.String title, global::System.String newsContent, global::System.DateTime pubTime, global::System.Boolean isOnTop)
         {
             SiteNew siteNew = new SiteNew();
             siteNew.Id = id;
@@ -1752,23 +1752,23 @@ namespace DAL
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Byte[] PubTime
+        public global::System.DateTime PubTime
         {
             get
             {
-                return StructuralObject.GetValidValue(_PubTime);
+                return _PubTime;
             }
             set
             {
                 OnPubTimeChanging(value);
                 ReportPropertyChanging("PubTime");
-                _PubTime = StructuralObject.SetValidValue(value, true);
+                _PubTime = StructuralObject.SetValidValue(value);
                 ReportPropertyChanged("PubTime");
                 OnPubTimeChanged();
             }
         }
-        private global::System.Byte[] _PubTime;
-        partial void OnPubTimeChanging(global::System.Byte[] value);
+        private global::System.DateTime _PubTime;
+        partial void OnPubTimeChanging(global::System.DateTime value);
         partial void OnPubTimeChanged();
     
         /// <summary>
@@ -2080,7 +2080,8 @@ namespace DAL
         /// <param name="password">Password 属性的初始值。</param>
         /// <param name="isChecker">IsChecker 属性的初始值。</param>
         /// <param name="isAvailable">IsAvailable 属性的初始值。</param>
-        public static UserEmployee CreateUserEmployee(global::System.Int32 id, global::System.Int32 employeeNumber, global::System.String password, global::System.Boolean isChecker, global::System.Boolean isAvailable)
+        /// <param name="isManager">IsManager 属性的初始值。</param>
+        public static UserEmployee CreateUserEmployee(global::System.Int32 id, global::System.Int32 employeeNumber, global::System.String password, global::System.Boolean isChecker, global::System.Boolean isAvailable, global::System.Boolean isManager)
         {
             UserEmployee userEmployee = new UserEmployee();
             userEmployee.Id = id;
@@ -2088,6 +2089,7 @@ namespace DAL
             userEmployee.Password = password;
             userEmployee.IsChecker = isChecker;
             userEmployee.IsAvailable = isAvailable;
+            userEmployee.IsManager = isManager;
             return userEmployee;
         }
 
@@ -2240,6 +2242,30 @@ namespace DAL
         private Nullable<global::System.DateTime> _LastLoginTime;
         partial void OnLastLoginTimeChanging(Nullable<global::System.DateTime> value);
         partial void OnLastLoginTimeChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean IsManager
+        {
+            get
+            {
+                return _IsManager;
+            }
+            set
+            {
+                OnIsManagerChanging(value);
+                ReportPropertyChanging("IsManager");
+                _IsManager = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IsManager");
+                OnIsManagerChanged();
+            }
+        }
+        private global::System.Boolean _IsManager;
+        partial void OnIsManagerChanging(global::System.Boolean value);
+        partial void OnIsManagerChanged();
 
         #endregion
     
