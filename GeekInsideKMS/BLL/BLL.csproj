@@ -45,9 +45,9 @@
     <Compile Include="BLLSiteConfig.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{60B48A72-4A9A-4C1B-A5FA-5AFDFE6F2E52}</Project>
-      <Name>DAL</Name>
+    <ProjectReference Include="..\DALFactory\DALFactory.csproj">
+      <Project>{A3A4A1DE-377B-424A-8884-38DBD27B0843}</Project>
+      <Name>DALFactory</Name>
     </ProjectReference>
     <ProjectReference Include="..\IDAL\IDAL.csproj">
       <Project>{1E49DD32-8A83-4097-93CF-CBD0BAF308A7}</Project>
