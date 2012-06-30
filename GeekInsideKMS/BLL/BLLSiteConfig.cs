@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Model.Models;
-using DAL;
 using IDAL;
 
 namespace BLL
 {
     public class BLLSiteConfig
     {
+        IDALSiteConfig siteConfigDAL = DALFactory.DataAccess.CreateSiteConfiguraionDAL();
+
         public Boolean saveSiteConfig(SiteConfigModel siteConfigModel)
         {
-            DALSiteConfig dalSiteConfig = new DALSiteConfig();
-            SiteConfigModel siteConfigModelFromDb = dalSiteConfig.getConfigByPropertyName(siteConfigModel.PropertyName);
+            SiteConfigModel siteConfigModelFromDb = siteConfigDAL.getConfigByPropertyName(siteConfigModel.PropertyName);
             if (siteConfigModelFromDb.PropertyValue == "")
             {
-                return dalSiteConfig.addConfig(siteConfigModel);
+                return siteConfigDAL.addConfig(siteConfigModel);
             } 
             else if ( siteConfigModelFromDb.PropertyValue != siteConfigModel.PropertyValue)
             {
-                return dalSiteConfig.updateConfig(siteConfigModel);
+                return siteConfigDAL.updateConfig(siteConfigModel);
             }
             else
             {
@@ -30,8 +30,7 @@ namespace BLL
 
         public SiteConfigModel getSiteConfigByPropertyName(string propertyname)
         {
-            DALSiteConfig dalSiteConfig = new DALSiteConfig();
-            return dalSiteConfig.getConfigByPropertyName(propertyname);
+            return siteConfigDAL.getConfigByPropertyName(propertyname);
         }
 
     }

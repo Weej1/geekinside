@@ -7,7 +7,7 @@ using IDAL;
 
 namespace DAL
 {
-    public class DALAdminAcount:IDALAdminAcount
+    public class DALAdminAccount:IDALAdminAcount
     {
         private UserAdminModel ConvertFromDB(UserAdmin dbAdmin)
         {
@@ -26,9 +26,6 @@ namespace DAL
         {
             using (var gikms = new geekinsidekmsEntities())
             {
-                var userAdmin = from u in gikms.UserAdmins
-                                where u.Username.Equals(username)
-                                select u;
                 UserAdmin dbAdmin = (from u in gikms.UserAdmins
                                            where u.Username.Equals(username)
                                            select u).FirstOrDefault();
