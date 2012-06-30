@@ -25,5 +25,11 @@ namespace DALFactory
             string className = path + ".DALSiteConfig";
             return (IDALSiteConfig)Assembly.Load(path).CreateInstance(className);
         }
+
+        public static IDALSiteNews CreateSiteNewsDAL()
+        {
+            string className = path + ".DALSiteNews";
+            return (IDALSiteNews)Assembly.Load(path).CreateInstance(className);
+        }
     }
 }

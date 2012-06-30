@@ -5,4 +5,73 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MiddlePlaceHolder" runat="server">
+    <div id="region-content" class="documentContent">
+        <div id="content">
+            <div class="admin-intro">
+                公告列表</div>
+            <% if ( TempData["errorMsg"] != ""){ %>
+            <p style="color:red;font-weight:bold;"><%: TempData["errorMsg"]%></p>
+            <% } %>
+            <% if ( TempData["successMsg"] != ""){ %>
+            <p style="color:green;font-weight:bold;"><%: TempData["successMsg"]%></p>
+            <% } %>
+            <p>
+                <input type="button" class="button" value="添加公告"  onclick= "self.location='/News/addNews'"></p>
+            
+            <div id="NewsTable">
+                <form name="news_form" class="NewsForm" method="post">
+                <table class="listing">
+                    <thead>
+                        
+                        <tr>
+                            <th>
+                                <a class="SelectAll" href="#">全选</a> <a class="UnSelectAll hidden" href="#">不选</a>
+                            </th>
+                            <th>
+                                置顶
+                            </th>
+                            <th>
+                                公告标题（点击标题可直接进入编辑界面）
+                            </th>
+                            <th>
+                                发布时间
+                            </th>
+                            <th>
+                                操作
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% List<Model.Models.SiteNewsModel> newsList = (List<Model.Models.SiteNewsModel>)ViewData["newsList"]; %>
+                        <% foreach (var news in newsList) { %>
+                        <tr class="odd">
+                            <td>
+                                <input type="checkbox" class="checkitem" name="selected_news" value="admin-admin" />
+                            </td>
+                            <td>
+                                <%: news.IsOnTop %>
+                            </td>
+                            <td>
+                                <a href="/News/Edit?newsid=<%: news.Id %>"><%: news.Title %></a>
+                            </td>
+                            <td>
+                                <%: news.PubTime %>
+                            </td>
+                            <td>
+                                <a href="/News/Edit?newsid=<%: news.Id %>" title="编辑">
+                                    <img src="/Content/images/icons/edit.png" alt="编辑" /></a>
+                                <a href="/News/Delete?newsid=<%: news.Id %>" title="删除">
+                                    <img src="/Content/images/icons/trash.gif" alt="删除" /></a>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+                <p>
+                    <input type="button" class="button" value="删除选中"><span style="margin-left: 10px;"></span><input
+                        type="button" class="button" value="置顶选中"></p>
+                </form>
+            </div>
+        </div>
+    </div>
 </asp:Content>
