@@ -14,10 +14,10 @@ namespace DALFactory
 
         private DataAccess() {}
 
-        public static IDALAdminAcount CreateAdminDAL()
+        public static IDALAdminAccount CreateAdminDAL()
         {
             string className = path + ".DALAdminAccount";
-            return (IDALAdminAcount)Assembly.Load(path).CreateInstance(className);
+            return (IDALAdminAccount)Assembly.Load(path).CreateInstance(className);
         }
 
         public static IDALSiteConfig CreateSiteConfiguraionDAL()

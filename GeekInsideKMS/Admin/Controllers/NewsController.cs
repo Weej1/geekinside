@@ -66,7 +66,6 @@ namespace Admin.Controllers
                 return RedirectToAction("Index", "News");
             }
             
-            
         }
 
         [Authorize]
@@ -108,6 +107,31 @@ namespace Admin.Controllers
         public ActionResult Delete(int newsid)
         {
             if (bllSiteNews.delete(newsid))
+            {
+                TempData["successMsg"] = "删除成功！";
+                return RedirectToAction("Index", "News");
+            }
+            else
+            {
+                TempData["errorMsg"] = "删除失败！";
+                return RedirectToAction("Index", "News");
+            }
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult deleteMultiNews(string[] selected_news)
+        {
+            //char[] allCheckboxs = Request.Form["selected_news"].ToArray();
+            Boolean result = true;
+            foreach (string checkbox in selected_news)
+            {
+                if (!bllSiteNews.delete(Convert.ToInt32(checkbox)))
+                {
+                    result = false;
+                }
+            }
+            if (result)
             {
                 TempData["successMsg"] = "删除成功！";
                 return RedirectToAction("Index", "News");
