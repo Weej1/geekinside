@@ -9,7 +9,7 @@ namespace BLL
 {
     public class BLLAdminAcount
     {
-        IDALAdminAcount adminDAL = DALFactory.DataAccess.CreateAdminDAL();
+        IDALAdminAccount adminDAL = DALFactory.DataAccess.CreateAdminDAL();
 
         public Boolean CheckAdminLogin(UserAdminModel userAdminModel)
         {

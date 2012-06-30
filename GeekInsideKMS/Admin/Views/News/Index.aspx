@@ -19,7 +19,7 @@
                 <input type="button" class="button" value="添加公告"  onclick= "self.location='/News/addNews'"></p>
             
             <div id="NewsTable">
-                <form name="news_form" class="NewsForm" method="post">
+                <form name="news_form" class="NewsForm" method="post" action="/News/deleteMultiNews">
                 <table class="listing">
                     <thead>
                         
@@ -46,7 +46,7 @@
                         <% foreach (var news in newsList) { %>
                         <tr class="odd">
                             <td>
-                                <input type="checkbox" class="checkitem" name="selected_news" value="admin-admin" />
+                                <input type="checkbox" class="checkitem" name="selected_news" id="selected_news" value="<%: news.Id %>" />
                             </td>
                             <td>
                                 <%: news.IsOnTop %>
@@ -68,7 +68,7 @@
                     </tbody>
                 </table>
                 <p>
-                    <input type="button" class="button" value="删除选中"><span style="margin-left: 10px;"></span><input
+                    <input type="button" class="button" value="删除选中" onclick="javascript:document.forms[0].submit();"><span style="margin-left: 10px;"></span><input
                         type="button" class="button" value="置顶选中"></p>
                 </form>
             </div>

@@ -6,7 +6,7 @@ using Model.Models;
 
 namespace IDAL
 {
-    public interface IDALAdminAcount
+    public interface IDALAdminAccount
     {
         UserAdminModel getUserByUsername(string username);
     }

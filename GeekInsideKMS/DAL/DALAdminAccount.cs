@@ -7,7 +7,7 @@ using IDAL;
 
 namespace DAL
 {
-    public class DALAdminAccount:IDALAdminAcount
+    public class DALAdminAccount:IDALAdminAccount
     {
         private UserAdminModel ConvertFromDB(UserAdmin dbAdmin)
         {
