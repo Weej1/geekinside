@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,11 +11,11 @@ namespace Model.Models
         public string FileDisplayName { get; set; }
         public string FileDiskName { get; set; }
         public string Description { get; set; }
-        public int[] FileTagIdArray { get; set; }
+        public List<TagModel> FileTagIdArray { get; set; }
         public int FolderId { get; set; }
         public int FileTypeId { get; set; }
         public string FileTypeName { get; set; }
-        public int PublisherId { get; set; }
+        public int PublisherNumber { get; set; }
         public string PublisherName { get; set; }
         public DateTime PubTime { get; set; }
         public int CheckerNumber { get; set; }

@@ -43,8 +43,10 @@
     <Compile Include="Models\DepartmentModel.cs" />
     <Compile Include="Models\DocumentModel.cs" />
     <Compile Include="Models\FolderModel.cs" />
+    <Compile Include="Models\SearchFilterModel.cs" />
     <Compile Include="Models\SiteConfigModel.cs" />
     <Compile Include="Models\SiteNewsModel.cs" />
+    <Compile Include="Models\TagModel.cs" />
     <Compile Include="Models\UserAdminModel.cs" />
     <Compile Include="Models\UserEmployeeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

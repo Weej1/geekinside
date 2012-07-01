@@ -41,6 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IDALAdminAccount.cs" />
+    <Compile Include="IDALDocument.cs" />
+    <Compile Include="IDALSearch.cs" />
+    <Compile Include="IDALTag.cs" />
     <Compile Include="IDALUserAccount.cs" />
     <Compile Include="IDALSiteNews.cs" />
     <Compile Include="IDALDepartment.cs" />

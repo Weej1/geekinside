@@ -25,11 +25,11 @@
                     <dt class="portletHeader">我的工作台 </dt>
                     <dd class="portletItem">
                         <ul class="portletNavigationTree navTreeLevel0" id="left-view-list">
-                            <li class="navTreeItem"><a href="/User/Workshop">
+                            <li class="navTreeItem"><a href="/User/Workshop?empno=<%: Page.User.Identity.Name %>">
                                 <img src="/Content/images/icons/file.gif" class="iconimg">我发布的文档</a> </li>
-                            <li class="navTreeItem"><a href="/User/UnCheckedDocList">
+                            <li class="navTreeItem"><a href="/User/UnCheckedDocList?empno=<%: Page.User.Identity.Name %>">
                                 <img src="/Content/images/icons/file.gif" class="iconimg">待审核的文档</a> </li>
-                            <li class="navTreeItem"><a href="/User/MyFavorite">
+                            <li class="navTreeItem"><a href="/User/MyFavorite?empno=<%: Page.User.Identity.Name %>">
                                 <img src="/Content/images/icons/favorite.gif" class="iconimg">收藏夹</a> </li>
                         </ul>
                     </dd>
