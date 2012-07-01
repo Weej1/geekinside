@@ -1,0 +1,138 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+#attention{
+	background: #FFF9E3;
+    padding: 15px;
+}
+
+#Remind_S{
+	font-size: 14px;
+    color: #743E04;
+    margin-left: 21px;
+    margin-bottom: 15px;
+    font-weight: bold;
+    zoom: 1;
+}
+
+#taskRemind{
+	padding-top: 7px;
+}
+
+#attention p {
+	font-size: 12px;
+	margin: 6px 0 6px 30px;
+	padding-left: 10px;
+	background: url(http://img.baidu.com/img/iknow/docshare/icons.gif) no-repeat scroll -200px -121px;
+}
+
+#attention table {
+    margin-left: 30px;
+    margin-top: 10px;
+}
+
+#attention tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+
+#attention tr {
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+}
+
+#attention td.r {
+	text-align: right;
+	padding-right: 20px;
+	font-size: 12px;
+	float: none;
+}
+
+#attention td {
+    padding: 4px 0;
+}
+
+.icon {
+	background: url(http://img.baidu.com/img/iknow/docshare/icons.gif) -1000px -1000px no-repeat;
+	padding: 2px 10px;
+	zoom: 1;
+	font-size: 12px;
+	cursor: default;
+	position: relative;
+	top: -1px;
+}
+
+.doc, .docx {
+    background-position: -72px 1px;
+}
+
+.ppt, .pptx {
+    background-position: -139px 1px;
+}
+
+.vsd {
+    background-position: -173px 1px;
+}
+
+.xls, .xlsx {
+    background-position: -105px 1px;
+}
+
+.rtf {
+    background-position: -140px -27px;
+}
+
+.pdf {
+    background-position: 0 1px;
+}
+
+.txt {
+    background-position: -36px 1px;
+}
+
+.wmv{
+	background-position: -106px -26px;
+}
+
+#fill_one{
+	color: #186174;
+    border-bottom: 1px dashed #949A9A;
+    padding: 0 15px 15px;
+	margin-top: -5px;
+}
+
+.file_detail{
+    background: #F4F9FC;
+    padding: 15px 0 0;
+    border: 1px solid #DDDFFB;
+    margin: 10px 0 0;
+    position: relative;
+}
+
+#file_D{
+	padding: 10px 20px;
+}
+
+#file_D th {
+	vertical-align:top !important;
+	height: 25px;
+    line-height: 25px;
+	text-align:right;
+}
+
+.submitBtn{
+	background: url("http://img.baidu.com/img/iknow/docshare/act_btn.png") no-repeat scroll 0 0 
+	transparent;
+	border: none;
+	cursor: pointer;
+	height: 35px;
+	width: 104px;
+	text-indent: -9999px;
+	outline: none;
+}
+
+.submitBtn:hover{
+    background-position: 0 -35px;
+}
