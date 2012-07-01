@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -136,6 +137,9 @@
     <Content Include="Scripts\slides.jquery.js" />
     <Content Include="Views\Document\Detail.aspx" />
     <Content Include="Views\Document\DocumentUpload.aspx" />
+    <Content Include="Views\Search\Index.aspx" />
+    <Content Include="Views\User\MyFavorite.aspx" />
+    <Content Include="Views\User\UnCheckedDocList.aspx" />
     <Content Include="Views\Index\Index.aspx" />
     <Content Include="Views\Index\Login.aspx" />
     <Content Include="Views\User\Profile.aspx" />

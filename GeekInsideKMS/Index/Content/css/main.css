@@ -431,6 +431,17 @@ input {
 	padding: 2px;
 	vertical-align: middle;
 }
+.docListOperation a{
+    font-size: 12px;
+    background: #EEE;
+    padding: 0 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.docListOperation a:hover{
+    background: #ccc;
+}
 
 /* admin */
 #portal-globalnav {
@@ -535,7 +546,14 @@ table.listing td {
 table.listing img {
 	text-decoration: none;
 }
-
+.page-intro {
+	font-size:16px;
+	font-weight:bold;
+	border-bottom:1px solid #eee;
+	padding:5px;
+	color:#255B9C;
+	margin: 10px 0;
+}
 
 #footer {
 	text-align: center;
