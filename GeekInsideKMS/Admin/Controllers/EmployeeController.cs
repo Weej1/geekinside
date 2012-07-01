@@ -53,7 +53,7 @@ namespace Admin.Controllers
                 return RedirectToAction("CreateUser", "Employee");
             }
 
-            bool phoneResult = Regex.IsMatch(userEmployeeDetailModel.Phone, REGEXP_IS_VALID_EMAIL);
+            bool phoneResult = Regex.IsMatch(userEmployeeDetailModel.Phone, REGEXP_IS_VALID_PHONE);
             if (userEmployeeDetailModel.Phone == null || !phoneResult)
             {
                 TempData["phoneErrorMsg"] = "请输入正确的手机号！";
