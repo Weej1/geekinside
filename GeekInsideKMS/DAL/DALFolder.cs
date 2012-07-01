@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using IDAL;
+using Model.Models;
 
 namespace DAL
 {
@@ -37,7 +38,13 @@ namespace DAL
 
         public Model.Models.FolderModel GetFolderById(int folder_id)
         {
-            throw new NotImplementedException();
+            using (var gikms = new geekinsidekmsEntities())
+            {
+                Folder dbFolder = (from f in gikms.Folders
+                                        where f.Id.Equals(folder_id)
+                                        select f).FirstOrDefault();
+                return ConvertFromDB(dbFolder);
+            }
         }
 
         public IList<Model.Models.FolderModel> GetSubFolders(Model.Models.FolderModel folder)
@@ -49,5 +56,19 @@ namespace DAL
         {
             throw new NotImplementedException();
         }
+
+        private FolderModel ConvertFromDB(Folder dbFolder)
+        {
+            if (dbFolder == null) return null;
+            return new FolderModel
+            {
+                Id = dbFolder.Id,
+                ParentFolderId = dbFolder.ParentId,
+                PhysicalPath = dbFolder.PhysicalPath,
+                FolderName = dbFolder.FolderName,
+                Description = dbFolder.Description
+            };
+        }
+
     }
 }
