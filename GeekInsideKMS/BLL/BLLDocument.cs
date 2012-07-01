@@ -22,9 +22,28 @@ namespace BLL
             }
         }
 
-        public bool AddDocument(DocumentModel document)
+        public bool AddDocument(DocumentModel document, int employeeNumber)
         {
-            return true;
+            IDALFileType fileTypeDAL = DALFactory.DataAccess.CreateFileTypeDAL();
+            IDALFolder folderDAL = DALFactory.DataAccess.CreateFolderDAL();
+            IDALUserAccount userDAL = DALFactory.DataAccess.CreateUserDAL();
+            IDALEmployeeDetail employeeDAL = DALFactory.DataAccess.CreateEmployeeDetailDAL();
+
+            document.FileTypeId = fileTypeDAL.GetFileTypeId(document.FileDisplayName.Substring(document.FileDisplayName.LastIndexOf(".")+1));
+            document.PubTime = System.DateTime.Now;
+            document.Size = Utils.FileSizeTransformer.TransformSize(Convert.ToInt32(document.Size));
+            document.PublisherNumber = userDAL.getUserByEmployeeNumber(employeeNumber).Id;
+            document.PublisherName = employeeDAL.GetUserEmployeeDetail(employeeNumber).Name;
+
+            if (documentDAL.CreateDocument(document) != null)
+            {
+                MoveFile(document.FileDiskName, folderDAL.GetFolderById(document.FolderId).FolderName);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public List<DocumentModel> getMyCheckedDocList(int publisherNumber)
@@ -35,6 +54,17 @@ namespace BLL
         public List<DocumentModel> getMyUnheckedDocList(int publisherNumber)
         {
             return documentDAL.getAllUncheckedByPublisherNumber(publisherNumber);
+        }
+
+        private void MoveFile(string fileName, string folderName)
+        {
+            string filePath = "D;//geekinsidekms/temp/" + fileName;
+            string newFilePath = "D;//geekinsidekms/" + folderName + "/" + fileName;
+            if (File.Exists(filePath))
+            {
+                File.Copy(filePath, newFilePath, false);
+                File.Delete(filePath);
+            }
         }
     }
 }
