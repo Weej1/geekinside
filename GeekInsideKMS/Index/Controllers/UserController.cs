@@ -5,12 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using Model.Models;
 using System.Web.Security;
+using BLL;
 
 namespace Index.Controllers
 {
     public class UserController : Controller
     {
-
 
         [Authorize]
         public ActionResult Index()
@@ -18,14 +18,25 @@ namespace Index.Controllers
             return View();
         }
 
-
+        //我发布的文档列表
         [Authorize]
-        public ActionResult Workshop()
+        public ActionResult Workshop(int empno)
         {
-
+            List<DocumentModel> docList = new List<DocumentModel>();
+            int employeeNumber = empno;
+            docList = new BLLDocument().getMyCheckedDocList(employeeNumber);
+            if (docList.Count == 0)
+            {
+                ViewData["docList"] = "nodata";
+            } 
+            else
+            {
+                ViewData["docList"] = docList;
+            }
             return View();
         }
 
+        //我的资料修改
         [Authorize]
         public ActionResult Profile()
         {
@@ -41,9 +52,21 @@ namespace Index.Controllers
             return View();
         }
 
+        //我的未审核文档
         [Authorize]
-        public ActionResult UnCheckedDocList()
+        public ActionResult UnCheckedDocList(int empno)
         {
+            List<DocumentModel> docList = new List<DocumentModel>();
+            int employeeNumber = empno;
+            docList = new BLLDocument().getMyUnheckedDocList(employeeNumber);
+            if (docList.Count == 0)
+            {
+                ViewData["docList"] = "nodata";
+            }
+            else
+            {
+                ViewData["docList"] = docList;
+            }
             return View();
         }
 

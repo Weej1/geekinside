@@ -23,5 +23,11 @@ namespace BLL
                 return false;
             }
         }
+
+        public List<DocumentModel> getAllMyDocument()
+        {
+
+            return null;
+        }
     }
 }

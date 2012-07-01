@@ -16,7 +16,7 @@ namespace DAL
                 {
                     FolderName = folder.FolderName,
                     Description = folder.Description,
-                    ParentId = folder.UpFolderId,
+                    ParentId = folder.ParentFolderId,
                     PhysicalPath = folder.PhysicalPath
                 };
                 context.Folders.AddObject(dbFolder);

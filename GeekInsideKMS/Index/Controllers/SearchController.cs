@@ -5,11 +5,13 @@ using System.Web;
 using System.Web.Mvc;
 using Model.Models;
 using System.Web.Security;
+using BLL;
 
 namespace Index.Controllers
 {
     public class SearchController : Controller
     {
+        BLLSearch bllSearc;
 
         //高级搜索输入界面
         [Authorize]

@@ -49,5 +49,23 @@ namespace DALFactory
             string className = path + ".DALFolder";
             return (IDALFolder)Assembly.Load(path).CreateInstance(className);
         }
+
+        public static IDALSearch CreateSearchDAL()
+        {
+            string className = path + ".DALSearch";
+            return (IDALSearch)Assembly.Load(path).CreateInstance(className);
+        }
+
+        public static IDALTag CreateTagDAL()
+        {
+            string className = path + ".DALTag";
+            return (IDALTag)Assembly.Load(path).CreateInstance(className);
+        }
+
+        public static IDALDocument CreateDocumentDAL()
+        {
+            string className = path + ".DALDocument";
+            return (IDALDocument)Assembly.Load(path).CreateInstance(className);
+        }
     }
 }
