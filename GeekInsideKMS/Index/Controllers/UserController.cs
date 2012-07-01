@@ -71,9 +71,28 @@ namespace Index.Controllers
         }
 
         [Authorize]
-        public ActionResult MyFavorite()
+        public ActionResult MyFavorite(int empno)
         {
+            List<DocumentModel> docList = new List<DocumentModel>();
+            int employeeNumber = empno;
+            docList = new BLLFavorite().getFavoriteDocModelListByPublishNumber(employeeNumber);
+            if (docList.Count == 0)
+            {
+                ViewData["docList"] = "nodata";
+            }
+            else
+            {
+                ViewData["docList"] = docList;
+            }
             return View();
+        }
+
+        //删除我的收藏
+        //要先判断当前用户有权删除没有
+        [Authorize]
+        public ActionResult DeleteFavorite(int docid)
+        {
+            return null;
         }
     }
 }

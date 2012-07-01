@@ -79,5 +79,11 @@ namespace DALFactory
             string className = path + ".DALEmployeeDetail";
             return (IDALEmployeeDetail)Assembly.Load(path).CreateInstance(className);
         }
+
+        public static IDALFavorite CreateFavoriteDAL()
+        {
+            string className = path + ".DALFavorite";
+            return (IDALFavorite)Assembly.Load(path).CreateInstance(className);
+        }
     }
 }

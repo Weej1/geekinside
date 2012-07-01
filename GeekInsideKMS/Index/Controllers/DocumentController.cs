@@ -33,16 +33,22 @@ namespace Index.Controllers
             return View("DocumentUpload");
         }
 
+        //编辑文档信息
         [Authorize]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int docid,string returnURL)
         {
-            return View();
+            //先要判断当前用户是否有权限编辑这篇文档（是不是发布者）
+
+            return RedirectToAction(returnURL, "User");
         }
 
+        //删除文档
         [Authorize]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int docid, string returnURL)
         {
-            return View();
+            //先要判断当前用户是否有权限删除这篇文档
+
+            return RedirectToAction(returnURL, "User");
         }
 
 
