@@ -32,7 +32,7 @@ namespace BLL
             document.FileTypeId = fileTypeDAL.GetFileTypeId(document.FileDisplayName.Substring(document.FileDisplayName.LastIndexOf(".")+1));
             document.PubTime = System.DateTime.Now;
             document.Size = Utils.FileSizeTransformer.TransformSize(Convert.ToInt32(document.Size));
-            document.PublisherNumber = userDAL.getUserByEmployeeNumber(employeeNumber).Id;
+            document.PublisherNumber = userDAL.getUserByEmployeeNumber(employeeNumber).EmployeeNumber;
             document.PublisherName = employeeDAL.GetUserEmployeeDetail(employeeNumber).Name;
 
             if (documentDAL.CreateDocument(document))
