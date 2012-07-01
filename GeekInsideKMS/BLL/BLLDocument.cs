@@ -66,5 +66,15 @@ namespace BLL
                 File.Delete(filePath);
             }
         }
+
+        public DocumentModel getDocumentById(int docid)
+        {
+            return documentDAL.getDocumentById(docid);
+        }
+
+        public Boolean deleteDocumentById(int docid)
+        {
+            return documentDAL.deleteDocumentById(docid);
+        }
     }
 }

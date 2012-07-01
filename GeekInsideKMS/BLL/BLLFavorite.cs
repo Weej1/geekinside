@@ -13,15 +13,15 @@ namespace BLL
         IDALDocument documentDAL = DALFactory.DataAccess.CreateDocumentDAL();
 
         //增加收藏
-        public Boolean addToMyFavorite(int publisherNumber,int documentId)
+        public Boolean addToMyFavorite(int employeeNumber, int documentId)
         {
-            return true;
+            return favoriteDAL.addFav(employeeNumber, documentId);
         }
 
         //删除收藏
-        public Boolean deleteMyFavorite(int publisherNumber, int documentId)
+        public Boolean deleteMyFavorite(int employeeNumber, int documentId)
         {
-            return true;
+            return favoriteDAL.deleteFavById(employeeNumber, documentId);
         }
 
         //查询收藏

@@ -9,5 +9,7 @@ namespace IDAL
     public interface IDALFavorite
     {
         List<FavoriteModel> getFavoriteDocListByEmployeeNumber(int empNumber);
+        Boolean deleteFavById(int employeeNumber, int documentId);
+        Boolean addFav(int employeeNumber, int documentId);
     }
 }

@@ -170,5 +170,17 @@ namespace DAL
                 return true;
             }
         }
+
+        public Boolean deleteDocumentById(int docid)
+        {
+            geekinsidekmsEntities context = new geekinsidekmsEntities();
+
+            DAL.Document dbDoc = (from doc in context.Documents
+                                  where doc.Id.Equals(docid)
+                                  select doc).FirstOrDefault();
+            context.DeleteObject(dbDoc);
+            context.SaveChanges();
+            return true;
+        }
     }
 }

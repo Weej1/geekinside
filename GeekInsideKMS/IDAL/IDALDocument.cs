@@ -13,5 +13,6 @@ namespace IDAL
         List<DocumentModel> getAllUncheckedByPublisherNumber(int publisherNumber);
         List<DocumentModel> getAllFavoriteDocListByPublisherNumber(int publisherNumber);
         DocumentModel getDocumentById(int id);
+        Boolean deleteDocumentById(int docid);
     }
 }

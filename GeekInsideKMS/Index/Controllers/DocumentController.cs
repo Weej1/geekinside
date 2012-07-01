@@ -38,8 +38,25 @@ namespace Index.Controllers
         public ActionResult Edit(int docid,string returnURL)
         {
             //先要判断当前用户是否有权限编辑这篇文档（是不是发布者）
+            string employeeNumber = Session["username"].ToString();
+            DocumentModel docModel = new BLLDocument().getDocumentById(docid);
+            if (employeeNumber == "" || docModel == null || docModel.PublisherNumber != Convert.ToInt32(employeeNumber))
+            {
+                TempData["errorMsg"] = "您无权编辑此文件，请重新登录。";
+                return RedirectToAction(returnURL, "User");
+            }
+            ViewData["docModel"] = docModel;
+            return View();
+        }
 
-            return RedirectToAction(returnURL, "User");
+        [HttpPost]
+        [Authorize]
+        public ActionResult doEdit(DocumentModel docModel)
+        {
+            //这里没写完
+            string employeeNumber = Session["username"].ToString();
+            TempData["successMsg"] = "更新成功。";
+            return RedirectToAction("/User/Workshop", "User");
         }
 
         //删除文档
@@ -47,7 +64,22 @@ namespace Index.Controllers
         public ActionResult Delete(int docid, string returnURL)
         {
             //先要判断当前用户是否有权限删除这篇文档
-
+            string employeeNumber = Session["username"].ToString();
+            BLLDocument bllDocument = new BLLDocument();
+            DocumentModel docModel = bllDocument.getDocumentById(docid);
+            if (employeeNumber == "" || docModel == null || docModel.PublisherNumber != Convert.ToInt32(employeeNumber))
+            {
+                TempData["errorMsg"] = "您无权删除此文件，请重新登录。";
+                return RedirectToAction(returnURL, "User");
+            }
+            if (bllDocument.deleteDocumentById(docid))
+            {
+                TempData["successMsg"] = "删除成功。";
+            } 
+            else
+            {
+                TempData["errorMsg"] = "删除失败。";
+            }
             return RedirectToAction(returnURL, "User");
         }
 
