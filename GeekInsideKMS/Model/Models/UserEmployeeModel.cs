@@ -13,5 +13,7 @@ namespace Model.Models
         public bool IsChecker { get; set; }
         public bool IsAvailable { get; set; }
         public DateTime? LastLoginTime { get; set; }
+        public bool IsManager { get; set; }
+        public int DepartmentId { get; set; }
     }
 }

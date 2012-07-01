@@ -48,6 +48,7 @@
     <Compile Include="Models\SiteNewsModel.cs" />
     <Compile Include="Models\TagModel.cs" />
     <Compile Include="Models\UserAdminModel.cs" />
+    <Compile Include="Models\UserEmployeeDetailModel.cs" />
     <Compile Include="Models\UserEmployeeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
