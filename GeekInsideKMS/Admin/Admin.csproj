@@ -159,6 +159,7 @@
     <Content Include="Views\Auth\Index.aspx" />
     <Content Include="Views\Document\Index.aspx" />
     <Content Include="Views\Employee\Index.aspx" />
+    <Content Include="Views\Employee\CreateUser.aspx" />
     <Content Include="Views\Index\Index.aspx" />
     <Content Include="Views\News\AddNews.aspx" />
     <Content Include="Views\News\Edit.aspx" />
