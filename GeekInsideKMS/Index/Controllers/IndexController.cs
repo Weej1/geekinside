@@ -47,5 +47,11 @@ namespace Index.Controllers
             }
         }
 
+        //注销
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "Index");
+        }
     }
 }
