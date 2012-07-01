@@ -57,9 +57,11 @@ namespace Index.Controllers
         public JsonResult FileDetail(DocumentModel document)
         {
             BLLDocument bllDoc = new BLLDocument();
-            document.PublisherName = FormsAuthentication.FormsCookieName;
-            //bllDoc.AddDocument(document);
-            return Json(true);
+            if (Session["username"] != null)
+            {
+                return Json(bllDoc.AddDocument(document, (Int32)Session["username"]));
+            }
+            return Json(false);
         }
     }
 }
