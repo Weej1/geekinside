@@ -93,5 +93,29 @@ namespace DAL
             }
         }
 
+
+        public int CreateDocument(DocumentModel document)
+        {
+            using (geekinsidekmsEntities context = new geekinsidekmsEntities())
+            {
+                Document dbDocument = new Document
+                {
+                    CheckerName = "",
+                    Description = document.Description,
+                    FileDiskName = document.FileDiskName,
+                    FileDisplayName = document.FileDisplayName,
+                    Size = document.Size,
+                    PubTime = document.PubTime,
+                    PublisherName = document.PublisherName,
+                    PublisherNumber = document.PublisherNumber,
+                    FileTypeId = document.FileTypeId,
+                    FolderId = document.FolderId
+    
+                };
+                context.AddToDocuments(dbDocument);
+                context.SaveChanges();
+                return dbDocument.Id;
+            }
+        }
     }
 }
