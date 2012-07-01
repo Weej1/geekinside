@@ -10,7 +10,7 @@ namespace BLL
 {
     public class BLLDocument
     {
-        IDALDocument dalDocument = DALFactory.DataAccess.CreateDocumentDAL();
+        IDALDocument documentDAL = DALFactory.DataAccess.CreateDocumentDAL();
 
         public void DeleteTempFile(string id, string fileName)
         {
@@ -29,12 +29,12 @@ namespace BLL
 
         public List<DocumentModel> getMyCheckedDocList(int publisherNumber)
         {
-            return dalDocument.getAllCheckedByPublisherNumber(publisherNumber);
+            return documentDAL.getAllCheckedByPublisherNumber(publisherNumber);
         }
 
         public List<DocumentModel> getMyUnheckedDocList(int publisherNumber)
         {
-            return dalDocument.getAllUncheckedByPublisherNumber(publisherNumber);
+            return documentDAL.getAllUncheckedByPublisherNumber(publisherNumber);
         }
     }
 }

@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Model.Models;
-using IDAL;
 
 namespace BLL
 {
-    public class BLLSearch:IDALSearch
+    public class BLLSearch
     {
         public List<DocumentModel> getResultBySearchingTitle(string sw)
         {
