@@ -43,6 +43,8 @@
     <Compile Include="IDALAdminAccount.cs" />
     <Compile Include="IDALUserAccount.cs" />
     <Compile Include="IDALSiteNews.cs" />
+    <Compile Include="IDALDepartment.cs" />
+    <Compile Include="IDALFolder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IDALSiteConfig.cs" />
   </ItemGroup>
