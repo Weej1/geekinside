@@ -96,7 +96,7 @@
 	background-position: -106px -26px;
 }
 
-#fill_one{
+.fill_one{
 	color: #186174;
     border-bottom: 1px dashed #949A9A;
     padding: 0 15px 15px;
@@ -109,6 +109,7 @@
     border: 1px solid #DDDFFB;
     margin: 10px 0 0;
     position: relative;
+    display: none;
 }
 
 #file_D{
@@ -122,9 +123,18 @@
 	text-align:right;
 }
 
+.submitBtnDisabled{
+	background: url("http://img.baidu.com/img/iknow/docshare/act_btn.png") no-repeat scroll transparent;
+	background-position: 0 -70px;
+	border: none;
+	height: 35px;
+	width: 104px;
+	text-indent: -9999px;
+	outline: none;
+}
+
 .submitBtn{
-	background: url("http://img.baidu.com/img/iknow/docshare/act_btn.png") no-repeat scroll 0 0 
-	transparent;
+	background: url("http://img.baidu.com/img/iknow/docshare/act_btn.png") no-repeat scroll 0 0 transparent;
 	border: none;
 	cursor: pointer;
 	height: 35px;
