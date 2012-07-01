@@ -94,7 +94,7 @@ namespace DAL
         }
 
 
-        public int CreateDocument(DocumentModel document)
+        public bool CreateDocument(DocumentModel document)
         {
             using (geekinsidekmsEntities context = new geekinsidekmsEntities())
             {
@@ -112,9 +112,16 @@ namespace DAL
                     FolderId = document.FolderId
     
                 };
-                context.AddToDocuments(dbDocument);
-                context.SaveChanges();
-                return dbDocument.Id;
+                try
+                {
+                    context.AddToDocuments(dbDocument);
+                    context.SaveChanges();
+                }
+                catch(Exception e){
+                    System.Diagnostics.Debug.WriteLine(e.InnerException.Message);
+                    return false;
+                }
+                return true;
             }
         }
     }
