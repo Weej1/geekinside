@@ -11,7 +11,7 @@ namespace Index.Controllers
 {
     public class SearchController : Controller
     {
-        BLLSearch bllSearc;
+
 
         //高级搜索输入界面
         [Authorize]

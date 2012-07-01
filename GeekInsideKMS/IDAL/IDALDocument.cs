@@ -11,5 +11,7 @@ namespace IDAL
         bool CreateDocument(DocumentModel document);
         List<DocumentModel> getAllCheckedByPublisherNumber(int publisherNumber);
         List<DocumentModel> getAllUncheckedByPublisherNumber(int publisherNumber);
+        List<DocumentModel> getAllFavoriteDocListByPublisherNumber(int publisherNumber);
+        DocumentModel getDocumentById(int id);
     }
 }

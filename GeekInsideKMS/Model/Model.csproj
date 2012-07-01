@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Models\DepartmentModel.cs" />
     <Compile Include="Models\DocumentModel.cs" />
+    <Compile Include="Models\FavoriteModel.cs" />
     <Compile Include="Models\FolderModel.cs" />
     <Compile Include="Models\SearchFilterModel.cs" />
     <Compile Include="Models\SiteConfigModel.cs" />
