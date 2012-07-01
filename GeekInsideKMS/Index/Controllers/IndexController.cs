@@ -37,7 +37,7 @@ namespace Index.Controllers
             Boolean result = bllUserAccount.CheckUserLogin(userEmployeeModel);
             if (result == true)
             {
-                FormsAuthentication.SetAuthCookie(Convert.ToString(userEmployeeModel.EmployeeNumber), true);
+                FormsAuthentication.SetAuthCookie(Convert.ToString(userEmployeeModel.EmployeeNumber), false);
                 return RedirectToAction("Index", "Index");
             }
             else

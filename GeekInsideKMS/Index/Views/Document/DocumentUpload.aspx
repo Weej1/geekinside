@@ -53,7 +53,6 @@
             var uploader = $('#uploader').plupload('getUploader');
 
             uploader.bind('UploadFile', function (up, file) {
-                $.extend(up.settings.multipart_params, { id: file.id });
                 $("#attention").hide();
                 var str = "<div class='file_detail' id=file_" + file.id + ">" +
             "<h3 class='fill_one'>填写文档信息: " + file.name + "</h3>" +
@@ -80,7 +79,11 @@
           "</div>";
                 $("#detail").append(str);
                 $("#file_" + file.id).slideDown();
-                triggerValidate(file.id, file);
+                triggerValidate(file.id, file, up);
+            });
+
+            uploader.bind('BeforeUpload', function (up, file, res) {
+                $.extend(up.settings.multipart_params, { id: file.id });
             });
 
             uploader.bind('FileUploaded', function (up, file, res) {
@@ -105,7 +108,7 @@
         });
 	</script>
     <script type="text/javascript">
-        function triggerValidate(file_id, file) {
+        function triggerValidate(file_id, file, up) {
             var isLegal = false;
             $("#content" + file_id).blur(function (e) {
                 if ($("#content" + file_id).val() == "") {
@@ -135,9 +138,18 @@
                         data: { 'fileDiskName': file.id + str,
                             'fileDisplayName': file.name,
                             'size': file.size,
-                            'discription': $("#content" + file_id).val(),
+                            'description': $("#content" + file_id).val(),
                             'folderId': 1,
-                            'success': function () {
+                            'success': function (response) {
+                                if (response) {
+                                    $("#file_" + file_id).remove();
+                                    if (up.files.length == 0) {
+                                        $("#attention").show();
+                                    }
+
+                                } else {
+                                    alert("提交失败，请重新提交");
+                                }
                             }
                         }
                     });
