@@ -18,7 +18,8 @@
 			<ul id="portal-siteactions" class="topNavTabs">
 				<%if (Request.IsAuthenticated)
                   {%>
-                <li><a href="#">欢迎您：<%: Page.User.Identity.Name %></a></li>
+                <li><a href="/User/Workshop">我的工作台</a></li>
+                <li><a href="/User/Profile">欢迎您：<%: Page.User.Identity.Name %></a></li>
                 <li>
                     <%: Html.ActionLink("注销", "Logout", "Index")%></li>
                 <%}
@@ -41,16 +42,16 @@
 		<div id="visual-content">
 			<div id="portal-top">
 				<div id="portal-searchbox">
-					<form name="searchform" action="#">
-						<a href="#">高级</a>
+					<form name="searchform" action="/Search/doBasicSearch" method="post">
+						<a href="/Search/Index">高级</a>
 						<div id="search-box">
-							<input type="text" value="" placeholder="全站搜索" name="searchTextHight" id="search" title="输入搜索">
-							<div onclick="#" id="magnifier" title="搜索"></div>
+							<input type="text" value="" name="sw" id="search" title="输入搜索">
+							<div onclick="javascript:document.forms[0].submit();" id="magnifier" title="搜索"></div>
 						</div>
 					</form>
 				</div>
 				<h1 id="portal-logo">
-					<a href="/Index/Index">文档库首页</a>
+					<a href="/Index/Index">Geek Inside 文档管理</a>
 				</h1>
 				<div class="visualClear"></div>
 			</div>

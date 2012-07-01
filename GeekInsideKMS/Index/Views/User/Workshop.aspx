@@ -16,6 +16,10 @@
                         <div class="itemInfo">
                             <h1>
                                 <a class="title clean" target="_blank" href="/Document/Detail">Packtpub.NHibernate.3.0.Cookbook.Oct.2010.pdf</a>
+                                <span class="docListOperation">
+                                    <a href="#">编辑</a>
+                                    <a href="#">删除</a>
+                                </span>
                             </h1>
                             <p class="discreet" style="margin: -5pt 0 2px;">
                                 zhaoyulee 负责， 更新于 2012-06-26 2.21 MB， 文件位于/文档库/公司管理/1123
@@ -29,6 +33,10 @@
                         <div class="itemInfo">
                             <h1>
                                 <a class="title clean" target="_blank" href="#">123.doc</a>
+                                <span class="docListOperation">
+                                    <a href="#">编辑</a>
+                                    <a href="#">删除</a>
+                                </span>
                             </h1>
                             <p class="discreet" style="margin: -5pt 0 2px;">
                                 zhaoyulee 负责， 更新于 2012-06-26 2.21 MB， 文件位于/文档库/公司管理/1123
@@ -42,6 +50,10 @@
                         <div class="itemInfo">
                             <h1>
                                 <a class="title clean" target="_blank" href="#">Packtpub.NHibernate.3.0.Cookbook.Oct.2010.pdf</a>
+                                <span class="docListOperation">
+                                    <a href="/Document/Edit?id=1">编辑</a>
+                                    <a href="/Document/Delete?id=1">删除</a>
+                                </span>
                             </h1>
                             <p class="discreet" style="margin: -5pt 0 2px;">
                                 zhaoyulee 负责， 更新于 2012-06-26 2.21 MB， 文件位于/文档库/公司管理/1123

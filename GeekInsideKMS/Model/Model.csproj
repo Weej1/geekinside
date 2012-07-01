@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\DepartmentModel.cs" />
+    <Compile Include="Models\DocumentModel.cs" />
     <Compile Include="Models\FolderModel.cs" />
     <Compile Include="Models\SiteConfigModel.cs" />
     <Compile Include="Models\SiteNewsModel.cs" />

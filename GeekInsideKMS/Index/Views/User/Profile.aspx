@@ -5,14 +5,14 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MiddlePlaceHolder" runat="server">
     <div id="region-content" class="documentContent">
         <div id="content">
-            <form action="#" name="form" method="post">
+            <form action="/User/doProfile" name="form" method="post">
             <div class="row">
                 <div class="field">
                     <label class="horizontal">
                         <span>姓名</span>
                     </label>
                     <div>
-                        <input type="text" name="username" value="admin"></div>
+                        <input type="text" name="username" value="<%: ViewData["username"] %>"></div>
                 </div>
             </div>
             <div class="row">
@@ -21,7 +21,7 @@
                         <span>邮箱</span>
                     </label>
                     <div>
-                        <input type="text" name="email" value="admin@admin.com"></div>
+                        <input type="text" name="email" value="<%: ViewData["email"] %>"></div>
                 </div>
             </div>
             <div class="row">
@@ -30,13 +30,22 @@
                         <span>手机号码</span>
                     </label>
                     <div>
-                        <input type="text" name="phone" value="18600186000"></div>
+                        <input type="text" name="phone" value="<%: ViewData["phone"] %>"></div>
                 </div>
             </div>
             <div class="row">
                 <div class="field">
                     <label class="horizontal">
-                        <span>是否是审核员：不是</span>
+                        <span>是否是审核员：
+                        <%if (ViewData["ischecker"] == "True")
+                          {
+                              Response.Write("是");
+                          }
+                          else
+                          {
+                              Response.Write("不是");
+                          }%>
+                        </span>
                     </label>
                 </div>
             </div>
