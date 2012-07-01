@@ -59,7 +59,7 @@ namespace Index.Controllers
             BLLDocument bllDoc = new BLLDocument();
             if (Session["username"] != null)
             {
-                return Json(bllDoc.AddDocument(document, (Int32)Session["username"]));
+                return Json(bllDoc.AddDocument(document, (Int32)Session["username"], Server.MapPath("~/")));
             }
             return Json(false);
         }
