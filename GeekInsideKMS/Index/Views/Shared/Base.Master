@@ -16,8 +16,17 @@
     <div id="wrapper">
 		<div id="visual-nav">
 			<ul id="portal-siteactions" class="topNavTabs">
-				<li><%: Html.ActionLink("我的工作台", "Workshop", "User")%></li>
-                <li><%: Html.ActionLink("zhaoyulee", "Profile", "User")%></li>
+				<%if (Request.IsAuthenticated)
+                  {%>
+                <li><a href="#">欢迎您：<%: Page.User.Identity.Name %></a></li>
+                <li>
+                    <%: Html.ActionLink("注销", "Logout", "Index")%></li>
+                <%}
+                  else
+                  {%>
+                <li>
+                    <%: Html.ActionLink("登录", "Login", "Index")%></li>
+                <%}%>
 				<li style="margin-right:10px;_margin-right:7px"></li>
 			</ul>
 			<div id="geekinside-services">
