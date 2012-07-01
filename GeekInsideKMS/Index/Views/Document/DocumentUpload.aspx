@@ -116,13 +116,13 @@
                     $("#content_label" + file_id).html("介绍不能为空");
                     isLegal = false;
                 }
-                else if ($("#content" + file_id).val().length >= 10 && $("#content" + file_id).val().length <= 300) {
+                else if ($("#content" + file_id).val().length >= 5 && $("#content" + file_id).val().length <= 300) {
                     $("#content_label" + file_id).css("display", "none");
                     isLegal = true;
                 }
                 else {
                     $("#content_label" + file_id).css("display", "inline-block");
-                    $("#content_label" + file_id).html("介绍的字数在10到300之间");
+                    $("#content_label" + file_id).html("介绍的字数在5到300之间");
                     isLegal = false;
                 }
             });
@@ -139,17 +139,18 @@
                             'fileDisplayName': file.name,
                             'size': file.size,
                             'description': $("#content" + file_id).val(),
-                            'folderId': 1,
-                            'success': function (response) {
-                                if (response) {
-                                    $("#file_" + file_id).remove();
-                                    if (up.files.length == 0) {
-                                        $("#attention").show();
-                                    }
-
-                                } else {
-                                    alert("提交失败，请重新提交");
+                            'folderId': 1
+                        },
+                        success: function (response) {
+                            if (response) {
+                                alert("文档上传成功");
+                                $("#file_" + file_id).remove();
+                                up.removeFile(up.getFile(file_id));
+                                if (up.files.length == 0) {
+                                    $("#attention").show();
                                 }
+                            } else {
+                                alert("提交失败，请重新提交");
                             }
                         }
                     });
