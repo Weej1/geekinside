@@ -41,8 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLAdminAccount.cs" />
-    <Compile Include="BLLSearch.cs" />
     <Compile Include="BLLDocument.cs" />
+    <Compile Include="BLLSearch.cs" />
     <Compile Include="BLLUserAccount.cs" />
     <Compile Include="BLLSiteNews.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +60,10 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{68912684-B553-4017-9FBE-F56C19ED98E5}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{66DB8B8D-7578-47D1-A2C3-4081A1BFF1EB}</Project>
+      <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
