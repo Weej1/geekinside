@@ -22,7 +22,7 @@ namespace BLL
             }
         }
 
-        public bool AddDocument(DocumentModel document, int employeeNumber)
+        public bool AddDocument(DocumentModel document, int employeeNumber, string currentWorkSpacePath)
         {
             IDALFileType fileTypeDAL = DALFactory.DataAccess.CreateFileTypeDAL();
             IDALFolder folderDAL = DALFactory.DataAccess.CreateFolderDAL();
@@ -35,9 +35,9 @@ namespace BLL
             document.PublisherNumber = userDAL.getUserByEmployeeNumber(employeeNumber).Id;
             document.PublisherName = employeeDAL.GetUserEmployeeDetail(employeeNumber).Name;
 
-            if (documentDAL.CreateDocument(document) != null)
+            if (documentDAL.CreateDocument(document))
             {
-                MoveFile(document.FileDiskName, folderDAL.GetFolderById(document.FolderId).FolderName);
+                MoveFile(document.FileDiskName, folderDAL.GetFolderById(document.FolderId).FolderName, currentWorkSpacePath);
                 return true;
             }
             else
@@ -56,10 +56,10 @@ namespace BLL
             return documentDAL.getAllUncheckedByPublisherNumber(publisherNumber);
         }
 
-        private void MoveFile(string fileName, string folderName)
+        private void MoveFile(string fileName, string folderName, string currentWorkSpacePath)
         {
-            string filePath = "D;//geekinsidekms/temp/" + fileName;
-            string newFilePath = "D;//geekinsidekms/" + folderName + "/" + fileName;
+            string filePath = currentWorkSpacePath + "/uploadfiles/temp/" + fileName;
+            string newFilePath = currentWorkSpacePath + "/uploadfiles/" + folderName + "/" + fileName;
             if (File.Exists(filePath))
             {
                 File.Copy(filePath, newFilePath, false);
