@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +8,7 @@ namespace IDAL
 {
     public interface IDALDocument
     {
+        int CreateDocument(DocumentModel document);
         List<DocumentModel> getAllCheckedByPublisherNumber(int publisherNumber);
         List<DocumentModel> getAllUncheckedByPublisherNumber(int publisherNumber);
     }
