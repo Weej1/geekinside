@@ -18,7 +18,6 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM 关系源元数据
 
-[assembly: EdmRelationshipAttribute("geekinsidekmsModel", "FK_Department_Folder", "Folder", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Folder), "Department", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Department), true)]
 [assembly: EdmRelationshipAttribute("geekinsidekmsModel", "FK_UserEmployee_Department", "Department", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Department), "UserEmployee", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.UserEmployee), true)]
 [assembly: EdmRelationshipAttribute("geekinsidekmsModel", "FK_Document_FileType", "FileType", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.FileType), "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Document), true)]
 [assembly: EdmRelationshipAttribute("geekinsidekmsModel", "FK_Document_Folder", "Folder", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Folder), "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Document), true)]
@@ -481,44 +480,6 @@ namespace DAL
         #endregion
     
         #region 导航属性
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("geekinsidekmsModel", "FK_Department_Folder", "Folder")]
-        public Folder Folder
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Folder>("geekinsidekmsModel.FK_Department_Folder", "Folder").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Folder>("geekinsidekmsModel.FK_Department_Folder", "Folder").Value = value;
-            }
-        }
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Folder> FolderReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Folder>("geekinsidekmsModel.FK_Department_Folder", "Folder");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Folder>("geekinsidekmsModel.FK_Department_Folder", "Folder", value);
-                }
-            }
-        }
     
         /// <summary>
         /// 没有元数据文档可用。
@@ -1681,28 +1642,6 @@ namespace DAL
         #endregion
     
         #region 导航属性
-    
-        /// <summary>
-        /// 没有元数据文档可用。
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("geekinsidekmsModel", "FK_Department_Folder", "Department")]
-        public EntityCollection<Department> Departments
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Department>("geekinsidekmsModel.FK_Department_Folder", "Department");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Department>("geekinsidekmsModel.FK_Department_Folder", "Department", value);
-                }
-            }
-        }
     
         /// <summary>
         /// 没有元数据文档可用。

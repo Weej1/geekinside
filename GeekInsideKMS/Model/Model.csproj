@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\DepartmentModel.cs" />
+    <Compile Include="Models\FolderModel.cs" />
     <Compile Include="Models\SiteConfigModel.cs" />
     <Compile Include="Models\SiteNewsModel.cs" />
     <Compile Include="Models\UserAdminModel.cs" />
