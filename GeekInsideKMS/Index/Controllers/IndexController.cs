@@ -38,6 +38,7 @@ namespace Index.Controllers
             if (result == true)
             {
                 FormsAuthentication.SetAuthCookie(Convert.ToString(userEmployeeModel.EmployeeNumber), false);
+                Session.Add("username", userEmployeeModel.EmployeeNumber);
                 return RedirectToAction("Index", "Index");
             }
             else
