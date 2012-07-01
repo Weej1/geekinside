@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="DALAdminAccount.cs" />
     <Compile Include="DALSiteNews.cs" />
+    <Compile Include="DALUserAccount.cs" />
     <Compile Include="GeekInsideEF.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

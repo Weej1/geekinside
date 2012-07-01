@@ -16,7 +16,7 @@
                     <dt class="portletHeader">相关操作 </dt>
                     <dd class="portletItem">
                         <ul class="portletNavigationTree navTreeLevel0" id="left-view-list">
-                            <li class="navTreeItem"><a href="#">
+                            <li class="navTreeItem"><a href="/Document/Upload">
                                 <img src="/Content/images/icons/file.gif" class="iconimg">发布新文档</a> </li>
                         </ul>
                     </dd>

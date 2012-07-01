@@ -20,6 +20,12 @@ namespace DALFactory
             return (IDALAdminAccount)Assembly.Load(path).CreateInstance(className);
         }
 
+        public static IDALUserAccount CreateUserDAL()
+        {
+            string className = path + ".DALUserAccount";
+            return (IDALUserAccount)Assembly.Load(path).CreateInstance(className);
+        }
+
         public static IDALSiteConfig CreateSiteConfiguraionDAL()
         {
             string className = path + ".DALSiteConfig";

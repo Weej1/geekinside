@@ -40,7 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLLAdminAcount.cs" />
+    <Compile Include="BLLAdminAccount.cs" />
+    <Compile Include="BLLUserAccount.cs" />
     <Compile Include="BLLSiteNews.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BLLSiteConfig.cs" />

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Model.Models;
+using BLL;
+using System.Web.Security;
 
 namespace Index.Controllers
 {
@@ -10,8 +13,13 @@ namespace Index.Controllers
     {
         // GET: /Index/
         // 显示主页
+        [Authorize]
         public ActionResult Index()
         {
+            ViewData["sitename"] = new BLLSiteConfig().getSiteConfigByPropertyName("sitename").PropertyValue;
+            ViewData["smtpaddress"] = new BLLSiteConfig().getSiteConfigByPropertyName("smtpaddress").PropertyValue;
+            ViewData["smtpusername"] = new BLLSiteConfig().getSiteConfigByPropertyName("smtpusername").PropertyValue;
+            ViewData["smtppassword"] = new BLLSiteConfig().getSiteConfigByPropertyName("smtppassword").PropertyValue;
             return View();
         }
 
@@ -20,6 +28,23 @@ namespace Index.Controllers
         public ActionResult Login()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(UserEmployeeModel userEmployeeModel)
+        {
+            BLLUserAccount bllUserAccount = new BLLUserAccount();
+            Boolean result = bllUserAccount.CheckUserLogin(userEmployeeModel);
+            if (result == true)
+            {
+                FormsAuthentication.SetAuthCookie(Convert.ToString(userEmployeeModel.EmployeeNumber), true);
+                return RedirectToAction("Index", "Index");
+            }
+            else
+            {
+                ViewData["errorMsg"] = "用户名和密码错误";
+                return View();
+            }
         }
 
     }
