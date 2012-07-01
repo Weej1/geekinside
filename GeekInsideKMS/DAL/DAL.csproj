@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="DALAdminAccount.cs" />
     <Compile Include="DALDocument.cs" />
+    <Compile Include="DALEmployeeDetail.cs" />
+    <Compile Include="DALFileType.cs" />
     <Compile Include="DALSiteNews.cs" />
     <Compile Include="DALTag.cs" />
     <Compile Include="DALUserAccount.cs" />
