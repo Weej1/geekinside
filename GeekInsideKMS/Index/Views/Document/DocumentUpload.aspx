@@ -24,7 +24,7 @@
             $("#uploader").plupload({
                 // General settings
                 runtimes: 'html5,silverlight,flash,gears,browserplus',
-                url: 'http://localhost:1646/UploadHandler.ashx',
+                url: '/UploadHandler.ashx',
                 max_file_size: '2gb',
                 chunk_size: '128kb',
                 max_file_count: 10,
@@ -54,94 +54,97 @@
 
             uploader.bind('UploadFile', function (up, file) {
                 $.extend(up.settings.multipart_params, { id: file.id });
+                $("#attention").hide();
+                var str = "<div class='file_detail' id=file_" + file.id + ">" +
+            "<h3 class='fill_one'>填写文档信息: " + file.name + "</h3>" +
+            "<form action='' method='post' id='file_D'>" +
+              "<table style='border-spacing:10px !important'>" +
+                 "<tr>" +
+                   "<th>" +
+                    "<label><font color='red'>*</font>介绍</label>" +
+                   "</th>" +
+                   "<td>" +
+                    "<textarea id='content" + file.id + "'name='content' rows='10' cols='70' class='required'></textarea>" +
+                    "<br/>" +
+                    "<label for='content' class='error' style='display:none' id='content_label" + file.id + "'></label>" +
+                  "</td>" +
+                 "</tr>" +
+                 "<tr>" +
+                   "<td style='text-align:right' colspan='2'>" +
+                     "<input type='hidden' value='1' name='type'/>" +
+                     "<input id='fileD_submit" + file.id + "' type='submit' disabled='disabled' class='submitBtnDisabled'/>" +
+                   "</td>" +
+                 "</tr>" +
+               "</table>" +
+            "</form>" +
+          "</div>";
+                $("#detail").append(str);
+                $("#file_" + file.id).slideDown();
+                triggerValidate(file.id, file);
             });
 
-
             uploader.bind('FileUploaded', function (up, file, res) {
-                $.ajax({ url: "/QboxFile/SuccessUpload",
-                    type: 'post',
-                    dataType: 'json',
-                    data: { 'id': file.id, 'fileName': file.name }
-                });
+                $("#fileD_submit" + file.id).removeAttr("disabled");
+                $("#fileD_submit" + file.id).attr("class","submitBtn") ;
             });
 
             uploader.bind('FilesRemoved', function (up, files) {
-                $.ajax({ url: "/QboxFile/CancelFileUploaded",
-                    type: 'post',
-                    dataType: 'json',
-                    data: { 'id': files[0].id, 'fileName': files[0].name }
-                });
-            });
-
-            // Client side form validation
-            $('form').submit(function (e) {
-                // Files in queue upload them first
-                if (uploader.files.length > 0) {
-                    // When all files are uploaded submit form
-                    uploader.bind('StateChanged', function () {
-                        if (uploader.files.length === (uploader.total.uploaded + uploader.total.failed)) {
-                            $('form')[0].submit();
-                        }
+                if (files[0].status != 1) {
+                    $.ajax({ url: "/Document/CancelFileUploaded",
+                        type: 'post',
+                        dataType: 'json',
+                        data: { 'id': files[0].id, 'fileName': files[0].name }
                     });
-
-                    uploader.start();
-                } else {
-                    alert('You must queue at least one file.');
                 }
-
-                return false;
+                $("#file_" + files[0].id).remove();
+                if (up.files.length == 0) {
+                    $("#attention").show();
+                }
             });
-
 
         });
 	</script>
     <script type="text/javascript">
-        $(function () {
-            var isLegal1 = false;
-            var isLegal2 = false;
-            $("#title").blur(function (e) {
-                if ($("#title").val() == "") {
-                    $("#title_label").css("display", "inline-block");
-                    $("#title_label").html("标题不能为空");
-                    isLegal1 = false;
+        function triggerValidate(file_id, file) {
+            var isLegal = false;
+            $("#content" + file_id).blur(function (e) {
+                if ($("#content" + file_id).val() == "") {
+                    $("#content_label" + file_id).css("display", "inline-block");
+                    $("#content_label" + file_id).html("介绍不能为空");
+                    isLegal = false;
                 }
-                else if ($("#title").val().length >= 3 && $("#title").val().length <= 10) {
-                    $("#title_label").css("display", "none");
-                    isLegal1 = true;
+                else if ($("#content" + file_id).val().length >= 10 && $("#content" + file_id).val().length <= 300) {
+                    $("#content_label" + file_id).css("display", "none");
+                    isLegal = true;
                 }
                 else {
-                    $("#title_label").css("display", "inline-block");
-                    $("#title_label").html("标题的字数在3到10之间");
-                    isLegal1 = false;
+                    $("#content_label" + file_id).css("display", "inline-block");
+                    $("#content_label" + file_id).html("介绍的字数在10到300之间");
+                    isLegal = false;
                 }
             });
 
-            $("#content").blur(function (e) {
-                if ($("#content").val() == "") {
-                    $("#content_label").css("display", "inline-block");
-                    $("#content_label").html("介绍不能为空");
-                    isLegal2 = false;
-                }
-                else if ($("#content").val().length >= 10 && $("#content").val().length <= 300) {
-                    $("#content_label").css("display", "none");
-                    isLegal2 = true;
-                }
-                else {
-                    $("#content_label").css("display", "inline-block");
-                    $("#content_label").html("介绍的字数在10到300之间");
-                    isLegal2 = false;
-                }
-            });
-
-            $("#fileD_submit").click(function (e) {
-                $("#title").blur();
-                $("#content").blur();
-                if (isLegal1 && isLegal2) {
-                    return true;
+            $("#fileD_submit" + file_id).click(function (e) {
+                $("#content" + file_id).blur();
+                var fileName = file.name;
+                var str = fileName.substring(fileName.lastIndexOf("."));
+                if (isLegal) {
+                    $.ajax({ url: "/Document/FileDetail",
+                        type: 'post',
+                        dataType: 'json',
+                        data: { 'fileDiskName': file.id + str,
+                            'fileDisplayName': file.name,
+                            'size': file.size,
+                            'discription': $("#content" + file_id).val(),
+                            'folderId': 1,
+                            'success': function () {
+                            }
+                        }
+                    });
                 }
                 return false;
             });
-        });
+        };
     </script>
     <style type="text/css">
         #file_D label.error
@@ -193,38 +196,8 @@
             </table>
           </div>
          </div>
-         <div class="file_detail">
-            <h3 id="fill_one">填写文档信息</h3>
-            <form action="" method="post" id="file_D">
-              <table style="border-spacing:10px !important">
-                <tr>
-                  <th>
-                    <label><font color="red">*</font>标题</label>
-                  </th>
-                  <td>
-                    <input type="text" name="title" class="required" id="title" />
-                    <br/>
-                    <label for="title" class="error" id="title_label" style="display:none"></label>
-                  </td>
-                 </tr>
-                 <tr>
-                   <th>
-                    <label><font color="red">*</font>介绍</label>
-                   </th>
-                   <td>
-                    <textarea id="content" name="content" rows="10" cols="70" class="required"></textarea>
-                    <br/>
-                    <label for="content" class="error" style="display:none" id="content_label"></label>
-                   </td>
-                 </tr>
-                 <tr>
-                   <td style="text-align:right" colspan="2">
-                     <input id="fileD_submit" type="button" class="submitBtn"/>
-                   </td>
-                 </tr>
-               </table>
-            </form>
-          </div>
+         <div id="detail">
+        </div>
      </div>
 </asp:Content>
 
