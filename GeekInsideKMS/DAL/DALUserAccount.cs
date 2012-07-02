@@ -154,5 +154,22 @@ namespace DAL
 
             return maxEmpNumber;
         }
+
+        public Boolean UpdateUserDetailAccount(UserEmployeeDetailModel userEmployeeDetail)
+        {
+            geekinsidekmsEntities context = new geekinsidekmsEntities();
+
+            UserEmployeeDetail empDetal = (from d in context.UserEmployeeDetails
+                                           where d.Id == userEmployeeDetail.Id
+                                           select d).FirstOrDefault();
+
+            empDetal.EmployeeNumber = userEmployeeDetail.EmployeeNumber;
+            empDetal.Name = userEmployeeDetail.Name;
+            empDetal.Email = userEmployeeDetail.Email;
+            empDetal.Phone = userEmployeeDetail.Phone;
+
+            context.SaveChanges();
+            return true;
+        }
     }
 }

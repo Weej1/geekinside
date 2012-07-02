@@ -44,16 +44,40 @@ namespace Index.Controllers
         [Authorize]
         public ActionResult Profile()
         {
-            //待写
+            int employeeNumber = Convert.ToInt32(User.Identity.Name);
+            UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(employeeNumber);
+            UserEmployeeDetailModel empDetailModel = new BLLUserAccount().GetUserDetailByEmpNumber(employeeNumber);
+            ViewData["empModel"] = empModel;
+            ViewData["empDetailModel"] = empDetailModel;
             return View();
         }
 
         [HttpPost]
         [Authorize]
-        public ActionResult doProfile(UserEmployeeModel userEmployeeModel)
+        public ActionResult doProfile()
         {
-            //待写
-            return View();
+            UserEmployeeDetailModel empDetailModel = new UserEmployeeDetailModel
+            {
+                Id = Convert.ToInt32(Request.Form["empDetailId"]),
+                EmployeeNumber = Convert.ToInt32(User.Identity.Name),
+                Name = Request.Form["name"],
+                Email = Request.Form["email"],
+                Phone = Request.Form["phone"]
+            };
+            //非空验证
+            if (empDetailModel.Name == "" || empDetailModel.Email == "" || empDetailModel.Phone == "")
+            {
+                TempData["errorMsg"] = "请填写所有的字段。";
+            }
+            else if (new BLLUserAccount().UpdateUserDetailAccount(empDetailModel))
+            {
+                TempData["successMsg"] = "保存成功。";
+            }
+            else
+            {
+                TempData["errorMsg"] = "保存失败。";
+            }
+            return RedirectToAction("Profile", "User");
         }
 
         //我的未审核文档
