@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Profile.master" Inherits="System.Web.Mvc.ViewPage" %>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="TitleContent" runat="server">
-    查看文档列表
+    搜索结果列表
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
@@ -18,9 +18,9 @@
                     <% } %>
                     <p class="discreet">
                         <% Model.Models.UserEmployeeDetailModel empDetailModel = (Model.Models.UserEmployeeDetailModel)ViewData["empDetailModel"]; %>
-                        下面是用户 <strong><%:empDetailModel.Name%></strong> 所有已发布的文档列表：</p>
+                        下面是搜索结果：</p>
                     <% if (ViewData["docList"].Equals("nodata")) { %>
-                        <p style="color:red;">该用户暂无已发布的文档</p>
+                        <p style="color:red;">暂无搜索结果。</p>
                     <%}else{%>
                         <% List<Model.Models.DocumentModel> docList = (List<Model.Models.DocumentModel>)ViewData["docList"]; %>
                         <% foreach (var doc in docList) { %>
@@ -43,11 +43,6 @@
                             <div class="itemInfo">
                                 <h1>
                                     <a class="title clean" target="_blank" href="/Document/Detail?docid=<%: doc.Id %>"><%: doc.FileDisplayName%></a>
-                                    <% if(!empDetailModel.EmployeeNumber.Equals(doc.PublisherNumber)) {%>
-                                    <span class="docListOperation">
-                                        <a href="/User/addFavorite?docid=<%: doc.Id %>&returnURL=Workshop">收藏</a>
-                                    </span>
-                                    <%} %>
                                 </h1>
                                 
                                 <p class="discreet" style="margin: -5pt 0 2px;">

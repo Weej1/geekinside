@@ -26,8 +26,16 @@ namespace Index.Controllers
         public ActionResult doBasicSearch()
         {
             string sw = Request.Form["sw"];
-            
-            return View();
+            List<DocumentModel> docList = new BLLSearch().getResultBasicSearch(sw);
+            if (docList.Count == 0)
+            {
+                ViewData["docList"] = "nodata";
+            }
+            else
+            {
+                ViewData["docList"] = docList;
+            }
+            return View("BasicSearchResult");
         }
 
         //高级搜索

@@ -334,5 +334,122 @@ namespace DAL
                 return docList;
             }
         }
+
+        //搜索标题
+        public List<DocumentModel> getDocModelListBySearchTitle(string sw)
+        {
+            using (var gikms = new geekinsidekmsEntities())
+            {
+                List<DAL.Document> docTempList = new List<DAL.Document>();
+                docTempList = (from d in gikms.Documents
+                               where d.FileDisplayName.Contains(sw)
+                               select d).ToList();
+                //生成最终List
+                List<DocumentModel> docList = new List<DocumentModel>();
+                foreach (DAL.Document doc in docTempList)
+                {
+                    List<TagModel> tagIdArray = new DALTag().getTagModelListByDocId(doc.Id);
+                    docList.Add(new DocumentModel
+                    {
+                        Id = doc.Id,
+                        FileDisplayName = doc.FileDisplayName,
+                        FileDiskName = doc.FileDiskName,
+                        Description = doc.Description,
+                        FileTagIdArray = tagIdArray,
+                        FolderId = doc.FolderId,
+                        FileTypeId = doc.FileTypeId,
+                        FileTypeName = doc.FileTypeReference.Value.TypeName,
+                        PublisherNumber = doc.PublisherNumber,
+                        PublisherName = doc.PublisherName,
+                        PubTime = doc.PubTime,
+                        CheckerNumber = doc.CheckerNumber,
+                        CheckerName = doc.CheckerName,
+                        Size = doc.Size,
+                        ViewNumber = doc.ViewNumber,
+                        DownloadNumber = doc.DownloadNumber,
+                        IsChecked = doc.IsChecked
+                    });
+                }
+                return docList;
+            }
+        }
+
+        //搜索描述
+        public List<DocumentModel> getDocModelListBySearchDescription(string sw)
+        {
+            using (var gikms = new geekinsidekmsEntities())
+            {
+                List<DAL.Document> docTempList = new List<DAL.Document>();
+                docTempList = (from d in gikms.Documents
+                               where d.Description.Contains(sw)
+                               select d).ToList();
+                //生成最终List
+                List<DocumentModel> docList = new List<DocumentModel>();
+                foreach (DAL.Document doc in docTempList)
+                {
+                    List<TagModel> tagIdArray = new DALTag().getTagModelListByDocId(doc.Id);
+                    docList.Add(new DocumentModel
+                    {
+                        Id = doc.Id,
+                        FileDisplayName = doc.FileDisplayName,
+                        FileDiskName = doc.FileDiskName,
+                        Description = doc.Description,
+                        FileTagIdArray = tagIdArray,
+                        FolderId = doc.FolderId,
+                        FileTypeId = doc.FileTypeId,
+                        FileTypeName = doc.FileTypeReference.Value.TypeName,
+                        PublisherNumber = doc.PublisherNumber,
+                        PublisherName = doc.PublisherName,
+                        PubTime = doc.PubTime,
+                        CheckerNumber = doc.CheckerNumber,
+                        CheckerName = doc.CheckerName,
+                        Size = doc.Size,
+                        ViewNumber = doc.ViewNumber,
+                        DownloadNumber = doc.DownloadNumber,
+                        IsChecked = doc.IsChecked
+                    });
+                }
+                return docList;
+            }
+        }
+
+        //基本搜索
+        public List<DocumentModel> getResultBySearchTitleAndDescription(string sw)
+        {
+            using (var gikms = new geekinsidekmsEntities())
+            {
+                List<DAL.Document> docTempList = new List<DAL.Document>();
+                docTempList = (from d in gikms.Documents
+                               where d.FileDisplayName.Contains(sw) || d.Description.Contains(sw)
+                               select d).ToList();
+                //生成最终List
+                List<DocumentModel> docList = new List<DocumentModel>();
+                foreach (DAL.Document doc in docTempList)
+                {
+                    List<TagModel> tagIdArray = new DALTag().getTagModelListByDocId(doc.Id);
+                    docList.Add(new DocumentModel
+                    {
+                        Id = doc.Id,
+                        FileDisplayName = doc.FileDisplayName,
+                        FileDiskName = doc.FileDiskName,
+                        Description = doc.Description,
+                        FileTagIdArray = tagIdArray,
+                        FolderId = doc.FolderId,
+                        FileTypeId = doc.FileTypeId,
+                        FileTypeName = doc.FileTypeReference.Value.TypeName,
+                        PublisherNumber = doc.PublisherNumber,
+                        PublisherName = doc.PublisherName,
+                        PubTime = doc.PubTime,
+                        CheckerNumber = doc.CheckerNumber,
+                        CheckerName = doc.CheckerName,
+                        Size = doc.Size,
+                        ViewNumber = doc.ViewNumber,
+                        DownloadNumber = doc.DownloadNumber,
+                        IsChecked = doc.IsChecked
+                    });
+                }
+                return docList;
+            }
+        }
     }
 }
