@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.IO;
 using System.Collections.Specialized;
+using Utils;
 
 namespace Index
 {
@@ -30,7 +31,7 @@ namespace Index
 
                 string extension = fileName.Substring(fileName.LastIndexOf('.'));
                 buffer = new Byte[count];
-                string filePath = Path.Combine(context.Server.MapPath("~/uploadfiles/temp"), id+extension);
+                string filePath = Helper.REPO_ROOT + "\\temp\\" + id + extension;
                 using (var fs = new FileStream(filePath, chunk.Equals("0") ? FileMode.Create : FileMode.Append))
                 {
                     if (context.Request.Files.Count > 0)

@@ -118,7 +118,7 @@ namespace Index.Controllers
             return RedirectToAction(returnURL, "User");
         }
 
-
+        //取消文件上传
         [Authorize]
         public void CancelFileUploaded(string id, string fileName)
         {
@@ -126,13 +126,14 @@ namespace Index.Controllers
             bllDoc.DeleteTempFile(id, fileName);
         }
 
+        //提交文件信息
         [Authorize]
         public JsonResult FileDetail(DocumentModel document)
         {
             BLLDocument bllDoc = new BLLDocument();
-            if (Session["username"] != null)
+            if (User.Identity.Name != null)
             {
-                return Json(bllDoc.AddDocument(document, (Int32)Session["username"], Server.MapPath("~/")));
+                return Json(bllDoc.AddDocument(document, Convert.ToInt32(User.Identity.Name)));
             }
             return Json(false);
         }
