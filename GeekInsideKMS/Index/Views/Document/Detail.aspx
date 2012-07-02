@@ -26,18 +26,16 @@
                 </div>
                 <div class="contentbar_right">
                     <div class="button-group mini">
-                        <button class="KSSActionServer KSSLoad button">
+                        <button class="KSSActionServer KSSLoad button" onclick= "self.location='/Document/Download?docid=<%:docModel.Id %>">
                             下载</button>
-                        <button class="KSSActionServer KSSLoad button">
+                        <button class="KSSActionServer KSSLoad button" onclick= "self.location='/User/addFavorite?docid=<%:docModel.Id %>&returnURL=Index'">
                             收藏</button>
                         <!-- 上传者可见 -->
                         <% if (docModel.PublisherNumber.Equals(Convert.ToInt32(Page.User.Identity.Name)))
                         {%>
-                        <button class="KSSActionServer KSSLoad button">
-                            编辑信息</button>
+                        <button class="KSSActionServer KSSLoad button" onclick= "self.location='/Document/Edit?docid=<%:docModel.Id %>'">编辑信息</button>
                         <% }
                          %>
-                        
                     </div>
                 </div>
             </div>

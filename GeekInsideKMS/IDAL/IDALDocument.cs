@@ -22,5 +22,6 @@ namespace IDAL
         List<DocumentModel> getDocModelListBySearchTitle(string sw);
         List<DocumentModel> getDocModelListBySearchDescription(string sw);
         List<DocumentModel> getResultBySearchTitleAndDescription(string sw);
+        List<DocumentModel> getAllDocOrderByPubtime();
     }
 }

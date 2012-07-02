@@ -132,8 +132,7 @@
                 </div>
             </dt>
             <dd class="portletItem KSSShowHideTarget_1">
-                <p>
-                    这里显示热门标签</p>
+                <p>132</p>
             </dd>
         </dl>
         <dl class="portlet transparentPortlet">

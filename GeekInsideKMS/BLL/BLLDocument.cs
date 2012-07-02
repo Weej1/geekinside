@@ -111,5 +111,10 @@ namespace BLL
         {
             return documentDAL.getAllCheckedByPublisherNumber(empno);
         }
+
+        public List<DocumentModel> getAllDocOrderByPubtime()
+        {
+            return documentDAL.getAllDocOrderByPubtime();
+        }
     }
 }
