@@ -1,24 +1,20 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Main.Master" Inherits="System.Web.Mvc.ViewPage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Admin.master" Inherits="System.Web.Mvc.ViewPage" validateRequest="false"%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    编辑文档信息 - Geek Inside 知识管理系统
+    编辑文档 - Geek Inside 知识管理系统
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
+    <script src="/content/js/editor/kindeditor.js"></script>
 </asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="LeftPlaceHolder" runat="server">
-    <style type="text/css">
-    #portal-column-one{display:none;width:0;}
-    </style>
-</asp:Content>
-<asp:Content ID="Content4" ContentPlaceHolderID="MiddlePlaceHolder" runat="server">
+<asp:Content ID="Content3" ContentPlaceHolderID="MiddlePlaceHolder" runat="server">
     <% Model.Models.DocumentModel docModel = (Model.Models.DocumentModel)ViewData["docModel"]; %>
     <% if (docModel.IsChecked.Equals(true))
        {%>
-        <div class="page-intro">这是一篇已发布的文档，编辑之后需要重新审核！</div>
+        <div class="admin-intro">这是一篇已发布的文档</div>
     <%}
        else
        { %>
-       <div class="page-intro">这是一篇正在审核中的文档，编辑之后请继续等待审核！</div>
+       <div class="admin-intro">这是一篇正在审核中的文档，编辑之后仍需继续等待审核。</div>
     <%} %>
     <form action="/Document/doEdit" method="post" name="docdetail" id="docdetail">
         <table border="0" cellspacing="0" cellpadding="0" width="100%">
@@ -61,14 +57,9 @@
             <tr style="height:50px;">
                 <td>
                 <input type="hidden" name="id" value="<%:docModel.Id %>" />
-                <input type="button" class="button" value="提交修改"  onclick="javascript:document.forms[1].submit();"></td>
+                <input type="button" class="button" value="提交修改"  onclick="javascript:document.forms[0].submit();"></td>
                 <td><td>
             </tr>
         </table>
     </form>
-</asp:Content>
-<asp:Content ID="Content5" ContentPlaceHolderID="RightPlaceHolder" runat="server">
-    <style type="text/css">
-    #portal-column-two{display:none;width:0;}
-    </style>
 </asp:Content>

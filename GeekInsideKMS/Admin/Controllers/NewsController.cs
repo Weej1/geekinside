@@ -122,7 +122,7 @@ namespace Admin.Controllers
         [Authorize]
         public ActionResult deleteMultiNews(string[] selected_news)
         {
-            //char[] allCheckboxs = Request.Form["selected_news"].ToArray();
+
             Boolean result = true;
             foreach (string checkbox in selected_news)
             {

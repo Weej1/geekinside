@@ -47,7 +47,7 @@ namespace Index.Controllers
         public ActionResult Edit(int docid,string returnURL)
         {
             //先要判断当前用户是否有权限编辑这篇文档（是不是发布者）
-            string employeeNumber = Session["username"].ToString();
+            string employeeNumber = User.Identity.Name;
             DocumentModel docModel = new BLLDocument().getDocumentById(docid);
             if (employeeNumber == "" || docModel == null || docModel.PublisherNumber != Convert.ToInt32(employeeNumber))
             {
@@ -60,11 +60,21 @@ namespace Index.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult doEdit(DocumentModel docModel)
+        public ActionResult doEdit()
         {
-            //这里还没写
-            string employeeNumber = Session["username"].ToString();
-            TempData["successMsg"] = "更新成功。";
+            //标签暂时还不能改
+            DocumentModel docModel = new DocumentModel();
+            docModel.Id = Convert.ToInt32(Request.Form["id"]);
+            docModel.FileDisplayName = Request.Form["filedisplayname"];
+            docModel.Description = Request.Form["description"];
+            if (new BLLDocument().updateDocument(docModel))
+            {
+                TempData["successMsg"] = "更新成功。";
+            }
+            else
+            {
+                TempData["errorMsg"] = "更新失败。";
+            }
             return RedirectToAction("Workshop", "User");
         }
 

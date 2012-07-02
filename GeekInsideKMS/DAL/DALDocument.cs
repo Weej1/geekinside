@@ -48,6 +48,10 @@ namespace DAL
             List<DocumentModel> favDocumentModelList = new List<DocumentModel>();
             List<FavoriteModel> favModelList = new List<FavoriteModel>();
             favModelList = new DALFavorite().getFavoriteDocListByEmployeeNumber(publisherNumber);
+            if (favModelList.Count == 0)
+            {
+                return favDocumentModelList;
+            }
             foreach (FavoriteModel favModel in favModelList)
             {
                 favDocumentModelList.Add(getDocumentById(favModel.DocumentId));
@@ -124,12 +128,28 @@ namespace DAL
         public Boolean deleteDocumentById(int docid)
         {
             geekinsidekmsEntities context = new geekinsidekmsEntities();
+            //如果这篇文档被人收藏了，要先删除收藏，否则会报错
+            List<DAL.Favorite> dbFavList = (from fav in context.Favorites
+                                            where fav.DocumentId.Equals(docid)
+                                            select fav).ToList();
+            if (dbFavList.Count > 0)
+            {
+                DALFavorite dalFavorite = new DALFavorite();
+                foreach (DAL.Favorite fav in dbFavList)
+                {
+                    dalFavorite.deleteFavById(fav.EmployeeNumber, fav.DocumentId);
+                }
+            } 
+            else
+            {
+                DAL.Document dbDoc = (from doc in context.Documents
+                                      where doc.Id.Equals(docid)
+                                      select doc).FirstOrDefault();
+                context.DeleteObject(dbDoc);
 
-            DAL.Document dbDoc = (from doc in context.Documents
-                                  where doc.Id.Equals(docid)
-                                  select doc).FirstOrDefault();
-            context.DeleteObject(dbDoc);
-            context.SaveChanges();
+                context.SaveChanges();
+            }
+            
             return true;
         }
 
@@ -298,5 +318,18 @@ namespace DAL
             return docList;
         }
 
+        //更新单个文档
+        public Boolean updateDocument(DocumentModel docModel)
+        {
+            geekinsidekmsEntities context = new geekinsidekmsEntities();
+
+            DAL.Document dbDoc = (from doc in context.Documents
+                                  where doc.Id.Equals(docModel.Id)
+                                  select doc).FirstOrDefault();
+            dbDoc.FileDisplayName = docModel.FileDisplayName;
+            dbDoc.Description = docModel.Description;
+            context.SaveChanges();
+            return true;
+        }
     }
 }
