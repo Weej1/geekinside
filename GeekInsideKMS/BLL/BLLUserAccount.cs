@@ -32,10 +32,10 @@ namespace BLL
             return userEmployeeModel.Password == encryptPassword;
         }
 
-        public Boolean CreateUserAccount(UserEmployeeModel userEmployeeModel, UserEmployeeDetailModel userEmployeeDetailModel)
+        public Boolean CreateUserAccount(UserEmployeeModel userEmployeeModel)
         {
             userEmployeeModel.Password = Helper.EncryptByMD5(userEmployeeModel.Password);
-            userDAL.CreateUserAccount(userEmployeeModel, userEmployeeDetailModel);
+            userDAL.CreateUserAccount(userEmployeeModel);
             return true;
         }
 

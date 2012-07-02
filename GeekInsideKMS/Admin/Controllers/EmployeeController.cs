@@ -7,6 +7,10 @@ using System.Web.Security;
 using Model.Models;
 using BLL;
 using System.Text.RegularExpressions;
+using System.IO;
+using System.Data.OleDb;
+using System.Data;
+using System.Transactions;
 
 namespace Admin.Controllers
 {
@@ -30,7 +34,7 @@ namespace Admin.Controllers
             List<UserEmployeeModel> empList = new List<UserEmployeeModel>();
             BLLUserAccount bllUserAccount = new BLLUserAccount();
             empList = bllUserAccount.GetAllEmployeeDetails();
-            if (empList.Count == 0) 
+            if (empList.Count == 0)
             {
                 ViewData["empList"] = "nodata";
             }
@@ -72,7 +76,7 @@ namespace Admin.Controllers
             {
                 empList = bllUserAccount.GetAllEmployeeDetails();
             }
-            else 
+            else
             {
                 empList = bllUserAccount.GetEmployeeDetailsByDept(deptId);
             }
@@ -82,7 +86,7 @@ namespace Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult doCreateUser() 
+        public ActionResult doCreateUser()
         {
             string REGEXP_IS_VALID_EMAIL = @"^\w+((-\w+)(\.\w+))*\@\w+((\.-)\w+)*\.\w+$";  //电子邮件校验常量
 
@@ -90,38 +94,37 @@ namespace Admin.Controllers
             UserEmployeeModel userEmployeeModel = new UserEmployeeModel();
             UserEmployeeDetailModel userEmployeeDetailModel = new UserEmployeeDetailModel();
 
-            userEmployeeModel.EmployeeNumber = bllUserAccount.GetMaxEmployeeNumber() + 1;            
+            userEmployeeModel.EmployeeNumber = bllUserAccount.GetMaxEmployeeNumber() + 1;
             userEmployeeModel.Password = "123456";
             userEmployeeModel.DepartmentId = Convert.ToInt32(Request.Form["dept_name"]);
-            userEmployeeModel.IsManager = (Convert.ToInt32(Request.Form["isManager"])==0 ? false : true);
-            userEmployeeModel.IsChecker = (Convert.ToInt32(Request.Form["isChecker"])==0 ? false : true);
-            userEmployeeModel.IsAvailable = (Convert.ToInt32(Request.Form["isAvailable"])==0 ? false : true);
+            userEmployeeModel.IsManager = (Convert.ToInt32(Request.Form["isManager"]) == 0 ? false : true);
+            userEmployeeModel.IsChecker = (Convert.ToInt32(Request.Form["isChecker"]) == 0 ? false : true);
+            userEmployeeModel.IsAvailable = (Convert.ToInt32(Request.Form["isAvailable"]) == 0 ? false : true);
 
-            userEmployeeDetailModel.EmployeeNumber = Convert.ToInt32(Request.Form["employeeNumber"]);
-            userEmployeeDetailModel.Name = Request.Form["name"];
-            userEmployeeDetailModel.Email = Request.Form["email"];
-            userEmployeeDetailModel.Phone = Request.Form["phone"];
+            userEmployeeModel.Name = Request.Form["name"];
+            userEmployeeModel.Email = Request.Form["email"];
+            userEmployeeModel.Phone = Request.Form["phone"];
 
-            if (userEmployeeDetailModel.Email == null || !Regex.IsMatch(userEmployeeDetailModel.Email, REGEXP_IS_VALID_EMAIL)) 
+            if (userEmployeeDetailModel.Email == null || !Regex.IsMatch(userEmployeeDetailModel.Email, REGEXP_IS_VALID_EMAIL))
             {
                 TempData["employeeNumberErrorMsg"] = "请输入正确的邮箱地址！";
                 return RedirectToAction("CreateUser", "Employee");
             }
 
-            if (userEmployeeDetailModel.Phone == null )
+            if (userEmployeeDetailModel.Phone == null)
             {
                 TempData["phoneErrorMsg"] = "请输入正确的手机号！";
                 return RedirectToAction("CreateUser", "Employee");
             }
 
-            Boolean result = bllUserAccount.CreateUserAccount(userEmployeeModel, userEmployeeDetailModel);
-            
+            Boolean result = bllUserAccount.CreateUserAccount(userEmployeeModel);
+
             if (result == true)
             {
                 ViewData["successMsg"] = "添加成功";
                 return RedirectToAction("Index", "Employee");
             }
-            else 
+            else
             {
                 ViewData["errorMsg"] = "添加失败";
                 return RedirectToAction("Index", "Employee");
@@ -133,7 +136,7 @@ namespace Admin.Controllers
         {
             BLLUserAccount bllUserAccount = new BLLUserAccount();
             bllUserAccount.GetUserByEmpNumber(empNo);
-            if (bllUserAccount.DeleteUserAccount(bllUserAccount.GetUserByEmpNumber(empNo), 
+            if (bllUserAccount.DeleteUserAccount(bllUserAccount.GetUserByEmpNumber(empNo),
                 bllUserAccount.GetUserDetailByEmpNumber(empNo)))
             {
                 TempData["successMsg"] = "删除成功。";
@@ -146,7 +149,7 @@ namespace Admin.Controllers
         }
 
         [Authorize]
-        public ActionResult Edit(int empNo) 
+        public ActionResult Edit(int empNo)
         {
             IList<DepartmentModel> deptList = new List<DepartmentModel>();
             BLLDepartment bllDepartment = new BLLDepartment();
@@ -190,7 +193,7 @@ namespace Admin.Controllers
 
             UserEmployeeModel userEmployeeModel = bllUserAccount.GetUserByEmpNumber(Convert.ToInt32(Request.Form["empno"]));
 
-            if (Convert.ToString(Request.Form["password"]) != null) 
+            if (Convert.ToString(Request.Form["password"]) != null)
             {
                 userEmployeeModel.Password = Convert.ToString(Request.Form["password"]);
             }
@@ -254,6 +257,86 @@ namespace Admin.Controllers
                 TempData["errorMsg"] = "删除失败！";
                 return RedirectToAction("Index", "Employee");
             }
+        }
+
+        //批量导入
+        [HttpPost]
+        public ActionResult StationImport(HttpPostedFileBase filebase)
+        {
+            BLLUserAccount bllUserAccount = new BLLUserAccount();
+            HttpPostedFileBase file = Request.Files["files"];
+            string FileName;
+            string savePath;
+
+            if (file == null || file.ContentLength <= 0)
+            {
+                ViewData["errorMsg"] = "文件不能为空";
+                return View();
+            }
+
+            else
+            {
+                string filename = Path.GetFileName(file.FileName);
+                int filesize = file.ContentLength;//获取上传文件的大小单位为字节byte
+                string fileEx = System.IO.Path.GetExtension(filename);//获取上传文件的扩展名
+                string NoFileName = System.IO.Path.GetFileNameWithoutExtension(filename);//获取无扩展名的文件名
+                int Maxsize = 4000 * 1024;//定义上传文件的最大空间大小为4M
+                string FileType = ".xls,.xlsx";//定义上传文件的类型字符串
+
+                FileName = NoFileName + DateTime.Now.ToString("yyyyMMddhhmmss") + fileEx;
+                if (!FileType.Contains(fileEx))
+                {
+                    ViewData["errorMsg"] = "文件类型不对，只能导入xls和xlsx格式的文件";
+                    return View();
+                }
+                if (filesize >= Maxsize)
+                {
+                    ViewData["errorMsg"] = "上传文件超过4M，不能上传";
+                    return View();
+                }
+                string path = AppDomain.CurrentDomain.BaseDirectory + "uploads/excel/";
+                savePath = Path.Combine(path, FileName);
+                file.SaveAs(savePath);
+            }
+            //string result = string.Empty;
+            string strConn;
+            strConn = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + savePath + ";" + "Extended Properties=Excel 8.0";
+            OleDbConnection conn = new OleDbConnection(strConn);
+            conn.Open();
+            OleDbDataAdapter myCommand = new OleDbDataAdapter("select * from [Sheet1$]", strConn);
+            DataSet myDataSet = new DataSet();
+            try
+            {
+                myCommand.Fill(myDataSet, "ExcelInfo");
+            }
+            catch (Exception ex)
+            {
+                ViewData["errorMsg"] = ex.Message;
+                return View();
+            }
+            DataTable table = myDataSet.Tables["ExcelInfo"].DefaultView.ToTable();
+
+            //引用事务机制，出错时，事物回滚
+            using (TransactionScope transaction = new TransactionScope())
+            {
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    UserEmployeeModel temp = new UserEmployeeModel();
+                    temp.Name = table.Rows[i].ItemArray[0].ToString();
+                    temp.Email = table.Rows[i].ItemArray[1].ToString();
+                    temp.Phone = table.Rows[i].ItemArray[2].ToString();
+                    temp.DepartmentId = Convert.ToInt32(table.Rows[i].ItemArray[3].ToString());
+                    temp.IsManager = (Convert.ToInt32(table.Rows[i].ItemArray[4].ToString())== 0 ? false : true);
+                    temp.IsChecker = (Convert.ToInt32(table.Rows[i].ItemArray[5].ToString())== 0 ? false : true);
+                    temp.IsAvailable = (Convert.ToInt32(table.Rows[i].ItemArray[6].ToString()) == 0 ? false : true);
+                    bllUserAccount.CreateUserAccount(temp);
+                }
+                transaction.Complete();
+            }
+            ViewData["successMsg"] = "导入成功";
+            System.Threading.Thread.Sleep(2000);
+            return RedirectToAction("Index");
+
         }
     }
 }
