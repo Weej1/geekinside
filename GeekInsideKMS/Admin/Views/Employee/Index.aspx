@@ -10,11 +10,17 @@
         <div id="content">
             <div class="admin-intro">
                 关于人员信息的添加、修改、删除和其它操作</div>
+            <% if ( TempData["errorMsg"] != ""){ %>
+            <p style="color:red;font-weight:bold;"><%: TempData["errorMsg"]%></p>
+            <% } %>
+            <% if ( TempData["successMsg"] != ""){ %>
+            <p style="color:green;font-weight:bold;"><%: TempData["successMsg"]%></p>
+            <% } %>
             <p>
-                <input type="button" class="button" value="添加员工" onclick="/Employee/CreateUser"><span style="margin-left: 10px;"></span><input
-                    type="button" class="button" value="批量添加员工"></p>
+                <input type="button" class="button" value="添加员工" onclick= "self.location='/Employee/CreateUser'"><span style="margin-left: 10px;"></span><input
+                    type="button" class="button" value="批量添加员工" onclick= "self.location='/Employee/Index'"></p>
             <div class="FilterPersonsField">
-                <form name="filter_persons_form" method="post" action="/Employee/CreateUser">
+                <form name="filter_persons_form" method="post" action="/Employee/doCreateUser">
                 <strong>筛选/搜索：</strong> <span>部门:
                     <select name="dept_name" style="vertical-align: middle;">
                         <% if (ViewData["deptList"].Equals("nodata"))
@@ -41,7 +47,7 @@
                 </form>
             </div>
             <div id="PersonsTable">
-                <form name="persons_form" class="PersonsForm" method="post">
+                <form name="persons_form" class="PersonsForm" method="post" action="/Employee/deleteMultiEmps">
                 <table class="listing">
                     <thead>
                         <tr>
@@ -49,7 +55,7 @@
                                 <a class="SelectAll" href="#">全选</a> <a class="UnSelectAll hidden" href="#">不选</a>
                             </th>
                             <th>
-                                员工号
+                                员工号（点击可进行编辑）
                             </th>
                             <th>
                                 姓名
@@ -78,10 +84,10 @@
                            { %>
                         <tr class="even">
                             <td>
-                                <input type="checkbox" class="checkitem" name="selected_persons" value="admin-admin">
+                                <input type="checkbox" class="checkitem" name="selected_emps" value="<%:empDetail.EmployeeNumber %>">
                             </td>
                             <td>
-                                <a href="#">
+                                <a href="/Employee/Edit?empNo=<%: empDetail.EmployeeNumber %>">
                                     <%: empDetail.EmployeeNumber %></a>
                             </td>
                             <td>
@@ -110,7 +116,8 @@
                             <td>
                                 <a href="/Employee/Edit?empNo=<%: empDetail.EmployeeNumber %>" title="编辑">
                                     <img src="/Content/images/icons/edit.png" alt="编辑"></a>
-                                 <a href="/Employee/Delete?empNo=<%: empDetail.EmployeeNumber %>&returnURL=Index">删除</a>
+                                 <a href="/Employee/Delete?empNo=<%: empDetail.EmployeeNumber %>&returnURL=Index">
+                                    <img src="/Content/images/icons/trash.gif" alt="删除" /></a>
                             </td>
                         </tr>
                         <% } %>
@@ -118,7 +125,7 @@
                     </tbody>
                 </table>
                 <p>
-                    <input type="button" class="button" value="删除选中"><span style="margin-left: 10px;"></span><input
+                    <input type="button" class="button" value="删除选中" onclick="javascript:document.forms[1].submit();"><span style="margin-left: 10px;"></span><input
                         type="button" class="button" value="导出所有员工资料"></p>
                 </form>
             </div>
