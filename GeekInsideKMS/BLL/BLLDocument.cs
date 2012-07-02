@@ -5,6 +5,7 @@ using System.Text;
 using System.IO;
 using Model.Models;
 using IDAL;
+using Utils;
 
 namespace BLL
 {
@@ -22,7 +23,7 @@ namespace BLL
             }
         }
 
-        public bool AddDocument(DocumentModel document, int employeeNumber, string currentWorkSpacePath)
+        public bool AddDocument(DocumentModel document, int employeeNumber)
         {
             IDALFileType fileTypeDAL = DALFactory.DataAccess.CreateFileTypeDAL();
             IDALFolder folderDAL = DALFactory.DataAccess.CreateFolderDAL();
@@ -37,7 +38,7 @@ namespace BLL
 
             if (documentDAL.CreateDocument(document))
             {
-                MoveFile(document.FileDiskName, folderDAL.GetFolderById(document.FolderId).FolderName, currentWorkSpacePath);
+                MoveFile(document.FileDiskName, folderDAL.GetFolderById(document.FolderId).PhysicalPath);
                 return true;
             }
             else
@@ -56,10 +57,10 @@ namespace BLL
             return documentDAL.getAllUncheckedByPublisherNumber(publisherNumber);
         }
 
-        private void MoveFile(string fileName, string folderName, string currentWorkSpacePath)
+        private void MoveFile(string fileName, string physicalPath)
         {
-            string filePath = currentWorkSpacePath + "/uploadfiles/temp/" + fileName;
-            string newFilePath = currentWorkSpacePath + "/uploadfiles/" + folderName + "/" + fileName;
+            string filePath = Helper.REPO_ROOT + "\\temp\\" + fileName;
+            string newFilePath = Helper.REPO_ROOT + physicalPath + "\\" + fileName;
             if (File.Exists(filePath))
             {
                 File.Copy(filePath, newFilePath, false);

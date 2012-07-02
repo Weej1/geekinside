@@ -1,0 +1,126 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+.folder_wrapper{
+    display:none;
+	position:absolute;
+	background-color:#C1D9FF;
+	border-radius:1px;
+	width: 300px;
+	z-index:100;
+}
+
+.folder_header{
+    position:relative;
+	height:13px;
+	padding: 3px 5px;
+    color: #5F5C5C;
+	display:block;
+}
+
+.sub{
+	display:none;
+	margin-left:20px;
+}
+.close_bg{
+	float:right;
+	margin-top:3px;
+	cursor:pointer;
+}
+
+.folder_content{
+	position:relative;
+}
+
+.folder_bg{
+	position:relative;
+	background-color:#FFF;
+	margin:8px;
+	padding:0px, 10px, 10xp, 10px;
+}
+
+.portal_dl{
+	border-bottom: medium none;
+    margin: 0;
+}
+
+.portal_dd{
+	border: 0px;
+	margin-left: 20px;
+	padding-left:0;
+	padding-top:8px;
+	padding-bottom:8px;
+}
+
+.ul_tree{
+	list-style-type: none;
+}
+
+.navTreeItem{
+	display: block;
+    margin-right:18px;	
+}
+
+.content_folder{
+	font-size:12px;
+}
+
+.navTreeItem a{
+	display: block;
+    color: #5F5C5C;
+	padding:3px;
+    line-height: 15px;
+    text-decoration: none;
+	vertical-align:middle;
+}
+
+.navTreeItem a:hover{
+	background-color:#E3EDF7;
+}
+
+
+.collapseFlag{
+	height: 16px;
+    width: 16px;
+	vertical-align:middle;
+}
+
+.expandFlag{
+	height: 16px;
+    width: 16px;
+	display:none;
+	vertical-align:middle;
+}
+
+.folder_icon{
+	width:20px;
+	height:20px;
+	vertical-align:middle;
+}
+
+.content_folder span{
+	vertical-align:middle;
+}
+
+.type_choose{
+    display:block;
+	background-color:#090;
+	background-image: -o-linear-gradient(top, #00B400, #007700);
+	background-image: -moz-linear-gradient(top, #00B400, #007700);
+	border: 1px solid #333333;
+	border-radius: 6px;
+	box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.298), 0px 2px 2px rgba(0, 0, 0, 0.298), 0px 1px rgba(255, 255, 255, 0.600) inset;
+	color: #FFFFFF;
+	font-weight: 700;
+	height: 25px !important;
+	text-decoration: none;
+	text-shadow: 0px -1px rgba(0, 0, 0, 0.506);
+	width: 100px;
+	font: 12px/1.3 "Arial", "Helvetica", sans-serif;
+	cursor:pointer;
+	text-align:center !important;
+}
+
+.type_choose:hover{
+	box-shadow:0px 0px 0px rgba(0, 0, 0, 0.298);
+}
