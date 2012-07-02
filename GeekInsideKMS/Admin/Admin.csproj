@@ -168,7 +168,7 @@
     <Content Include="Views\Department\Create.aspx" />		
 	<Content Include="Views\Department\Edit.aspx" />		
 	<Content Include="Views\Department\Index.aspx" />		
-	<Content Include="Views\Document\Index.aspx" />
+	<Content Include="Views\Document\Edit.aspx" />
     <Content Include="Views\Document\Index.aspx" />
     <Content Include="Views\Employee\Edit.aspx" />
     <Content Include="Views\Employee\Index.aspx" />
