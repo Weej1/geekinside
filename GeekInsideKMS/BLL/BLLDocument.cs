@@ -83,6 +83,11 @@ namespace BLL
             return documentDAL.getToBeCheckedDocByCheckerNumber(employeeNumber);
         }
 
+        public List<DocumentModel> getAllToBeCheckedDoc()
+        {
+            return documentDAL.getAllToBeCheckedDoc();
+        }
+
         public List<DocumentModel> getHaveCheckedDocByCheckerNumber(int employeeNumber)
         {
             return documentDAL.getHaveCheckedDocByCheckerNumber(employeeNumber);
@@ -93,9 +98,9 @@ namespace BLL
             return documentDAL.setDocUncheckedById(docid);
         }
 
-        public Boolean setDocCheckedById(int docid)
+        public Boolean setDocCheckedById(int docid,int checkerEmpNumber)
         {
-            return documentDAL.setDocCheckedById(docid);
+            return documentDAL.setDocCheckedById(docid, checkerEmpNumber);
         }
 
         public List<DocumentModel> getTopTenDocumentByViewNumber()

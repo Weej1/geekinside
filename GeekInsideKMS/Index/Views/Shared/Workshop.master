@@ -28,9 +28,9 @@
                             <li class="navTreeItem"><a href="/User/Workshop">
                                 <img src="/Content/images/icons/file.gif" class="iconimg">我发布的文档</a> </li>
                             <li class="navTreeItem"><a href="/User/UnCheckedDocList">
-                                <img src="/Content/images/icons/file.gif" class="iconimg">待审核的文档</a> </li>
+                                <img src="/Content/images/icons/file.gif" class="iconimg">我待审核的文档</a> </li>
                             <li class="navTreeItem"><a href="/User/MyFavorite">
-                                <img src="/Content/images/icons/favorite.gif" class="iconimg">收藏夹</a> </li>
+                                <img src="/Content/images/icons/favorite.gif" class="iconimg">我的收藏夹</a> </li>
                         </ul>
                     </dd>
                 </dl>
@@ -42,7 +42,7 @@
                     <dd class="portletItem">
                         <ul class="portletNavigationTree navTreeLevel0" id="Ul1">
                             <li class="navTreeItem"><a href="/User/Checker">
-                                <img src="/Content/images/icons/file.gif" class="iconimg">待我审核的文档</a> </li>
+                                <img src="/Content/images/icons/file.gif" class="iconimg">待审核的文档</a> </li>
                             <li class="navTreeItem"><a href="/User/CheckedByMe">
                                 <img src="/Content/images/icons/file.gif" class="iconimg">我审核过的文档</a> </li>
                         </ul>
