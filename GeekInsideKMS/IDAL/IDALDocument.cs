@@ -18,5 +18,6 @@ namespace IDAL
         List<DocumentModel> getHaveCheckedDocByCheckerNumber(int employeeNumber);
         Boolean setDocUncheckedById(int docid);
         Boolean setDocCheckedById(int docid);
+        List<DocumentModel> getTopTenDocumentBy(string byWhat);
     }
 }

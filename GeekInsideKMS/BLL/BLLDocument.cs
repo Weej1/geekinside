@@ -96,5 +96,15 @@ namespace BLL
         {
             return documentDAL.setDocCheckedById(docid);
         }
+
+        public List<DocumentModel> getTopTenDocumentByViewNumber()
+        {
+            return documentDAL.getTopTenDocumentBy("ViewNumber");
+        }
+
+        public List<DocumentModel> getTopTenDocumentByDownloadNumber()
+        {
+            return documentDAL.getTopTenDocumentBy("DownloadNumber");
+        }
     }
 }
