@@ -38,6 +38,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -69,14 +70,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
-	<Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-	<Compile Include="Models\DepartmentRow.cs" />
+    <Compile Include="Models\DepartmentRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -165,14 +166,15 @@
     <Content Include="Scripts\jquery-1.7.2.min.js" />
     <Content Include="Views\Account\Login.aspx" />
     <Content Include="Views\Auth\Index.aspx" />
-    <Content Include="Views\Department\Create.aspx" />		
-	<Content Include="Views\Department\Edit.aspx" />		
-	<Content Include="Views\Department\Index.aspx" />		
-	<Content Include="Views\Document\Edit.aspx" />
+    <Content Include="Views\Department\Create.aspx" />
+    <Content Include="Views\Department\Edit.aspx" />
+    <Content Include="Views\Department\Index.aspx" />
+    <Content Include="Views\Document\Edit.aspx" />
     <Content Include="Views\Document\Index.aspx" />
     <Content Include="Views\Employee\Edit.aspx" />
     <Content Include="Views\Employee\Index.aspx" />
     <Content Include="Views\Employee\CreateUser.aspx" />
+    <Content Include="Views\Employee\StationImport.aspx" />
     <Content Include="Views\Index\Index.aspx" />
     <Content Include="Views\News\AddNews.aspx" />
     <Content Include="Views\News\Edit.aspx" />
@@ -188,7 +190,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Filters\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Admin.master" />

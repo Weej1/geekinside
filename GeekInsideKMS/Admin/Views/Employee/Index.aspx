@@ -18,7 +18,7 @@
             <% } %>
             <p>
                 <input type="button" class="button" value="添加员工" onclick= "self.location='/Employee/CreateUser'"><span style="margin-left: 10px;"></span><input
-                    type="button" class="button" value="批量添加员工" onclick= "self.location='/Employee/Index'"></p>
+                    type="button" class="button" value="批量添加员工" onclick= "self.location='/Employee/StationImport'"></p>
             <div class="FilterPersonsField">
                 <form name="filter_persons_form" method="post" action="/Employee/doCreateUser">
                 <strong>筛选/搜索：</strong> <span>部门:

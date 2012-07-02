@@ -65,14 +65,18 @@ namespace DAL
             }
         }
 
-        public Boolean CreateUserAccount(UserEmployeeModel userEmployeeModel, UserEmployeeDetailModel userEmployeeDetail) 
+        public Boolean CreateUserAccount(UserEmployeeModel userEmployeeModel) 
         {
             geekinsidekmsEntities context = new geekinsidekmsEntities();
 
             DAL.UserEmployee userEmployee = ConvertToDB(userEmployeeModel);
             context.AddToUserEmployees(userEmployee);
 
-            DAL.UserEmployeeDetail userDetail = ConvertToDBDetail(userEmployeeDetail);
+            DAL.UserEmployeeDetail userDetail = new DAL.UserEmployeeDetail();
+            userDetail.Name = userEmployeeModel.Name;
+            userDetail.Email = userEmployeeModel.Email;
+            userDetail.EmployeeNumber = userEmployeeModel.EmployeeNumber;
+            userDetail.Phone = userEmployeeModel.Phone;
             context.AddToUserEmployeeDetails(userDetail);
 
             context.SaveChanges();

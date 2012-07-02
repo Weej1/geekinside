@@ -10,7 +10,7 @@ namespace IDAL
     {
         UserEmployeeModel getUserByEmployeeNumber(int employeeNumber);
 
-        Boolean CreateUserAccount(UserEmployeeModel userEmployeeModel, UserEmployeeDetailModel userEmployeeDetail);
+        Boolean CreateUserAccount(UserEmployeeModel userEmployeeModel);
 
         Boolean UpdateUserAccount(UserEmployeeModel userEmployeeModel);
 
