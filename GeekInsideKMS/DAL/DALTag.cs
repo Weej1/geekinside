@@ -45,10 +45,15 @@ namespace DAL
         {
             using (var gikms = new geekinsidekmsEntities())
             {
-                var tagName = from tn in gikms.Tags
-                              where tn.Id.Equals(tagid)
-                              select tn;
-                return tagName.ToString();
+                var tag = (from tn in gikms.Tags
+                           where tn.Id.Equals(tagid)
+                           select tn).FirstOrDefault();
+                TagModel tagModel = new TagModel
+                {
+                    Id = tag.Id,
+                    TagName = tag.TagName
+                };
+                return tagModel.TagName;
             }
         }
     }

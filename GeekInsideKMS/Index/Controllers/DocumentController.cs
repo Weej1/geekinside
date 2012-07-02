@@ -13,7 +13,7 @@ namespace Index.Controllers
     {
         //
         // GET: /Document/
-        //相当于我发布的文档
+
         [Authorize]
         public ActionResult Index()
         {
@@ -22,8 +22,14 @@ namespace Index.Controllers
 
         // GET: /Document/Detail
         [Authorize]
-        public ActionResult Detail()
+        public ActionResult Detail(int docid)
         {
+            DocumentModel docModel = new BLLDocument().getDocumentById(docid);
+            ViewData["docModel"] = docModel;
+            List<DocumentModel> viewdocList = new BLLDocument().getTopTenDocumentByViewNumber();
+            ViewData["viewTop10Doc"] = viewdocList;
+            List<DocumentModel> dldocList = new BLLDocument().getTopTenDocumentByDownloadNumber();
+            ViewData["dlTop10Doc"] = dldocList;
             return View();
         }
 

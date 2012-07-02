@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Detail.master" Inherits="System.Web.Mvc.ViewPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    文件标题 - Geek Inside 知识管理系统
+    文档查看 - Geek Inside 知识管理系统
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
@@ -19,6 +19,7 @@
     <div id="viewlet-above-content" class="KSSTabArea KSSShowHideArea">
         <div id="above-content-bar">
             <div class="contentbar_content contentbarcontent clearfix">
+            <% Model.Models.DocumentModel docModel = (Model.Models.DocumentModel)ViewData["docModel"]; %>
                 <div class="contentbar_left">
                     <span style="font-size: 12px; margin-left: -2px">路径：</span> <span style="font-size: 11px;
                         color: #555">/ </span><a href="#s" style="font-size: 12px">文档库</a>
@@ -30,8 +31,13 @@
                         <button class="KSSActionServer KSSLoad button">
                             收藏</button>
                         <!-- 上传者可见 -->
+                        <% if (docModel.PublisherNumber.Equals(Convert.ToInt32(Page.User.Identity.Name)))
+                        {%>
                         <button class="KSSActionServer KSSLoad button">
                             编辑信息</button>
+                        <% }
+                         %>
+                        
                     </div>
                 </div>
             </div>
@@ -45,15 +51,23 @@
                         <div class="KSSFileTitle">
                             <div>
                                 <h1 style="margin: 0; display: inline; vertical-align: middle;">
-                                    <span>DocumentName.doc</span>
+                                    <span><%:docModel.FileDisplayName %></span>
                                 </h1>
                                 <div class="doc_description">
-                                    这里是文档描述
+                                    <%:docModel.Description %>
                                 </div>
                                 <div class="discreet">
-                                    <span>大小：500KB 查看次数：200 下载次数：40 </span>
+                                    <span>大小：<%:docModel.Size %> 查看次数：<%:docModel.ViewNumber %> 下载次数：<%:docModel.DownloadNumber %> </span>
                                     <div style="margin-top: 5px">
-                                        由 admin 创建于 2012-06-26 13:23 标签：标签1 标签2</div>
+                                        由 <a href="/Document/GetDocByEmpployeeNumber?empno=<%:docModel.PublisherNumber %>"><%:docModel.PublisherName %></a> 上传于 <%:docModel.PubTime %> 
+                                        标签：
+                                        <% foreach (Model.Models.TagModel tag in docModel.FileTagIdArray)
+                                        {
+                                            Response.Write(tag.TagName.ToString()+", ");
+                                        }
+                                         %>
+                                        
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -80,32 +94,28 @@
             <dt class="portletHeader deltaPortletHeader">
                 <div class="portletHeaderContent portletHeaderContent_1">
                     <span class="KSSShowHideAction"><span class="downwardDelta"></span><span class="rightwardDelta hidden">
-                    </span><span>关注</span> </span>
+                    </span><span>浏览排行</span> </span>
                 </div>
             </dt>
             <dd class="portletItem KSSShowHideTarget_1">
-                <p class="discreet">
-                    关注人将自动接收新的评注通知</p>
-                <p class="discreet">
-                    关注人将自动接收新的评注通知</p>
-                <p class="discreet">
-                    关注人将自动接收新的评注通知</p>
+                <% List<Model.Models.DocumentModel> viewTop10Doc = (List<Model.Models.DocumentModel>)ViewData["viewTop10Doc"]; %>
+                <% foreach (var doc in viewTop10Doc){%>
+                    <p class="discreet toplist"><a href="/Document/Detail?docid=<%:doc.Id %>"><%:doc.FileDisplayName %>.<%:doc.FileTypeName %></a></p>
+                <% }%>
             </dd>
         </dl>
         <dl class="portlet transparentPortlet">
             <dt class="portletHeader deltaPortletHeader">
                 <div class="portletHeaderContent portletHeaderContent_2">
                     <span class="KSSShowHideAction"><span class="downwardDelta"></span><span class="rightwardDelta hidden">
-                    </span><span>关注</span> </span>
+                    </span><span>下载排行</span> </span>
                 </div>
             </dt>
             <dd class="portletItem KSSShowHideTarget_2">
-                <p class="discreet">
-                    关注人将自动接收新的评注通知</p>
-                <p class="discreet">
-                    关注人将自动接收新的评注通知</p>
-                <p class="discreet">
-                    关注人将自动接收新的评注通知</p>
+                <% List<Model.Models.DocumentModel> dlTop10Doc = (List<Model.Models.DocumentModel>)ViewData["dlTop10Doc"]; %>
+                <% foreach (var doc in dlTop10Doc){%>
+                    <p class="discreet toplist"><a href="/Document/Detail?docid=<%:doc.Id %>"><%:doc.FileDisplayName %>.<%:doc.FileTypeName %></a></p>
+                <% }%>
             </dd>
         </dl>
     </div>
