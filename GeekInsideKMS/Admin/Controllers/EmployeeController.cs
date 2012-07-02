@@ -322,6 +322,7 @@ namespace Admin.Controllers
                 for (int i = 0; i < table.Rows.Count; i++)
                 {
                     UserEmployeeModel temp = new UserEmployeeModel();
+                    temp.Password = "123456";
                     temp.Name = table.Rows[i].ItemArray[0].ToString();
                     temp.Email = table.Rows[i].ItemArray[1].ToString();
                     temp.Phone = table.Rows[i].ItemArray[2].ToString();
