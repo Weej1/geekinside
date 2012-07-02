@@ -11,6 +11,7 @@ namespace BLL
     public class BLLUserAccount
     {
         IDALUserAccount userDAL = DALFactory.DataAccess.CreateUserDAL();
+        IDALEmployeeDetail userDetailDAL = DALFactory.DataAccess.CreateEmployeeDetailDAL();
 
         public Boolean CheckUserLogin(UserEmployeeModel userEmployeeModel)
         {
@@ -44,9 +45,9 @@ namespace BLL
             return true;
         }
 
-        public Boolean UpdateUserAccount(UserEmployeeModel userEmployeeModel, UserEmployeeDetailModel userEmployeeDetailModel)
+        public Boolean UpdateUserAccount(UserEmployeeModel userEmployeeModel)
         {
-            userDAL.UpdateUserAccount(userEmployeeModel, userEmployeeDetailModel);
+            userDAL.UpdateUserAccount(userEmployeeModel);
             return true;
         }
 
@@ -70,5 +71,25 @@ namespace BLL
             return userDAL.UpdateUserDetailAccount(empDetailModel);
         }
 
+
+        public List<UserEmployeeModel> GetAllEmployeeDetails() 
+        {
+            return userDetailDAL.GetAllEmployeeDetails();
+        }
+
+        public List<UserEmployeeModel> GetEmployeeDetailsByDept(int deptNo)
+        {
+            return userDetailDAL.GetEmployeeDetailsByDept(deptNo);
+        }
+
+        public UserEmployeeModel GetSingleUser(int empNo) 
+        {
+            return userDetailDAL.GetSingleEmployeeDetail(empNo);
+        }
+
+        public UserEmployeeModel GetSingleUserById(int id) 
+        {
+            return userDetailDAL.GetSingleEmployeeDetailById(id);
+        } 
     }
 }

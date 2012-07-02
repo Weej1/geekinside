@@ -12,7 +12,7 @@ namespace IDAL
 
         Boolean CreateUserAccount(UserEmployeeModel userEmployeeModel, UserEmployeeDetailModel userEmployeeDetail);
 
-        Boolean UpdateUserAccount(UserEmployeeModel userEmployeeModel, UserEmployeeDetailModel userEmployeeDetail);
+        Boolean UpdateUserAccount(UserEmployeeModel userEmployeeModel);
 
         Boolean DeleteUserAccount(UserEmployeeModel userEmployeeModel, UserEmployeeDetailModel userEmployeeDetailModel);
 

@@ -79,12 +79,23 @@ namespace DAL
             return true;
         }
 
-        public Boolean UpdateUserAccount(UserEmployeeModel userEmployeeModel, UserEmployeeDetailModel userEmployeeDetail) 
+        public Boolean UpdateUserAccount(UserEmployeeModel userEmployeeModel) 
         {
             geekinsidekmsEntities context = new geekinsidekmsEntities();
 
-            UserEmployee emp = (from u in context.UserEmployees 
-                       where u.Id == userEmployeeModel.Id 
+            UserEmployeeDetail empDetal = (from d in context.UserEmployeeDetails
+                                           where d.EmployeeNumber == userEmployeeModel.EmployeeNumber
+                                           select d).FirstOrDefault();
+
+            empDetal.EmployeeNumber = userEmployeeModel.EmployeeNumber;
+            empDetal.Name = userEmployeeModel.Name;
+            empDetal.Email = userEmployeeModel.Email;
+            empDetal.Phone = userEmployeeModel.Phone;
+
+            context.SaveChanges();
+
+            UserEmployee emp = (from u in context.UserEmployees
+                       where u.EmployeeNumber == userEmployeeModel.EmployeeNumber 
                        select u).FirstOrDefault();
 
             emp.EmployeeNumber = userEmployeeModel.EmployeeNumber;
@@ -94,18 +105,9 @@ namespace DAL
             emp.IsAvailable = userEmployeeModel.IsAvailable;
             emp.IsChecker = userEmployeeModel.IsChecker;
             emp.LastLoginTime = userEmployeeModel.LastLoginTime;
-            
 
-            UserEmployeeDetail empDetal = (from d in context.UserEmployeeDetails 
-                           where d.Id == userEmployeeDetail.Id 
-                           select d).FirstOrDefault();
-
-            empDetal.EmployeeNumber = userEmployeeDetail.EmployeeNumber;
-            empDetal.Name = userEmployeeDetail.Name;
-            empDetal.Email = userEmployeeDetail.Email;
-            empDetal.Phone = userEmployeeDetail.Phone;
-            
             context.SaveChanges();
+            
             return true;
         }
 
@@ -114,14 +116,17 @@ namespace DAL
             geekinsidekmsEntities context = new geekinsidekmsEntities();
 
             UserEmployeeDetail dbDetail = (from detail in context.UserEmployeeDetails
-                                           where detail.Id == userEmployeeDetailModel.Id
+                                           where detail.EmployeeNumber == userEmployeeDetailModel.EmployeeNumber
                                            select detail).FirstOrDefault();
             context.DeleteObject(dbDetail);
 
+            context.SaveChanges();
+
             UserEmployee dbUser = (from user in context.UserEmployees
-                                   where user.Id == userEmployeeModel.Id
+                                   where user.EmployeeNumber == userEmployeeModel.EmployeeNumber
                                    select user).FirstOrDefault();
             context.DeleteObject(dbUser);
+            
             context.SaveChanges();
             return true;
         }

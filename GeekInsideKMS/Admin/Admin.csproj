@@ -68,7 +68,6 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
-    <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
@@ -76,7 +75,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DepartmentRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -160,10 +158,8 @@
     <Content Include="Scripts\jquery-1.7.2.min.js" />
     <Content Include="Views\Account\Login.aspx" />
     <Content Include="Views\Auth\Index.aspx" />
-    <Content Include="Views\Department\Create.aspx" />
-    <Content Include="Views\Department\Edit.aspx" />
-    <Content Include="Views\Department\Index.aspx" />
     <Content Include="Views\Document\Index.aspx" />
+    <Content Include="Views\Employee\Edit.aspx" />
     <Content Include="Views\Employee\Index.aspx" />
     <Content Include="Views\Employee\CreateUser.aspx" />
     <Content Include="Views\Index\Index.aspx" />
@@ -181,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Filters\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Admin.master" />
@@ -210,6 +207,9 @@
       <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -225,7 +225,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>7396</DevelopmentServerPort>
+          <DevelopmentServerPort>60105</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

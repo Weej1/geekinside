@@ -1,26 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Admin.master" Inherits="System.Web.Mvc.ViewPage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Admin.master" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    人员管理 - Geek Inside 知识管理系统
+	Edit
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
- <script type="text/javascript" src="../../Scripts/jquery-1.7.2.min.js">
-    function EmailValidate()
-    {
-           var search_str = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-           var email_val = $("#email").val();
-           if (!search_str.test(email_val)) {
-               alert("请输入正确的邮件地址 !");
-               $('#email').focus();
-               return false;
-           }
-           return true;
-    }
 
- </script>
-</asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="MiddlePlaceHolder" runat="server">
-    <div id="region-content" class="documentContent">
+<asp:Content ID="Content2" ContentPlaceHolderID="MiddlePlaceHolder" runat="server">
+<div id="region-content" class="documentContent">
         <div id="content">
             <div class="admin-intro">
                 编写员工信息</div>
@@ -28,10 +13,9 @@
                 <input type="button" class="button" value="添加员工"><span style="margin-left: 10px;"></span><input
                     type="button" class="button" value="批量添加员工"></p>
             <div class="FilterPersonsField">
-                 <form action="/Employee/doCreateUser" name="form" method="post">                 
-                员工编号：<span>
-                    <input name="employeeNumber" value="<%: ViewData["employeeNumber"]%>">
-                </span>
+                 <form action="/Employee/doEdit" name="form" method="post">                 
+                员工编号：<span><%: ViewData["employeeNumber"]%>
+                 </span>
                 <br />
                 设置为Manager：<span>
                     <select name="isManager" style="vertical-align: middle;">
@@ -70,14 +54,21 @@
 
                 <br />
                 员工姓名： <span>
-                    <input name="name" value="<%: ViewData["name"]%>">
+                    <input name="name" value="<%: ViewData["name"]%>" size="12" style="color: #76797C;">
+                </span>
+
+
+                <br />
+
+                更改密码： <span>
+                    <input name="password" size="12" type="password" style="color: #76797C;">
                 </span>
 
 
                 <br />
 
                 邮件地址：<span>
-                    <input name="email" id="email" value="<%: ViewData["email"]%>">
+                    <input name="email" id="email" value="<%: ViewData["email"]%>" size="12" style="color: #76797C;">
                 </span>
 
                 <% if (TempData["employeeNumberErrorMsg"] != "")
@@ -88,7 +79,7 @@
                 <br />
 
                 移动电话：<span>
-                    <input name="phone" value="<%: ViewData["phone"]%>">
+                    <input name="phone" value="<%: ViewData["phone"]%>" size="12" style="color: #76797C;">
                 </span>
 
                 <% if (TempData["phoneErrorMsg"] != "")
@@ -107,10 +98,26 @@
                     </tbody>
                 </table>
                 <p>
-                <input type="submit" class="button" value="添加员工" onclick="return EmailValidate()"><span style="margin-left: 10px;"></span><input
-                    type="button" class="button" value="批量添加员工"></p>
+                <input type="hidden" name="empno" value="<%: ViewData["employeeNumber"]%>" />
+                <input type="submit" class="button" value="更新员工" onclick="return EmailValidate()"><span style="margin-left: 10px;"></span></p>
                 </form>
             </div>
         </div>
     </div>
+</asp:Content>
+
+<asp:Content ID="Content3" ContentPlaceHolderID="head" runat="server">
+  <script type="text/javascript" src="../../Scripts/jquery-1.7.2.min.js">
+    function EmailValidate()
+    {
+           var search_str = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+           var email_val = $("#email").val();
+           if (!search_str.test(email_val)) {
+               alert("请输入正确的邮件地址 !");
+               $('#email').focus();
+               return false;
+           }
+           return true;
+    }
+   </script>
 </asp:Content>
