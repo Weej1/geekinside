@@ -19,5 +19,7 @@ namespace IDAL
         UserEmployeeDetailModel GetEmployeeDetailByEmployeeNumber(int employeeNumber);
 
         int GetMaxEmployeeNumber();
+
+        Boolean UpdateUserDetailAccount(UserEmployeeDetailModel empDetailModel);
     }
 }

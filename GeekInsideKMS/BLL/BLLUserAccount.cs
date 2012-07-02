@@ -65,10 +65,9 @@ namespace BLL
             return userDAL.GetMaxEmployeeNumber();
         }
 
-        public List<DocumentModel> getAllMyDocument()
+        public Boolean UpdateUserDetailAccount(UserEmployeeDetailModel empDetailModel)
         {
-
-            return null;
+            return userDAL.UpdateUserDetailAccount(empDetailModel);
         }
     }
 }
