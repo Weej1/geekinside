@@ -287,6 +287,43 @@ namespace DAL
             }
         }
 
+        //高级搜索
+        public List<DocumentModel> getResultWithFilter(SearchFilterModel searchFilterModel)
+        {
+            string sw = searchFilterModel.sw;
+            string sw_notincluede = searchFilterModel.sw_notincluded;
+            string[] sw_doctype = searchFilterModel.sw_doctype;
+            using (var gikms = new geekinsidekmsEntities())
+            {
+                List<DAL.Document> docTempList = new List<DAL.Document>();
+                if (!sw.Equals(""))
+                {
+                    docTempList = (from d in gikms.Documents
+                               where (d.FileDisplayName.Contains(sw) || d.Description.Contains(sw))
+                               select d).ToList();
+                }
+                if (!sw_notincluede.Equals(""))
+                {
+                    docTempList = (from d in docTempList
+                                   where (!d.FileDisplayName.Contains(sw_notincluede) || !d.Description.Contains(sw_notincluede))
+                                   select d).ToList();
+                }
+                if (!sw_doctype.Equals(null))
+                {
+                    foreach (string type in sw_doctype)
+                    {
+                        docTempList = (from d in docTempList
+                                       where (d.FileTypeReference.Value.TypeName.Contains(type))
+                                       select d).ToList();
+                    }
+                    
+                }
+                
+                //生成最终List
+                return gernerateFinalDocumentModelList(docTempList);
+            }
+        }
+
         //得到所有文档
         public List<DocumentModel> getAllDocOrderByPubtime()
         {

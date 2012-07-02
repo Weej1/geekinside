@@ -20,30 +20,20 @@
         	</tr>
             <tr style="height:50px;">
                 <td>不包含以下关键字：</td>
-                <td><input type="text" name="sw_notincluded" /></td>
+                <td><input type="text" name="sw_notinclude" /></td>
             </tr>
             <tr style="height:50px;">
                 <td>要检索的资源种类：</td>
                 <td>
-                    <input type="checkbox" name="sw_doctype value="1" /><span style="margin-right:10px;">doc/docx</span>
-                    <input type="checkbox" name="sw_doctype value="2" /><span style="margin-right:10px;">xls/xlsx</span>
-                    <input type="checkbox" name="sw_doctype value="3" /><span style="margin-right:10px;">ppt/pptx</span>
-                    <input type="checkbox" name="sw_doctype value="4" /><span style="margin-right:10px;">pdf</span>
-                    <input type="checkbox" name="sw_doctype value="5" /><span style="margin-right:10px;">wmv</span>
+                    <input type="checkbox" name="sw_doctype" id="sw_doctype" value="doc" /><span style="margin-right:10px;">doc/docx</span>
+                    <input type="checkbox" name="sw_doctype" id="sw_doctype" value="xls" /><span style="margin-right:10px;">xls/xlsx</span>
+                    <input type="checkbox" name="sw_doctype" id="sw_doctype" value="ppt" /><span style="margin-right:10px;">ppt/pptx</span>
+                    <input type="checkbox" name="sw_doctype" id="sw_doctype" value="pdf" /><span style="margin-right:10px;">pdf</span>
+                    <input type="checkbox" name="sw_doctype" id="sw_doctype" value="wmv" /><span style="margin-right:10px;">wmv</span>
                 </td>
             </tr>
             <tr style="height:50px;">
-                <td>只检索以下目录：</td>
-                <td>
-                    <select name="sw_folder" style="vertical-align: middle;">
-                        <option value="0">所有目录</option>
-                        <option value="1">财务部</option>
-                        <option value="2">市场部</option>
-                    </select>
-                </td>
-            </tr>
-            <tr style="height:50px;">
-                <td><input type="button" class="button" value="开始搜索"  onclick="javascript:document.forms[0].submit();"></td>
+                <td><input type="button" class="button" value="开始搜索"  onclick="javascript:document.forms[1].submit();"></td>
                 <td><td>
             </tr>
         </table>

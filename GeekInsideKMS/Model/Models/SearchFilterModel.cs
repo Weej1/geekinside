@@ -12,8 +12,12 @@ namespace Model.Models
         //不包含
         public string sw_notincluded;
         //文件类型
+        //  1doc/docx
+        //  2xls/xlsx
+        //  3ppt/pptx
+        //  4pdf
+        //  5wmv
         public string[] sw_doctype;
-        //文件分类
-        public string sw_folder;
+        
     }
 }
