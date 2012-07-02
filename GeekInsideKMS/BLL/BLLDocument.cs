@@ -116,5 +116,10 @@ namespace BLL
         {
             return documentDAL.getAllDocOrderByPubtime();
         }
+
+        public Boolean updateDocument(DocumentModel docModel)
+        {
+            return documentDAL.updateDocument(docModel);
+        }
     }
 }

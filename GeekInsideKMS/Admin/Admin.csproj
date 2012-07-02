@@ -69,12 +69,14 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
+	<Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+	<Compile Include="Models\DepartmentRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -82,14 +84,19 @@
     <Content Include="Content\css\login.css" />
     <Content Include="Content\images\bg-login.gif" />
     <Content Include="Content\images\folder.gif" />
+    <Content Include="Content\images\icons\document.gif" />
     <Content Include="Content\images\icons\download.gif" />
     <Content Include="Content\images\icons\edit.png" />
+    <Content Include="Content\images\icons\excel.gif" />
     <Content Include="Content\images\icons\favorite.gif" />
     <Content Include="Content\images\icons\file.gif" />
     <Content Include="Content\images\icons\ms-word.gif" />
     <Content Include="Content\images\icons\open.gif" />
     <Content Include="Content\images\icons\pdf.gif" />
+    <Content Include="Content\images\icons\powerpoint.gif" />
     <Content Include="Content\images\icons\trash.gif" />
+    <Content Include="Content\images\icons\video.png" />
+    <Content Include="Content\images\icons\word.gif" />
     <Content Include="Content\images\login-left.png" />
     <Content Include="Content\images\login_18.png" />
     <Content Include="Content\images\magnifier.png" />
@@ -158,6 +165,10 @@
     <Content Include="Scripts\jquery-1.7.2.min.js" />
     <Content Include="Views\Account\Login.aspx" />
     <Content Include="Views\Auth\Index.aspx" />
+    <Content Include="Views\Department\Create.aspx" />		
+	<Content Include="Views\Department\Edit.aspx" />		
+	<Content Include="Views\Department\Index.aspx" />		
+	<Content Include="Views\Document\Index.aspx" />
     <Content Include="Views\Document\Index.aspx" />
     <Content Include="Views\Employee\Edit.aspx" />
     <Content Include="Views\Employee\Index.aspx" />
@@ -225,7 +236,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>60105</DevelopmentServerPort>
+          <DevelopmentServerPort>7396</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
