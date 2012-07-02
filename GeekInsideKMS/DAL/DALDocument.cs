@@ -25,32 +25,7 @@ namespace DAL
                 List<DAL.Document> docTempList = dbDocList.ToList();
 
                 //生成最终List
-                List<DocumentModel> docList = new List<DocumentModel>();
-                foreach (DAL.Document doc in docTempList)
-                {
-                    List<TagModel> tagIdArray = new DALTag().getTagModelListByDocId(doc.Id);
-                    docList.Add(new DocumentModel
-                    {
-                        Id = doc.Id,
-                        FileDisplayName = doc.FileDisplayName,
-                        FileDiskName = doc.FileDiskName,
-                        Description = doc.Description,
-                        FileTagIdArray = tagIdArray,
-                        FolderId = doc.FolderId,
-                        FileTypeId = doc.FileTypeId,
-                        FileTypeName = doc.FileTypeReference.Value.TypeName,
-                        PublisherNumber = doc.PublisherNumber,
-                        PublisherName = doc.PublisherName,
-                        PubTime = doc.PubTime,
-                        CheckerNumber  = doc.CheckerNumber,
-                        CheckerName = doc.CheckerName,
-                        Size = doc.Size,
-                        ViewNumber = doc.ViewNumber,
-                        DownloadNumber = doc.DownloadNumber,
-                        IsChecked = doc.IsChecked
-                    });
-                }
-                return docList;
+                return gernerateFinalDocumentModelList(docTempList);
             }
         }
 
@@ -64,32 +39,7 @@ namespace DAL
                 List<DAL.Document> docTempList = dbDocList.ToList();
 
                 //生成最终List
-                List<DocumentModel> docList = new List<DocumentModel>();
-                foreach (DAL.Document doc in docTempList)
-                {
-                    List<TagModel> tagIdArray = new DALTag().getTagModelListByDocId(doc.Id);
-                    docList.Add(new DocumentModel
-                    {
-                        Id = doc.Id,
-                        FileDisplayName = doc.FileDisplayName,
-                        FileDiskName = doc.FileDiskName,
-                        Description = doc.Description,
-                        FileTagIdArray = tagIdArray,
-                        FolderId = doc.FolderId,
-                        FileTypeId = doc.FileTypeId,
-                        FileTypeName = doc.FileTypeReference.Value.TypeName,
-                        PublisherNumber = doc.PublisherNumber,
-                        PublisherName = doc.PublisherName,
-                        PubTime = doc.PubTime,
-                        CheckerNumber = doc.CheckerNumber,
-                        CheckerName = doc.CheckerName,
-                        Size = doc.Size,
-                        ViewNumber = doc.ViewNumber,
-                        DownloadNumber = doc.DownloadNumber,
-                        IsChecked = doc.IsChecked
-                    });
-                }
-                return docList;
+                return gernerateFinalDocumentModelList(docTempList);
             }
         }
 
@@ -193,32 +143,7 @@ namespace DAL
                 List<DAL.Document> docTempList = dbDocList.ToList();
 
                 //生成最终List
-                List<DocumentModel> docList = new List<DocumentModel>();
-                foreach (DAL.Document doc in docTempList)
-                {
-                    List<TagModel> tagIdArray = new DALTag().getTagModelListByDocId(doc.Id);
-                    docList.Add(new DocumentModel
-                    {
-                        Id = doc.Id,
-                        FileDisplayName = doc.FileDisplayName,
-                        FileDiskName = doc.FileDiskName,
-                        Description = doc.Description,
-                        FileTagIdArray = tagIdArray,
-                        FolderId = doc.FolderId,
-                        FileTypeId = doc.FileTypeId,
-                        FileTypeName = doc.FileTypeReference.Value.TypeName,
-                        PublisherNumber = doc.PublisherNumber,
-                        PublisherName = doc.PublisherName,
-                        PubTime = doc.PubTime,
-                        CheckerNumber = doc.CheckerNumber,
-                        CheckerName = doc.CheckerName,
-                        Size = doc.Size,
-                        ViewNumber = doc.ViewNumber,
-                        DownloadNumber = doc.DownloadNumber,
-                        IsChecked = doc.IsChecked
-                    });
-                }
-                return docList;
+                return gernerateFinalDocumentModelList(docTempList);
             }
         }
 
@@ -232,32 +157,7 @@ namespace DAL
                 List<DAL.Document> docTempList = dbDocList.ToList();
 
                 //生成最终List
-                List<DocumentModel> docList = new List<DocumentModel>();
-                foreach (DAL.Document doc in docTempList)
-                {
-                    List<TagModel> tagIdArray = new DALTag().getTagModelListByDocId(doc.Id);
-                    docList.Add(new DocumentModel
-                    {
-                        Id = doc.Id,
-                        FileDisplayName = doc.FileDisplayName,
-                        FileDiskName = doc.FileDiskName,
-                        Description = doc.Description,
-                        FileTagIdArray = tagIdArray,
-                        FolderId = doc.FolderId,
-                        FileTypeId = doc.FileTypeId,
-                        FileTypeName = doc.FileTypeReference.Value.TypeName,
-                        PublisherNumber = doc.PublisherNumber,
-                        PublisherName = doc.PublisherName,
-                        PubTime = doc.PubTime,
-                        CheckerNumber = doc.CheckerNumber,
-                        CheckerName = doc.CheckerName,
-                        Size = doc.Size,
-                        ViewNumber = doc.ViewNumber,
-                        DownloadNumber = doc.DownloadNumber,
-                        IsChecked = doc.IsChecked
-                    });
-                }
-                return docList;
+                return gernerateFinalDocumentModelList(docTempList);
             }
         }
 
@@ -293,45 +193,20 @@ namespace DAL
                 if (byWhat == "ViewNumber")
                 {
                     docTempList = (from d in gikms.Documents
-                                                      where d.IsChecked.Equals(true)
-                                                      orderby d.ViewNumber descending
-                                                      select d).Take(10).ToList();
+                                   where d.IsChecked.Equals(true)
+                                   orderby d.ViewNumber descending
+                                   select d).Take(10).ToList();
                 }
                 else
                 {
                     docTempList = (from d in gikms.Documents
-                                                      where d.IsChecked.Equals(true)
-                                                      orderby d.DownloadNumber descending
-                                                      select d).Take(10).ToList();
+                                   where d.IsChecked.Equals(true)
+                                   orderby d.DownloadNumber descending
+                                   select d).Take(10).ToList();
                 }
 
                 //生成最终List
-                List<DocumentModel> docList = new List<DocumentModel>();
-                foreach (DAL.Document doc in docTempList)
-                {
-                    List<TagModel> tagIdArray = new DALTag().getTagModelListByDocId(doc.Id);
-                    docList.Add(new DocumentModel
-                    {
-                        Id = doc.Id,
-                        FileDisplayName = doc.FileDisplayName,
-                        FileDiskName = doc.FileDiskName,
-                        Description = doc.Description,
-                        FileTagIdArray = tagIdArray,
-                        FolderId = doc.FolderId,
-                        FileTypeId = doc.FileTypeId,
-                        FileTypeName = doc.FileTypeReference.Value.TypeName,
-                        PublisherNumber = doc.PublisherNumber,
-                        PublisherName = doc.PublisherName,
-                        PubTime = doc.PubTime,
-                        CheckerNumber = doc.CheckerNumber,
-                        CheckerName = doc.CheckerName,
-                        Size = doc.Size,
-                        ViewNumber = doc.ViewNumber,
-                        DownloadNumber = doc.DownloadNumber,
-                        IsChecked = doc.IsChecked
-                    });
-                }
-                return docList;
+                return gernerateFinalDocumentModelList(docTempList);
             }
         }
 
@@ -345,32 +220,7 @@ namespace DAL
                                where d.FileDisplayName.Contains(sw)
                                select d).ToList();
                 //生成最终List
-                List<DocumentModel> docList = new List<DocumentModel>();
-                foreach (DAL.Document doc in docTempList)
-                {
-                    List<TagModel> tagIdArray = new DALTag().getTagModelListByDocId(doc.Id);
-                    docList.Add(new DocumentModel
-                    {
-                        Id = doc.Id,
-                        FileDisplayName = doc.FileDisplayName,
-                        FileDiskName = doc.FileDiskName,
-                        Description = doc.Description,
-                        FileTagIdArray = tagIdArray,
-                        FolderId = doc.FolderId,
-                        FileTypeId = doc.FileTypeId,
-                        FileTypeName = doc.FileTypeReference.Value.TypeName,
-                        PublisherNumber = doc.PublisherNumber,
-                        PublisherName = doc.PublisherName,
-                        PubTime = doc.PubTime,
-                        CheckerNumber = doc.CheckerNumber,
-                        CheckerName = doc.CheckerName,
-                        Size = doc.Size,
-                        ViewNumber = doc.ViewNumber,
-                        DownloadNumber = doc.DownloadNumber,
-                        IsChecked = doc.IsChecked
-                    });
-                }
-                return docList;
+                return gernerateFinalDocumentModelList(docTempList);
             }
         }
 
@@ -384,32 +234,7 @@ namespace DAL
                                where d.Description.Contains(sw)
                                select d).ToList();
                 //生成最终List
-                List<DocumentModel> docList = new List<DocumentModel>();
-                foreach (DAL.Document doc in docTempList)
-                {
-                    List<TagModel> tagIdArray = new DALTag().getTagModelListByDocId(doc.Id);
-                    docList.Add(new DocumentModel
-                    {
-                        Id = doc.Id,
-                        FileDisplayName = doc.FileDisplayName,
-                        FileDiskName = doc.FileDiskName,
-                        Description = doc.Description,
-                        FileTagIdArray = tagIdArray,
-                        FolderId = doc.FolderId,
-                        FileTypeId = doc.FileTypeId,
-                        FileTypeName = doc.FileTypeReference.Value.TypeName,
-                        PublisherNumber = doc.PublisherNumber,
-                        PublisherName = doc.PublisherName,
-                        PubTime = doc.PubTime,
-                        CheckerNumber = doc.CheckerNumber,
-                        CheckerName = doc.CheckerName,
-                        Size = doc.Size,
-                        ViewNumber = doc.ViewNumber,
-                        DownloadNumber = doc.DownloadNumber,
-                        IsChecked = doc.IsChecked
-                    });
-                }
-                return docList;
+                return gernerateFinalDocumentModelList(docTempList);
             }
         }
 
@@ -423,33 +248,55 @@ namespace DAL
                                where d.FileDisplayName.Contains(sw) || d.Description.Contains(sw)
                                select d).ToList();
                 //生成最终List
-                List<DocumentModel> docList = new List<DocumentModel>();
-                foreach (DAL.Document doc in docTempList)
-                {
-                    List<TagModel> tagIdArray = new DALTag().getTagModelListByDocId(doc.Id);
-                    docList.Add(new DocumentModel
-                    {
-                        Id = doc.Id,
-                        FileDisplayName = doc.FileDisplayName,
-                        FileDiskName = doc.FileDiskName,
-                        Description = doc.Description,
-                        FileTagIdArray = tagIdArray,
-                        FolderId = doc.FolderId,
-                        FileTypeId = doc.FileTypeId,
-                        FileTypeName = doc.FileTypeReference.Value.TypeName,
-                        PublisherNumber = doc.PublisherNumber,
-                        PublisherName = doc.PublisherName,
-                        PubTime = doc.PubTime,
-                        CheckerNumber = doc.CheckerNumber,
-                        CheckerName = doc.CheckerName,
-                        Size = doc.Size,
-                        ViewNumber = doc.ViewNumber,
-                        DownloadNumber = doc.DownloadNumber,
-                        IsChecked = doc.IsChecked
-                    });
-                }
-                return docList;
+                return gernerateFinalDocumentModelList(docTempList);
             }
         }
+
+        //得到所有文档
+        public List<DocumentModel> getAllDocOrderByPubtime()
+        {
+            using (var gikms = new geekinsidekmsEntities())
+            {
+                var dbDocList = from d in gikms.Documents
+                                orderby d.PubTime descending
+                                select d;
+                List<DAL.Document> docTempList = dbDocList.ToList();
+
+                //生成最终List
+                return gernerateFinalDocumentModelList(docTempList);
+            }
+        }
+
+        //生成最终的DocumentModelList 公用
+        private List<DocumentModel> gernerateFinalDocumentModelList(List<DAL.Document> docTempList)
+        {
+            List<DocumentModel> docList = new List<DocumentModel>();
+            foreach (DAL.Document doc in docTempList)
+            {
+                List<TagModel> tagIdArray = new DALTag().getTagModelListByDocId(doc.Id);
+                docList.Add(new DocumentModel
+                {
+                    Id = doc.Id,
+                    FileDisplayName = doc.FileDisplayName,
+                    FileDiskName = doc.FileDiskName,
+                    Description = doc.Description,
+                    FileTagIdArray = tagIdArray,
+                    FolderId = doc.FolderId,
+                    FileTypeId = doc.FileTypeId,
+                    FileTypeName = doc.FileTypeReference.Value.TypeName,
+                    PublisherNumber = doc.PublisherNumber,
+                    PublisherName = doc.PublisherName,
+                    PubTime = doc.PubTime,
+                    CheckerNumber = doc.CheckerNumber,
+                    CheckerName = doc.CheckerName,
+                    Size = doc.Size,
+                    ViewNumber = doc.ViewNumber,
+                    DownloadNumber = doc.DownloadNumber,
+                    IsChecked = doc.IsChecked
+                });
+            }
+            return docList;
+        }
+
     }
 }
