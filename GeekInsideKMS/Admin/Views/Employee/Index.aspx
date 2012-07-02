@@ -11,20 +11,32 @@
             <div class="admin-intro">
                 关于人员信息的添加、修改、删除和其它操作</div>
             <p>
-                <input type="button" class="button" value="添加员工"><span style="margin-left: 10px;"></span><input
+                <input type="button" class="button" value="添加员工" onclick="/Employee/CreateUser"><span style="margin-left: 10px;"></span><input
                     type="button" class="button" value="批量添加员工"></p>
             <div class="FilterPersonsField">
-                <form name="filter_persons_form" method="post">
+                <form name="filter_persons_form" method="post" action="/Employee/CreateUser">
                 <strong>筛选/搜索：</strong> <span>部门:
-                    <select name="filter_dept_name" style="vertical-align: middle;">
-                        <option value="0">所有部门</option>
-                        <option value="1">财务部</option>
-                        <option value="2">市场部</option>
+                    <select name="dept_name" style="vertical-align: middle;">
+                        <% if (ViewData["deptList"].Equals("nodata"))
+                           { %>
+                        <option value="0">尚未添加部门</option>
+                        <% }
+                           else
+                           { %>
+                        <% IList<Model.Models.DepartmentModel> deptList = (IList<Model.Models.DepartmentModel>)ViewData["deptList"]; %>
+                        <option value="0">
+                            所有部门</option>
+                        <%foreach (var dept in deptList)
+                          {  %>
+                        <option value="<%: dept.Id %>">
+                            <%: dept.DepartmentName %></option>
+                        <% } %>
+                        <% } %>
                     </select>
                 </span><span>
                     <input class="SearchKey" name="search_key" size="12" value="登录名/姓名" style="color: #76797C;">
                 </span><span>
-                    <input class="button filterPersons" type="submit" name="filter_persons" value="筛选/搜索">
+                    <input class="button filterPersons" type="submit" name="filter_persons" value="筛选/搜索"  />
                 </span>
                 </form>
             </div>
@@ -43,6 +55,9 @@
                                 姓名
                             </th>
                             <th>
+                                部门
+                            </th>
+                            <th>
                                 部门岗位
                             </th>
                             <th>
@@ -51,43 +66,55 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <% if (ViewData["empList"].Equals("nodata"))
+                           { %>
+                        <p style="color: red;">
+                            暂无员工信息</p>
+                        <% }
+                           else
+                           { %>
+                        <% List<Model.Models.UserEmployeeModel> empList = (List<Model.Models.UserEmployeeModel>)ViewData["empList"]; %>
+                        <% foreach (var empDetail in empList)
+                           { %>
                         <tr class="even">
                             <td>
                                 <input type="checkbox" class="checkitem" name="selected_persons" value="admin-admin">
                             </td>
                             <td>
-                                <a href="#">007</a>
+                                <a href="#">
+                                    <%: empDetail.EmployeeNumber %></a>
                             </td>
                             <td>
-                                admin
+                                <%: empDetail.Name %>
                             </td>
                             <td>
-                                系统管理员
+                            <% List<Model.Models.DepartmentModel> deptList = (List<Model.Models.DepartmentModel>)ViewData["deptList"]; %>
+                            <% string deptName=""; %>
+                                <% foreach (var dept in deptList)
+                                   {%>
+                                    <% if (empDetail.DepartmentId == dept.Id)%>
+                                        <% deptName = dept.DepartmentName;%>
+                                <%} %>
+                                <%: deptName%>
                             </td>
                             <td>
-                                <a href="#" title="编辑">
+                                <%if (empDetail.IsManager == true)
+                                  {
+                                      Response.Write("经理");
+                                  }
+                                  else
+                                  {
+                                      Response.Write("员工");
+                                  }%>
+                            </td>
+                            <td>
+                                <a href="/Employee/Edit?empNo=<%: empDetail.EmployeeNumber %>" title="编辑">
                                     <img src="/Content/images/icons/edit.png" alt="编辑"></a>
+                                 <a href="/Employee/Delete?empNo=<%: empDetail.EmployeeNumber %>&returnURL=Index">删除</a>
                             </td>
                         </tr>
-                        <tr class="odd">
-                            <td>
-                                <input type="checkbox" class="checkitem" name="selected_persons" value="admin-admin">
-                            </td>
-                            <td>
-                                <a href="#">007</a>
-                            </td>
-                            <td>
-                                admin
-                            </td>
-                            <td>
-                                系统管理员
-                            </td>
-                            <td>
-                                <a href="#" title="编辑">
-                                    <img src="/Content/images/icons/edit.png" alt="编辑"></a>
-                                <img class="delCtrl" title="删除" alt="删除" src="images/icons/trash.gif" onclick="#">
-                            </td>
-                        </tr>
+                        <% } %>
+                        <% } %>
                     </tbody>
                 </table>
                 <p>
