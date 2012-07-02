@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DepartmentRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -155,8 +157,12 @@
     <Content Include="Content\js\editor\skins\default\default.gif" />
     <Content Include="Content\js\editor\skins\default\toolbar.space.gif" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\jquery-1.7.2.min.js" />
     <Content Include="Views\Account\Login.aspx" />
     <Content Include="Views\Auth\Index.aspx" />
+    <Content Include="Views\Department\Create.aspx" />
+    <Content Include="Views\Department\Edit.aspx" />
+    <Content Include="Views\Department\Index.aspx" />
     <Content Include="Views\Document\Index.aspx" />
     <Content Include="Views\Employee\Index.aspx" />
     <Content Include="Views\Employee\CreateUser.aspx" />
@@ -175,8 +181,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Filters\" />
-    <Folder Include="Models\" />
-    <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Admin.master" />
@@ -200,6 +204,10 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{68912684-B553-4017-9FBE-F56C19ED98E5}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{66DB8B8D-7578-47D1-A2C3-4081A1BFF1EB}</Project>
+      <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

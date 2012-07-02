@@ -15,6 +15,12 @@
                        }
                     %>>
                 <%: Html.ActionLink("平台管理", "Index", "Index")%></li>
+            <li <% if (ViewContext.Controller.ToString().EndsWith("DepartmentController")) 
+                       {
+                           Response.Write("class=\"selected\""); 
+                       }
+                    %>>
+                <%: Html.ActionLink("部门管理", "Index", "Department")%></li>
             <li <% if (ViewContext.Controller.ToString().EndsWith("EmployeeController")) 
                        {
                            Response.Write("class=\"selected\""); 
