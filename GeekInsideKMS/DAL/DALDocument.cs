@@ -48,7 +48,7 @@ namespace DAL
             List<DocumentModel> favDocumentModelList = new List<DocumentModel>();
             List<FavoriteModel> favModelList = new List<FavoriteModel>();
             favModelList = new DALFavorite().getFavoriteDocListByEmployeeNumber(publisherNumber);
-            if (favModelList.Count == 0)
+            if (favModelList == null)
             {
                 return favDocumentModelList;
             }
@@ -153,6 +153,20 @@ namespace DAL
             return true;
         }
 
+        public List<DocumentModel> getAllToBeCheckedDoc()
+        {
+            using (var gikms = new geekinsidekmsEntities())
+            {
+                var dbDocList = from d in gikms.Documents
+                                where d.IsChecked.Equals(false)
+                                select d;
+                List<DAL.Document> docTempList = dbDocList.ToList();
+
+                //生成最终List
+                return gernerateFinalDocumentModelList(docTempList);
+            }
+        }
+
         public List<DocumentModel> getToBeCheckedDocByCheckerNumber(int employeeNumber)
         {
             using (var gikms = new geekinsidekmsEntities())
@@ -193,7 +207,7 @@ namespace DAL
             return true;
         }
 
-        public Boolean setDocCheckedById(int docid)
+        public Boolean setDocCheckedById(int docid, int checkerEmpNumber)
         {
             geekinsidekmsEntities context = new geekinsidekmsEntities();
 
@@ -201,6 +215,7 @@ namespace DAL
                                   where d.Id.Equals(docid)
                                   select d).FirstOrDefault();
             dbDoc.IsChecked = true;
+            dbDoc.CheckerNumber = checkerEmpNumber;
             context.SaveChanges();
             return true;
         }

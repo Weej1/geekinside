@@ -147,14 +147,14 @@ namespace Index.Controllers
             BLLDocument bllDocument = new BLLDocument();
             DocumentModel docModel = bllDocument.getDocumentById(docid);
             UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(Convert.ToInt32(employeeNumber));
-            //如果不是审核者或不是这篇文档的审核者，则返回错误
-            if (empModel == null || empModel.IsChecker.Equals(false) || !docModel.CheckerNumber.Equals(Convert.ToInt32(employeeNumber)))
+            //如果不是审核者，则返回错误
+            if (empModel == null || empModel.IsChecker.Equals(false))
             {
                 TempData["errorMsg"] = "您无权操作此文件，请重新登录。";
                 return RedirectToAction(returnURL, "User");
             }
             //如果是审核者,可以操作
-            if (bllDocument.setDocCheckedById(docid))
+            if (bllDocument.setDocCheckedById(docid, Convert.ToInt32(employeeNumber)))
             {
                 TempData["successMsg"] = "操作成功。";
             }
@@ -165,7 +165,7 @@ namespace Index.Controllers
             return RedirectToAction(returnURL, "User");
         }
 
-        //将我审核通过的文档重新设置为未审核
+        //将我审核通过的文档重新设置为未审核（只能设置审核者自己审核通过的文章）
         [Authorize]
         public ActionResult doUnCheck(int docid, string returnURL)
         {
@@ -192,7 +192,7 @@ namespace Index.Controllers
             return RedirectToAction(returnURL, "User");
         }
 
-        //显示某人的所以所有发布的文档
+        //显示某人的所有发布的文档
         public ActionResult GetDocByEmpployeeNumber(int empno)
         {
             List<DocumentModel> docList = new BLLDocument().GetDocByEmpployeeNumber(empno);
