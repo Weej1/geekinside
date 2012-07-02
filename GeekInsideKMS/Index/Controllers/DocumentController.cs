@@ -36,6 +36,9 @@ namespace Index.Controllers
         [Authorize]
         public ActionResult Upload()
         {
+            string employeeNumber = User.Identity.Name;
+            UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(Convert.ToInt32(employeeNumber));
+            ViewData["empModel"] = empModel;
             return View("DocumentUpload");
         }
 

@@ -19,5 +19,8 @@ namespace IDAL
         Boolean setDocUncheckedById(int docid);
         Boolean setDocCheckedById(int docid);
         List<DocumentModel> getTopTenDocumentBy(string byWhat);
+        List<DocumentModel> getDocModelListBySearchTitle(string sw);
+        List<DocumentModel> getDocModelListBySearchDescription(string sw);
+        List<DocumentModel> getResultBySearchTitleAndDescription(string sw);
     }
 }
