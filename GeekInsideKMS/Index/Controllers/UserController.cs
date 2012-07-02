@@ -22,7 +22,7 @@ namespace Index.Controllers
         [Authorize]
         public ActionResult Workshop()
         {
-            string empno = Session["username"].ToString();
+            string empno = User.Identity.Name;
             List<DocumentModel> docList = new List<DocumentModel>();
             int employeeNumber = Convert.ToInt32(empno);
             docList = new BLLDocument().getMyCheckedDocList(employeeNumber);
@@ -57,7 +57,7 @@ namespace Index.Controllers
         [Authorize]
         public ActionResult UnCheckedDocList()
         {
-            string empno = Session["username"].ToString();
+            string empno = User.Identity.Name;
             List<DocumentModel> docList = new List<DocumentModel>();
             int employeeNumber = Convert.ToInt32(empno);
             docList = new BLLDocument().getMyUnheckedDocList(employeeNumber);
@@ -75,7 +75,7 @@ namespace Index.Controllers
         [Authorize]
         public ActionResult MyFavorite()
         {
-            string empno = Session["username"].ToString();
+            string empno = User.Identity.Name;
             List<DocumentModel> docList = new List<DocumentModel>();
             int employeeNumber = Convert.ToInt32(empno);
             docList = new BLLFavorite().getFavoriteDocModelListByPublishNumber(employeeNumber);
@@ -94,7 +94,7 @@ namespace Index.Controllers
         [Authorize]
         public ActionResult DeleteFavorite(int docid)
         {
-            string employeeNumber = Session["username"].ToString();
+            string employeeNumber = User.Identity.Name;
             BLLDocument bllDocument = new BLLDocument();
             DocumentModel docModel = bllDocument.getDocumentById(docid);
             if (employeeNumber == "" || docModel == null || docModel.PublisherNumber != Convert.ToInt32(employeeNumber))
@@ -118,7 +118,7 @@ namespace Index.Controllers
         [Authorize]
         public ActionResult addFavorite(int docid,string returnURL)
         {
-            string employeeNumber = Session["username"].ToString();
+            string employeeNumber = User.Identity.Name;
             BLLDocument bllDocument = new BLLDocument();
             DocumentModel docModel = bllDocument.getDocumentById(docid);
             if (employeeNumber == "" || docModel == null || docModel.PublisherNumber != Convert.ToInt32(employeeNumber))
