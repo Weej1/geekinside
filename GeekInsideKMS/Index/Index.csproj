@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -145,6 +146,8 @@
     <Content Include="Views\Document\Detail.aspx" />
     <Content Include="Views\Document\DocumentUpload.aspx" />
     <Content Include="Views\Document\Edit.aspx" />
+    <Content Include="Views\News\Detail.aspx" />
+    <Content Include="Views\News\Index.aspx" />
     <Content Include="Views\Search\Index.aspx" />
     <Content Include="Views\User\CheckedByMe.aspx" />
     <Content Include="Views\User\Checker.aspx" />

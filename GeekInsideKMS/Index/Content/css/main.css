@@ -555,6 +555,25 @@ table.listing img {
 	margin: 10px 0;
 }
 
+.newslist li {
+    border-bottom: 1px dashed #DDD;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 10px;
+    list-style: none;
+}
+
+.newslist a {
+    float: left;
+    font-size: 14px;
+    text-decoration: none;
+}
+.newslist em 
+{
+    margin-left: 10px;
+    color: #999;
+}
+
 #footer {
 	text-align: center;
 	color: gray;
