@@ -16,7 +16,7 @@ namespace BLL
         public void DeleteTempFile(string id, string fileName)
         {
             string extension = fileName.Substring(fileName.LastIndexOf('.'));
-            string filePath = Path.Combine("D://geekinsidekms/temp/", id + extension);
+            string filePath = Path.Combine(Helper.REPO_ROOT + "\\temp\\", id + extension);
             if (File.Exists(filePath))
             {
                 File.Delete(filePath);
