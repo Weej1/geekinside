@@ -229,5 +229,31 @@ namespace Admin.Controllers
                 return RedirectToAction("Index", "Employee");
             }
         }
+
+        //批量删除员工
+        [HttpPost]
+        [Authorize]
+        public ActionResult deleteMultiEmps(string[] selected_emps)
+        {
+            Boolean result = true;
+            BLLUserAccount bllUserAccount = new BLLUserAccount();
+            foreach (string checkbox in selected_emps)
+            {
+                if (!bllUserAccount.DeleteUserAccount(bllUserAccount.GetUserByEmpNumber(Convert.ToInt32(checkbox)), bllUserAccount.GetUserDetailByEmpNumber(Convert.ToInt32(checkbox))))
+                {
+                    result = false;
+                }
+            }
+            if (result)
+            {
+                TempData["successMsg"] = "删除成功！";
+                return RedirectToAction("Index", "Employee");
+            }
+            else
+            {
+                TempData["errorMsg"] = "删除失败！";
+                return RedirectToAction("Index", "Employee");
+            }
+        }
     }
 }
