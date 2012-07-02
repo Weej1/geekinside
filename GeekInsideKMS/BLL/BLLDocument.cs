@@ -76,5 +76,25 @@ namespace BLL
         {
             return documentDAL.deleteDocumentById(docid);
         }
+
+        public List<DocumentModel> getToBeCheckedDocByCheckerNumber(int employeeNumber)
+        {
+            return documentDAL.getToBeCheckedDocByCheckerNumber(employeeNumber);
+        }
+
+        public List<DocumentModel> getHaveCheckedDocByCheckerNumber(int employeeNumber)
+        {
+            return documentDAL.getHaveCheckedDocByCheckerNumber(employeeNumber);
+        }
+
+        public Boolean setDocUncheckedById(int docid)
+        {
+            return documentDAL.setDocUncheckedById(docid);
+        }
+
+        public Boolean setDocCheckedById(int docid)
+        {
+            return documentDAL.setDocCheckedById(docid);
+        }
     }
 }

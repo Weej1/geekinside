@@ -53,10 +53,10 @@ namespace Index.Controllers
         [Authorize]
         public ActionResult doEdit(DocumentModel docModel)
         {
-            //这里没写完
+            //这里还没写
             string employeeNumber = Session["username"].ToString();
             TempData["successMsg"] = "更新成功。";
-            return RedirectToAction("/User/Workshop", "User");
+            return RedirectToAction("Workshop", "User");
         }
 
         //删除文档
@@ -64,14 +64,30 @@ namespace Index.Controllers
         public ActionResult Delete(int docid, string returnURL)
         {
             //先要判断当前用户是否有权限删除这篇文档
-            string employeeNumber = Session["username"].ToString();
+            string employeeNumber = User.Identity.Name;
             BLLDocument bllDocument = new BLLDocument();
             DocumentModel docModel = bllDocument.getDocumentById(docid);
+            UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(Convert.ToInt32(employeeNumber));
+            //如果是审核者，则直接删除
+            if (empModel != null && empModel.IsChecker.Equals(true) && docModel.CheckerNumber.Equals(Convert.ToInt32(employeeNumber)))
+            {
+                if (bllDocument.deleteDocumentById(docid))
+                {
+                    TempData["successMsg"] = "删除成功。";
+                }
+                else
+                {
+                    TempData["errorMsg"] = "删除失败。";
+                }
+                return RedirectToAction(returnURL, "User");
+            }
+            //如果不是审核者，也不是这篇文档的发布者，删除失败
             if (employeeNumber == "" || docModel == null || docModel.PublisherNumber != Convert.ToInt32(employeeNumber))
             {
                 TempData["errorMsg"] = "您无权删除此文件，请重新登录。";
                 return RedirectToAction(returnURL, "User");
             }
+            //如果不是审核者，也是这篇文档的发布者，则删除
             if (bllDocument.deleteDocumentById(docid))
             {
                 TempData["successMsg"] = "删除成功。";
@@ -100,6 +116,60 @@ namespace Index.Controllers
                 return Json(bllDoc.AddDocument(document, (Int32)Session["username"], Server.MapPath("~/")));
             }
             return Json(false);
+        }
+
+        //将文档设置为已审核
+        [Authorize]
+        public ActionResult doCheck(int docid, string returnURL)
+        {
+            //先要判断当前用户是否有权设置这篇文档
+            string employeeNumber = User.Identity.Name;
+            BLLDocument bllDocument = new BLLDocument();
+            DocumentModel docModel = bllDocument.getDocumentById(docid);
+            UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(Convert.ToInt32(employeeNumber));
+            //如果不是审核者或不是这篇文档的审核者，则返回错误
+            if (empModel == null || empModel.IsChecker.Equals(false) || !docModel.CheckerNumber.Equals(Convert.ToInt32(employeeNumber)))
+            {
+                TempData["errorMsg"] = "您无权操作此文件，请重新登录。";
+                return RedirectToAction(returnURL, "User");
+            }
+            //如果是审核者,可以操作
+            if (bllDocument.setDocCheckedById(docid))
+            {
+                TempData["successMsg"] = "操作成功。";
+            }
+            else
+            {
+                TempData["errorMsg"] = "操作失败。";
+            }
+            return RedirectToAction(returnURL, "User");
+        }
+
+        //将我审核通过的文档重新设置为未审核
+        [Authorize]
+        public ActionResult doUnCheck(int docid, string returnURL)
+        {
+            //先要判断当前用户是否有权设置这篇文档
+            string employeeNumber = User.Identity.Name;
+            BLLDocument bllDocument = new BLLDocument();
+            DocumentModel docModel = bllDocument.getDocumentById(docid);
+            UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(Convert.ToInt32(employeeNumber));
+            //如果不是审核者或不是这篇文档的审核者，则返回错误
+            if (empModel == null || empModel.IsChecker.Equals(false) || !docModel.CheckerNumber.Equals(Convert.ToInt32(employeeNumber)))
+            {
+                TempData["errorMsg"] = "您无权操作此文件，请重新登录。";
+                return RedirectToAction(returnURL, "User");
+            }
+            //如果是审核者,可以操作
+            if (bllDocument.setDocUncheckedById(docid))
+            {
+                TempData["successMsg"] = "操作成功。";
+            }
+            else
+            {
+                TempData["errorMsg"] = "操作失败。";
+            }
+            return RedirectToAction(returnURL, "User");
         }
     }
 }
