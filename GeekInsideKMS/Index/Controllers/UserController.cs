@@ -25,6 +25,8 @@ namespace Index.Controllers
             string empno = User.Identity.Name;
             List<DocumentModel> docList = new List<DocumentModel>();
             int employeeNumber = Convert.ToInt32(empno);
+            UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(employeeNumber);
+            ViewData["empModel"] = empModel;
             docList = new BLLDocument().getMyCheckedDocList(employeeNumber);
             if (docList.Count == 0)
             {
@@ -34,6 +36,7 @@ namespace Index.Controllers
             {
                 ViewData["docList"] = docList;
             }
+            
             return View();
         }
 
@@ -60,6 +63,8 @@ namespace Index.Controllers
             string empno = User.Identity.Name;
             List<DocumentModel> docList = new List<DocumentModel>();
             int employeeNumber = Convert.ToInt32(empno);
+            UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(employeeNumber);
+            ViewData["empModel"] = empModel;
             docList = new BLLDocument().getMyUnheckedDocList(employeeNumber);
             if (docList.Count == 0)
             {
@@ -78,6 +83,8 @@ namespace Index.Controllers
             string empno = User.Identity.Name;
             List<DocumentModel> docList = new List<DocumentModel>();
             int employeeNumber = Convert.ToInt32(empno);
+            UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(employeeNumber);
+            ViewData["empModel"] = empModel;
             docList = new BLLFavorite().getFavoriteDocModelListByPublishNumber(employeeNumber);
             if (docList.Count == 0)
             {
@@ -95,6 +102,8 @@ namespace Index.Controllers
         public ActionResult DeleteFavorite(int docid)
         {
             string employeeNumber = User.Identity.Name;
+            UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(Convert.ToInt32(employeeNumber));
+            ViewData["empModel"] = empModel;
             BLLDocument bllDocument = new BLLDocument();
             DocumentModel docModel = bllDocument.getDocumentById(docid);
             if (employeeNumber == "" || docModel == null || docModel.PublisherNumber != Convert.ToInt32(employeeNumber))
@@ -119,6 +128,8 @@ namespace Index.Controllers
         public ActionResult addFavorite(int docid,string returnURL)
         {
             string employeeNumber = User.Identity.Name;
+            UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(Convert.ToInt32(employeeNumber));
+            ViewData["empModel"] = empModel;
             BLLDocument bllDocument = new BLLDocument();
             DocumentModel docModel = bllDocument.getDocumentById(docid);
             if (employeeNumber == "" || docModel == null || docModel.PublisherNumber != Convert.ToInt32(employeeNumber))
@@ -137,5 +148,61 @@ namespace Index.Controllers
             }
             return RedirectToAction(returnURL, "User");
         }
+
+        //审核界面
+        [Authorize]
+        public ActionResult Checker()
+        {
+            int employeeNumber = Convert.ToInt32(User.Identity.Name);
+            UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(employeeNumber);
+            ViewData["empModel"] = empModel;
+            BLLDocument bllDocument = new BLLDocument();
+            UserEmployeeModel userEmployeeModel = new BLLUserAccount().GetUserByEmpNumber(employeeNumber);
+            if (userEmployeeModel.IsChecker.Equals(false))
+            {
+                //非审核员
+                return RedirectToAction("Index", "Index");
+            }
+            List<DocumentModel> docList = new List<DocumentModel>();
+            docList = new BLLDocument().getToBeCheckedDocByCheckerNumber(employeeNumber);
+            if (docList.Count == 0)
+            {
+                ViewData["docList"] = "nodata";
+            }
+            else
+            {
+                ViewData["docList"] = docList;
+            }
+            return View();
+        }
+
+        //我审核过的文档
+        [Authorize]
+        public ActionResult CheckedByMe()
+        {
+            int employeeNumber = Convert.ToInt32(User.Identity.Name);
+            UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(employeeNumber);
+            ViewData["empModel"] = empModel;
+            BLLDocument bllDocument = new BLLDocument();
+            UserEmployeeModel userEmployeeModel = new BLLUserAccount().GetUserByEmpNumber(employeeNumber);
+            if (userEmployeeModel.IsChecker.Equals(false))
+            {
+                //非审核员
+                return RedirectToAction("Index", "Index");
+            }
+            List<DocumentModel> docList = new List<DocumentModel>();
+            docList = new BLLDocument().getHaveCheckedDocByCheckerNumber(employeeNumber);
+            if (docList.Count == 0)
+            {
+                ViewData["docList"] = "nodata";
+            }
+            else
+            {
+                ViewData["docList"] = docList;
+            }
+            return View();
+        }
+
+        
     }
 }

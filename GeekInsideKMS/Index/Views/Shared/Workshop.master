@@ -13,7 +13,7 @@
         <div class="visualPadding">
             <div id="workDeskNav">
                 <dl class="portlet portlet-navigation-tree">
-                    <dt class="portletHeader">相关操作 </dt>
+                    <dt class="portletHeader">相关操作</dt>
                     <dd class="portletItem">
                         <ul class="portletNavigationTree navTreeLevel0" id="left-view-list">
                             <li class="navTreeItem"><a href="/Document/Upload">
@@ -22,7 +22,7 @@
                     </dd>
                 </dl>
                 <dl class="portlet portlet-navigation-tree">
-                    <dt class="portletHeader">我的工作台 </dt>
+                    <dt class="portletHeader">我的工作台</dt>
                     <dd class="portletItem">
                         <ul class="portletNavigationTree navTreeLevel0" id="left-view-list">
                             <li class="navTreeItem"><a href="/User/Workshop">
@@ -34,6 +34,21 @@
                         </ul>
                     </dd>
                 </dl>
+                <% Model.Models.UserEmployeeModel empModel = (Model.Models.UserEmployeeModel)ViewData["empModel"]; %>
+                <% if (empModel.IsChecker.Equals(true))
+                   {%>
+                <dl class="portlet portlet-navigation-tree">
+                    <dt class="portletHeader">审核中心</dt>
+                    <dd class="portletItem">
+                        <ul class="portletNavigationTree navTreeLevel0" id="Ul1">
+                            <li class="navTreeItem"><a href="/User/Checker">
+                                <img src="/Content/images/icons/file.gif" class="iconimg">待我审核的文档</a> </li>
+                            <li class="navTreeItem"><a href="/User/CheckedByMe">
+                                <img src="/Content/images/icons/file.gif" class="iconimg">我审核过的文档</a> </li>
+                        </ul>
+                    </dd>
+                </dl>
+                <%} %>
             </div>
         </div>
     </td>

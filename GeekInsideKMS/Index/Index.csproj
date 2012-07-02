@@ -146,6 +146,8 @@
     <Content Include="Views\Document\DocumentUpload.aspx" />
     <Content Include="Views\Document\Edit.aspx" />
     <Content Include="Views\Search\Index.aspx" />
+    <Content Include="Views\User\CheckedByMe.aspx" />
+    <Content Include="Views\User\Checker.aspx" />
     <Content Include="Views\User\MyFavorite.aspx" />
     <Content Include="Views\User\UnCheckedDocList.aspx" />
     <Content Include="Views\Index\Index.aspx" />

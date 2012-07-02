@@ -182,5 +182,107 @@ namespace DAL
             context.SaveChanges();
             return true;
         }
+
+        public List<DocumentModel> getToBeCheckedDocByCheckerNumber(int employeeNumber)
+        {
+            using (var gikms = new geekinsidekmsEntities())
+            {
+                var dbDocList = from d in gikms.Documents
+                                where d.IsChecked.Equals(false) && d.CheckerNumber.Equals(employeeNumber)
+                                select d;
+                List<DAL.Document> docTempList = dbDocList.ToList();
+
+                //生成最终List
+                List<DocumentModel> docList = new List<DocumentModel>();
+                foreach (DAL.Document doc in docTempList)
+                {
+                    List<TagModel> tagIdArray = new DALTag().getTagModelListByDocId(doc.Id);
+                    docList.Add(new DocumentModel
+                    {
+                        Id = doc.Id,
+                        FileDisplayName = doc.FileDisplayName,
+                        FileDiskName = doc.FileDiskName,
+                        Description = doc.Description,
+                        FileTagIdArray = tagIdArray,
+                        FolderId = doc.FolderId,
+                        FileTypeId = doc.FileTypeId,
+                        FileTypeName = doc.FileTypeReference.Value.TypeName,
+                        PublisherNumber = doc.PublisherNumber,
+                        PublisherName = doc.PublisherName,
+                        PubTime = doc.PubTime,
+                        CheckerNumber = doc.CheckerNumber,
+                        CheckerName = doc.CheckerName,
+                        Size = doc.Size,
+                        ViewNumber = doc.ViewNumber,
+                        DownloadNumber = doc.DownloadNumber,
+                        IsChecked = doc.IsChecked
+                    });
+                }
+                return docList;
+            }
+        }
+
+        public List<DocumentModel> getHaveCheckedDocByCheckerNumber(int employeeNumber)
+        {
+            using (var gikms = new geekinsidekmsEntities())
+            {
+                var dbDocList = from d in gikms.Documents
+                                where d.IsChecked.Equals(true) && d.CheckerNumber.Equals(employeeNumber)
+                                select d;
+                List<DAL.Document> docTempList = dbDocList.ToList();
+
+                //生成最终List
+                List<DocumentModel> docList = new List<DocumentModel>();
+                foreach (DAL.Document doc in docTempList)
+                {
+                    List<TagModel> tagIdArray = new DALTag().getTagModelListByDocId(doc.Id);
+                    docList.Add(new DocumentModel
+                    {
+                        Id = doc.Id,
+                        FileDisplayName = doc.FileDisplayName,
+                        FileDiskName = doc.FileDiskName,
+                        Description = doc.Description,
+                        FileTagIdArray = tagIdArray,
+                        FolderId = doc.FolderId,
+                        FileTypeId = doc.FileTypeId,
+                        FileTypeName = doc.FileTypeReference.Value.TypeName,
+                        PublisherNumber = doc.PublisherNumber,
+                        PublisherName = doc.PublisherName,
+                        PubTime = doc.PubTime,
+                        CheckerNumber = doc.CheckerNumber,
+                        CheckerName = doc.CheckerName,
+                        Size = doc.Size,
+                        ViewNumber = doc.ViewNumber,
+                        DownloadNumber = doc.DownloadNumber,
+                        IsChecked = doc.IsChecked
+                    });
+                }
+                return docList;
+            }
+        }
+
+        public Boolean setDocUncheckedById(int docid)
+        {
+            geekinsidekmsEntities context = new geekinsidekmsEntities();
+
+            DAL.Document dbDoc = (from d in context.Documents
+                                  where d.Id.Equals(docid)
+                                  select d).FirstOrDefault();
+            dbDoc.IsChecked = false;
+            context.SaveChanges();
+            return true;
+        }
+
+        public Boolean setDocCheckedById(int docid)
+        {
+            geekinsidekmsEntities context = new geekinsidekmsEntities();
+
+            DAL.Document dbDoc = (from d in context.Documents
+                                  where d.Id.Equals(docid)
+                                  select d).FirstOrDefault();
+            dbDoc.IsChecked = true;
+            context.SaveChanges();
+            return true;
+        }
     }
 }
