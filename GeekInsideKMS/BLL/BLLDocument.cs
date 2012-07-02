@@ -127,5 +127,10 @@ namespace BLL
         {
             return documentDAL.updateDocument(docModel);
         }
+
+        public List<DocumentModel> getDocByTagId(int tagid)
+        {
+            return documentDAL.getDocByTagId(tagid);
+        }
     }
 }

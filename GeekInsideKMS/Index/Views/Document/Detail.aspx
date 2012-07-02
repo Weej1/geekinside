@@ -28,7 +28,7 @@
                     <div class="button-group mini">
                         <button class="KSSActionServer KSSLoad button" onclick= "self.location='/Document/Download?docid=<%:docModel.Id %>">
                             下载</button>
-                        <button class="KSSActionServer KSSLoad button" onclick= "self.location='/User/addFavorite?docid=<%:docModel.Id %>&returnURL=Index'">
+                        <button class="KSSActionServer KSSLoad button" onclick= "self.location='/User/addFavorite?docid=<%:docModel.Id %>&returnURL=MyFavorite'">
                             收藏</button>
                         <!-- 上传者可见 -->
                         <% if (docModel.PublisherNumber.Equals(Convert.ToInt32(Page.User.Identity.Name)))
@@ -60,9 +60,9 @@
                                         由 <a href="/Document/GetDocByEmpployeeNumber?empno=<%:docModel.PublisherNumber %>"><%:docModel.PublisherName %></a> 上传于 <%:docModel.PubTime %> 
                                         标签：
                                         <% foreach (Model.Models.TagModel tag in docModel.FileTagIdArray)
-                                        {
-                                            Response.Write(tag.TagName.ToString()+", ");
-                                        }
+                                        {%>
+                                            <a href="/Document/getDocByTagId?tagid=<%:tag.Id %>"><%:tag.TagName %> </a>
+                                        <%}
                                          %>
                                         
                                     </div>

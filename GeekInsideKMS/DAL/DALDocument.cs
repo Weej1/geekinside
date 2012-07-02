@@ -383,5 +383,27 @@ namespace DAL
             context.SaveChanges();
             return true;
         }
+
+        public List<DocumentModel> getDocByTagId(int tagid)
+        {
+            using (var gikms = new geekinsidekmsEntities())
+            {
+                var dbDocIdList = (from did in gikms.DocumentTags
+                                   where did.TagId.Equals(tagid)
+                                   select did).ToList();
+                List<DAL.Document> docTempList =  new List<DAL.Document>();
+                foreach (var did in dbDocIdList)
+                {
+                    var dbDoc = (from d in gikms.Documents
+                                 where d.Id.Equals(did.DocumentId)
+                                 select d).FirstOrDefault();
+                    docTempList.Add((DAL.Document)dbDoc);
+                }
+
+                //生成最终List
+                return gernerateFinalDocumentModelList(docTempList);
+
+            }
+        }
     }
 }
