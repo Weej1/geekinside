@@ -30,5 +30,25 @@ namespace BLL
             return documentDAL.getAllFavoriteDocListByPublisherNumber(publisherNumber);
         }
 
+        //判断是否已经收藏过
+        public Boolean isFavorite(int empNumber, int docid)
+        {
+            List<FavoriteModel> favModel = favoriteDAL.getFavoriteDocListByEmployeeNumber(empNumber);
+            Boolean result = false;
+            if (favModel == null)
+            {
+                return result;
+            }
+            foreach (FavoriteModel fav in favModel)
+            {
+                if (fav.DocumentId.Equals(docid))
+                {
+                    result = true;
+                    return result;
+                }
+            }
+            return result;
+        }
+
     }
 }

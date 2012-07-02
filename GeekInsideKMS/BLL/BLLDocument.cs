@@ -106,5 +106,10 @@ namespace BLL
         {
             return documentDAL.getTopTenDocumentBy("DownloadNumber");
         }
+
+        public List<DocumentModel> GetDocByEmpployeeNumber(int empno)
+        {
+            return documentDAL.getAllCheckedByPublisherNumber(empno);
+        }
     }
 }

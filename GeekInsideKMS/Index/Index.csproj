@@ -146,6 +146,7 @@
     <Content Include="Views\Document\Detail.aspx" />
     <Content Include="Views\Document\DocumentUpload.aspx" />
     <Content Include="Views\Document\Edit.aspx" />
+    <Content Include="Views\Document\GetDocByEmpployeeNumber.aspx" />
     <Content Include="Views\News\Detail.aspx" />
     <Content Include="Views\News\Index.aspx" />
     <Content Include="Views\Search\Index.aspx" />
