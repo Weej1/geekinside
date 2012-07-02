@@ -38,7 +38,7 @@ namespace BLL
         //高级搜索
         public List<DocumentModel> getResultWithFilter(SearchFilterModel searchFilterModel)
         {
-            return null;
+            return documentDAL.getResultWithFilter(searchFilterModel);
         }
     }
 }
