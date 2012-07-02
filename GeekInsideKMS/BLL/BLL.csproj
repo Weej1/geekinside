@@ -41,8 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLAdminAccount.cs" />
+    <Compile Include="BLLDepartment.cs" />
     <Compile Include="BLLDocument.cs" />
     <Compile Include="BLLFavorite.cs" />
+    <Compile Include="BLLFolder.cs" />
     <Compile Include="BLLSearch.cs" />
     <Compile Include="BLLUserAccount.cs" />
     <Compile Include="BLLSiteNews.cs" />
