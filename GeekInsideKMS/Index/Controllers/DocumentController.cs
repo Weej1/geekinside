@@ -177,5 +177,23 @@ namespace Index.Controllers
             }
             return RedirectToAction(returnURL, "User");
         }
+
+        //显示某人的所以所有发布的文档
+        public ActionResult GetDocByEmpployeeNumber(int empno)
+        {
+            List<DocumentModel> docList = new BLLDocument().GetDocByEmpployeeNumber(empno);
+            UserEmployeeDetailModel empDetailModel = new BLLUserAccount().GetUserDetailByEmpNumber(empno);
+            ViewData["empDetailModel"] = empDetailModel;
+            if (docList.Count == 0)
+            {
+                ViewData["docList"] = "nodata";
+            }
+            else
+            {
+                ViewData["docList"] = docList;
+            }
+
+            return View();
+        }
     }
 }

@@ -153,7 +153,12 @@ namespace Index.Controllers
         {
             string employeeNumber = User.Identity.Name;
             UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(Convert.ToInt32(employeeNumber));
-            ViewData["empModel"] = empModel;
+            //这里要先判断是否已经收藏过
+            if (new BLLFavorite().isFavorite(Convert.ToInt32(employeeNumber),docid))
+            {
+                TempData["errorMsg"] = "您已经收藏过此文档了。";
+                return RedirectToAction(returnURL, "User");
+            }
             BLLDocument bllDocument = new BLLDocument();
             DocumentModel docModel = bllDocument.getDocumentById(docid);
             if (employeeNumber == "" || docModel == null || docModel.PublisherNumber != Convert.ToInt32(employeeNumber))

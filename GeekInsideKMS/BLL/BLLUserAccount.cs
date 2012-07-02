@@ -69,5 +69,6 @@ namespace BLL
         {
             return userDAL.UpdateUserDetailAccount(empDetailModel);
         }
+
     }
 }
