@@ -231,6 +231,19 @@ div.itemInfo h1 a.title {
 	font-size: 12px;
 	font-weight: normal;
 }
+.discreet a{
+	color: #76797C;
+	font-size: 12px;
+	font-weight: normal;
+}
+.discreet a:hover{
+	color: blue;
+	font-size: 12px;
+	font-weight: normal;
+}
+.toplist {
+    margin:0 0 5px 0 !important;
+}
 div.itemIcon {
 	float: left;
 	width: 32px;

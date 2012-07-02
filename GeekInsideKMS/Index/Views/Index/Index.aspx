@@ -160,12 +160,11 @@
                 </div>
             </dt>
             <dd class="portletItem KSSShowHideTarget_3">
-                <p class="discreet">
-                    浏览排行</p>
-                <p class="discreet">
-                    浏览排行</p>
-                <p class="discreet">
-                    浏览排行</p>
+                <% List<Model.Models.DocumentModel> viewTop10Doc = (List<Model.Models.DocumentModel>)ViewData["viewTop10Doc"]; %>
+                <% foreach (var doc in viewTop10Doc){%>
+                    <p class="discreet toplist"><a href="/Document/Detail?docid=<%:doc.Id %>"><%:doc.FileDisplayName %>.<%:doc.FileTypeName %></a></p>
+                <% }%>
+                
             </dd>
         </dl>
         <dl class="portlet transparentPortlet">
@@ -176,12 +175,10 @@
                 </div>
             </dt>
             <dd class="portletItem KSSShowHideTarget_4">
-                <p class="discreet">
-                    下载排行</p>
-                <p class="discreet">
-                    下载排行</p>
-                <p class="discreet">
-                    下载排行</p>
+                <% List<Model.Models.DocumentModel> dlTop10Doc = (List<Model.Models.DocumentModel>)ViewData["dlTop10Doc"]; %>
+                <% foreach (var doc in dlTop10Doc){%>
+                    <p class="discreet toplist"><a href="/Document/Detail?docid=<%:doc.Id %>"><%:doc.FileDisplayName %>.<%:doc.FileTypeName %></a></p>
+                <% }%>
             </dd>
         </dl>
     </div>

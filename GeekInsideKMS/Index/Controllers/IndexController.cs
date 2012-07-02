@@ -16,10 +16,10 @@ namespace Index.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            ViewData["sitename"] = new BLLSiteConfig().getSiteConfigByPropertyName("sitename").PropertyValue;
-            ViewData["smtpaddress"] = new BLLSiteConfig().getSiteConfigByPropertyName("smtpaddress").PropertyValue;
-            ViewData["smtpusername"] = new BLLSiteConfig().getSiteConfigByPropertyName("smtpusername").PropertyValue;
-            ViewData["smtppassword"] = new BLLSiteConfig().getSiteConfigByPropertyName("smtppassword").PropertyValue;
+            List<DocumentModel> viewdocList = new BLLDocument().getTopTenDocumentByViewNumber();
+            ViewData["viewTop10Doc"] = viewdocList;
+            List<DocumentModel> dldocList = new BLLDocument().getTopTenDocumentByDownloadNumber();
+            ViewData["dlTop10Doc"] = dldocList;
             return View();
         }
 
