@@ -25,6 +25,7 @@ namespace IDAL
         List<DocumentModel> getResultBySearchTitleAndDescription(string sw);
         List<DocumentModel> getResultWithFilter(SearchFilterModel searchFilterModel);
         List<DocumentModel> getAllDocOrderByPubtime();
+        List<DocumentModel> getDocByTagId(int tagid);
         Boolean updateDocument(DocumentModel docModel);
     }
 }

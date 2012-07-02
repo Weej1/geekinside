@@ -209,5 +209,22 @@ namespace Index.Controllers
 
             return View();
         }
+
+        //根据标签得到doc
+        public ActionResult getDocByTagId(int tagid)
+        {
+            List<DocumentModel> docList = new BLLDocument().getDocByTagId(tagid);
+            UserEmployeeDetailModel empDetailModel = new BLLUserAccount().GetUserDetailByEmpNumber(Convert.ToInt32(User.Identity.Name));
+            ViewData["empDetailModel"] = empDetailModel;
+            if (docList.Count == 0)
+            {
+                ViewData["docList"] = "nodata";
+            }
+            else
+            {
+                ViewData["docList"] = docList;
+            }
+            return View();
+        }
     }
 }
