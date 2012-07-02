@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALFactory", "DALFactory\DALFactory.csproj", "{A3A4A1DE-377B-424A-8884-38DBD27B0843}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DALTest", "DALTest\DALTest.csproj", "{300C5B74-6FEB-4F51-A371-E1CD0CB7D740}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -111,6 +113,16 @@ Global
 		{A3A4A1DE-377B-424A-8884-38DBD27B0843}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{A3A4A1DE-377B-424A-8884-38DBD27B0843}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A3A4A1DE-377B-424A-8884-38DBD27B0843}.Release|x86.ActiveCfg = Release|Any CPU
+		{300C5B74-6FEB-4F51-A371-E1CD0CB7D740}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{300C5B74-6FEB-4F51-A371-E1CD0CB7D740}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{300C5B74-6FEB-4F51-A371-E1CD0CB7D740}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{300C5B74-6FEB-4F51-A371-E1CD0CB7D740}.Debug|x86.ActiveCfg = Debug|x86
+		{300C5B74-6FEB-4F51-A371-E1CD0CB7D740}.Debug|x86.Build.0 = Debug|x86
+		{300C5B74-6FEB-4F51-A371-E1CD0CB7D740}.Release|Any CPU.ActiveCfg = Release|x86
+		{300C5B74-6FEB-4F51-A371-E1CD0CB7D740}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{300C5B74-6FEB-4F51-A371-E1CD0CB7D740}.Release|Mixed Platforms.Build.0 = Release|x86
+		{300C5B74-6FEB-4F51-A371-E1CD0CB7D740}.Release|x86.ActiveCfg = Release|x86
+		{300C5B74-6FEB-4F51-A371-E1CD0CB7D740}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
