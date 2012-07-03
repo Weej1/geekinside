@@ -5,6 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MiddlePlaceHolder" runat="server">
     <div id="region-content" class="admin-intro">
+        <form method="post" enctype="multipart/form-data">
         <div>
             人员信息的批量上传</div>
         <div style="margin-top: 20px;">
@@ -18,6 +19,7 @@
                     <%: ViewData["errorMsg"]%></p>
             </fieldset>
         </div>
+        </form>
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="head" runat="server">
