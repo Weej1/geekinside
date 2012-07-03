@@ -305,7 +305,10 @@ namespace DAL
                 if (!sw_notincluede.Equals(""))
                 {
                     docTempList = (from d in docTempList
-                                   where (!d.FileDisplayName.Contains(sw_notincluede) || !d.Description.Contains(sw_notincluede))
+                                   where !d.FileDisplayName.Contains(sw_notincluede)
+                                   select d).ToList();
+                    docTempList = (from d in docTempList
+                                   where !d.Description.Contains(sw_notincluede)
                                    select d).ToList();
                 }
                 if (!sw_doctype.Equals(null))
