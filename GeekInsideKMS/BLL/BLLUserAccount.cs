@@ -30,6 +30,7 @@ namespace BLL
         {
             string encryptPassword = Helper.EncryptByMD5(password);
             return userEmployeeModel.Password == encryptPassword;
+            //return true;
         }
 
         public Boolean CreateUserAccount(UserEmployeeModel userEmployeeModel)

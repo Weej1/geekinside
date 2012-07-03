@@ -107,6 +107,9 @@
     <Content Include="Content\images\pl.gif" />
     <Content Include="Content\images\tool-sprites.gif" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\FlexPaperViewer.swf" />
+    <Content Include="Scripts\flexpaper_flash.js" />
+    <Content Include="Scripts\FlvPlayer201002.swf" />
     <Content Include="Scripts\i18n\cs.js" />
     <Content Include="Scripts\i18n\da.js" />
     <Content Include="Scripts\i18n\de.js" />
@@ -148,6 +151,7 @@
     <Content Include="Scripts\plupload.silverlight.js" />
     <Content Include="Scripts\plupload.silverlight.xap" />
     <Content Include="Scripts\slides.jquery.js" />
+    <Content Include="Scripts\swfobject.js" />
     <Content Include="swf\pdf2swf.exe" />
     <Content Include="Views\Document\Detail.aspx" />
     <Content Include="Views\Document\DocumentUpload.aspx" />
@@ -245,7 +249,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4494</DevelopmentServerPort>
+          <DevelopmentServerPort>8529</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
