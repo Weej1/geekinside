@@ -89,7 +89,7 @@ namespace Admin.Controllers
         public ActionResult doCreateUser()
         {
             string REGEXP_IS_VALID_EMAIL = @"^\w+((-\w+)(\.\w+))*\@\w+((\.-)\w+)*\.\w+$";  //电子邮件校验常量
-
+            string REGEXP_IS_VALID_PHONE = @"(^189\d{8}$)|(^13\d{9}$)|(^15\d{9}$)"; 
             BLLUserAccount bllUserAccount = new BLLUserAccount();
             UserEmployeeModel userEmployeeModel = new UserEmployeeModel();
             UserEmployeeDetailModel userEmployeeDetailModel = new UserEmployeeDetailModel();
@@ -105,13 +105,13 @@ namespace Admin.Controllers
             userEmployeeModel.Email = Request.Form["email"];
             userEmployeeModel.Phone = Request.Form["phone"];
 
-            if (userEmployeeDetailModel.Email == null || !Regex.IsMatch(userEmployeeDetailModel.Email, REGEXP_IS_VALID_EMAIL))
+            if (userEmployeeModel.Email == null || !Regex.IsMatch(userEmployeeModel.Email, REGEXP_IS_VALID_EMAIL))
             {
                 TempData["employeeNumberErrorMsg"] = "请输入正确的邮箱地址！";
                 return RedirectToAction("CreateUser", "Employee");
             }
 
-            if (userEmployeeDetailModel.Phone == null)
+            if (userEmployeeModel.Phone == null || !Regex.IsMatch(userEmployeeModel.Phone, REGEXP_IS_VALID_PHONE))
             {
                 TempData["phoneErrorMsg"] = "请输入正确的手机号！";
                 return RedirectToAction("CreateUser", "Employee");
@@ -186,7 +186,7 @@ namespace Admin.Controllers
         public ActionResult doEdit()
         {
             string REGEXP_IS_VALID_EMAIL = @"^\w+((-\w+)(\.\w+))*\@\w+((\.-)\w+)*\.\w+$";  //电子邮件校验常量
-
+            string REGEXP_IS_VALID_PHONE = @"(^189\d{8}$)|(^13\d{9}$)|(^15\d{9}$)"; 
             BLLUserAccount bllUserAccount = new BLLUserAccount();
 
             int id = Convert.ToInt32(Request.Form["id"]);
@@ -213,7 +213,7 @@ namespace Admin.Controllers
                 return RedirectToAction("CreateUser", "Employee");
             }
 
-            if (userEmployeeModel.Phone == null)
+            if (userEmployeeModel.Phone == null || !Regex.IsMatch(userEmployeeModel.Phone, REGEXP_IS_VALID_PHONE))
             {
                 TempData["phoneErrorMsg"] = "请输入正确的手机号！";
                 return RedirectToAction("CreateUser", "Employee");
@@ -260,11 +260,18 @@ namespace Admin.Controllers
         }
 
         //批量导入
+        [Authorize]
+        public ActionResult StationImport()
+        {
+            return View();
+        }
+
+        [Authorize]
         [HttpPost]
-        public ActionResult StationImport(HttpPostedFileBase filebase)
+        public ActionResult StationImport(HttpPostedFileBase filebase) 
         {
             BLLUserAccount bllUserAccount = new BLLUserAccount();
-            HttpPostedFileBase file = Request.Files["files"];
+            HttpPostedFileBase file = Request.Files["files"]; 
             string FileName;
             string savePath;
 
@@ -294,7 +301,11 @@ namespace Admin.Controllers
                     ViewData["errorMsg"] = "上传文件超过4M，不能上传";
                     return View();
                 }
-                string path = AppDomain.CurrentDomain.BaseDirectory + "uploads/excel/";
+                string path = AppDomain.CurrentDomain.BaseDirectory + "uploads\\excel\\";
+                if (!Directory.Exists(Path.GetDirectoryName(path)))
+                {
+                    Directory.CreateDirectory(Path.GetDirectoryName(path));
+                }
                 savePath = Path.Combine(path, FileName);
                 file.SaveAs(savePath);
             }
@@ -322,13 +333,14 @@ namespace Admin.Controllers
                 for (int i = 0; i < table.Rows.Count; i++)
                 {
                     UserEmployeeModel temp = new UserEmployeeModel();
+                    temp.EmployeeNumber = bllUserAccount.GetMaxEmployeeNumber() + 1;
                     temp.Password = "123456";
                     temp.Name = table.Rows[i].ItemArray[0].ToString();
                     temp.Email = table.Rows[i].ItemArray[1].ToString();
                     temp.Phone = table.Rows[i].ItemArray[2].ToString();
                     temp.DepartmentId = Convert.ToInt32(table.Rows[i].ItemArray[3].ToString());
-                    temp.IsManager = (Convert.ToInt32(table.Rows[i].ItemArray[4].ToString())== 0 ? false : true);
-                    temp.IsChecker = (Convert.ToInt32(table.Rows[i].ItemArray[5].ToString())== 0 ? false : true);
+                    temp.IsManager = (Convert.ToInt32(table.Rows[i].ItemArray[4].ToString()) == 0 ? false : true);
+                    temp.IsChecker = (Convert.ToInt32(table.Rows[i].ItemArray[5].ToString()) == 0 ? false : true);
                     temp.IsAvailable = (Convert.ToInt32(table.Rows[i].ItemArray[6].ToString()) == 0 ? false : true);
                     bllUserAccount.CreateUserAccount(temp);
                 }
