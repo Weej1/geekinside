@@ -48,7 +48,12 @@
                                 <%= Html.Encode(row.FolderPath) %>
                             </td>
                             <td>
-                                王小强,李宁
+                                <% string manager=""; %>
+                                <% foreach (string e in row.ManagerName) %>
+                                <%{ %>
+                                <%      manager = manager + " " + e; %>
+                                <%} %>
+                                 <%: manager%>
                             </td>
                             <td>
                                 <%= Html.ActionLink("编辑", "Edit", new{Id = row.Id})%>

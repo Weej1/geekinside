@@ -12,5 +12,7 @@ namespace Admin.Models
         public string DepartmentName { get; set; }
 
         public string FolderPath { get; set; }
+
+        public IList<string> ManagerName { get; set; }
     }
 }
