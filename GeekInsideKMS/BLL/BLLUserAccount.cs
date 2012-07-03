@@ -90,6 +90,11 @@ namespace BLL
         public UserEmployeeModel GetSingleUserById(int id) 
         {
             return userDetailDAL.GetSingleEmployeeDetailById(id);
-        } 
+        }
+
+        public List<UserEmployeeModel> GetUserDetailsByDeptId(int deptId) 
+        {
+            return userDetailDAL.GetEmployeeDetailsByDept(deptId);
+        }
     }
 }

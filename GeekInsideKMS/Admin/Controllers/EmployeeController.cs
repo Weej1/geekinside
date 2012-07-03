@@ -66,35 +66,21 @@ namespace Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult FilterUsers()
-        {
-            int deptId = Convert.ToInt32(Request.Form["dept_name"]);
-            List<UserEmployeeModel> empList = new List<UserEmployeeModel>();
-            BLLUserAccount bllUserAccount = new BLLUserAccount();
-
-            if (deptId == 0)
-            {
-                empList = bllUserAccount.GetAllEmployeeDetails();
-            }
-            else
-            {
-                empList = bllUserAccount.GetEmployeeDetailsByDept(deptId);
-            }
-            ViewData["empList"] = empList;
-
-            return View();
-        }
-
-        [HttpPost]
         public ActionResult doCreateUser()
         {
             string REGEXP_IS_VALID_EMAIL = @"^\w+((-\w+)(\.\w+))*\@\w+((\.-)\w+)*\.\w+$";  //电子邮件校验常量
-            string REGEXP_IS_VALID_PHONE = @"(^189\d{8}$)|(^13\d{9}$)|(^15\d{9}$)"; 
+            string REGEXP_IS_VALID_PHONE = @"(^189\d{8}$)|(^13\d{9}$)|(^15\d{9}$)";
             BLLUserAccount bllUserAccount = new BLLUserAccount();
             UserEmployeeModel userEmployeeModel = new UserEmployeeModel();
             UserEmployeeDetailModel userEmployeeDetailModel = new UserEmployeeDetailModel();
-
-            userEmployeeModel.EmployeeNumber = bllUserAccount.GetMaxEmployeeNumber() + 1;
+            if (bllUserAccount.GetMaxEmployeeNumber() == null)
+            {
+                userEmployeeModel.EmployeeNumber = 1000;
+            }
+            else
+            {
+                userEmployeeModel.EmployeeNumber = bllUserAccount.GetMaxEmployeeNumber() + 1;
+            }
             userEmployeeModel.Password = "123456";
             userEmployeeModel.DepartmentId = Convert.ToInt32(Request.Form["dept_name"]);
             userEmployeeModel.IsManager = (Convert.ToInt32(Request.Form["isManager"]) == 0 ? false : true);
@@ -186,7 +172,7 @@ namespace Admin.Controllers
         public ActionResult doEdit()
         {
             string REGEXP_IS_VALID_EMAIL = @"^\w+((-\w+)(\.\w+))*\@\w+((\.-)\w+)*\.\w+$";  //电子邮件校验常量
-            string REGEXP_IS_VALID_PHONE = @"(^189\d{8}$)|(^13\d{9}$)|(^15\d{9}$)"; 
+            string REGEXP_IS_VALID_PHONE = @"(^189\d{8}$)|(^13\d{9}$)|(^15\d{9}$)";
             BLLUserAccount bllUserAccount = new BLLUserAccount();
 
             int id = Convert.ToInt32(Request.Form["id"]);
@@ -268,10 +254,10 @@ namespace Admin.Controllers
 
         [Authorize]
         [HttpPost]
-        public ActionResult StationImport(HttpPostedFileBase filebase) 
+        public ActionResult StationImport(HttpPostedFileBase filebase)
         {
             BLLUserAccount bllUserAccount = new BLLUserAccount();
-            HttpPostedFileBase file = Request.Files["files"]; 
+            HttpPostedFileBase file = Request.Files["files"];
             string FileName;
             string savePath;
 
@@ -351,5 +337,95 @@ namespace Admin.Controllers
             return RedirectToAction("Index");
 
         }
+
+        [Authorize]
+        [HttpPost]
+        [MultiButton("Search")]
+        public ActionResult Search() 
+        {
+            IList<DepartmentModel> deptList = new List<DepartmentModel>();
+            BLLDepartment bllDepartment = new BLLDepartment();
+            deptList = bllDepartment.GetAllDepartments();
+            if (deptList.Count == 0)
+            {
+                ViewData["deptList"] = "nodata";
+            }
+            else
+            {
+                ViewData["deptList"] = deptList;
+            }
+
+            int deptId = Convert.ToInt32(Request.Form["dept_name"]);
+            string conditions = Request.Form["search_key"];
+            BLLUserAccount bllUserAccount = new BLLUserAccount();
+            List<UserEmployeeModel> empList = new List<UserEmployeeModel>();
+            List<UserEmployeeModel> resultList = new List<UserEmployeeModel>(); 
+
+            if (deptId == 0)
+            {
+                empList = bllUserAccount.GetAllEmployeeDetails();
+            }
+            else 
+            {
+                empList = bllUserAccount.GetUserDetailsByDeptId(deptId);
+            }
+            if (conditions.Equals("登录名/姓名"))
+            {
+                ViewData["empList"] = empList;
+                return View();
+            }
+            else 
+            {
+                if (isnumeric(conditions))
+                {
+                    foreach (UserEmployeeModel element in empList)
+                    {
+                        if (element.EmployeeNumber == Convert.ToInt32(conditions))
+                            resultList.Add(element);
+                    }
+                    ViewData["empList"] = resultList;
+                }
+                else 
+                {
+                    foreach (UserEmployeeModel element in empList)
+                    {
+                        if (element.Name == conditions)
+                            resultList.Add(element);
+                    }
+                    ViewData["empList"] = resultList;
+                }
+                return View();
+            }
+            
+        }
+
+        private bool isnumeric(string str)
+        {
+            char[] ch=new char[str.Length];
+            ch=str.ToCharArray();
+            foreach (char element in ch)
+            {
+                if (element < 48 || element > 57)
+                return false;
+            }
+            return true;
+        }
+        public class MultiButtonAttribute : ActionNameSelectorAttribute 
+        { 
+            public string Name { get; set; } 
+            public MultiButtonAttribute(string name) 
+            { 
+                this.Name = name; 
+            } 
+            public override bool IsValidName(ControllerContext controllerContext, 
+            string actionName, System.Reflection.MethodInfo methodInfo) 
+            { 
+                if (string.IsNullOrEmpty(this.Name)) 
+                { 
+                    return false; 
+                } 
+                return controllerContext.HttpContext.Request.Form.AllKeys.Contains(this.Name); 
+            } 
+        } 
     }
 }

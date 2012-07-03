@@ -20,7 +20,7 @@
                 <input type="button" class="button" value="添加员工" onclick= "self.location='/Employee/CreateUser'"><span style="margin-left: 10px;"></span><input
                     type="button" class="button" value="批量添加员工" onclick= "self.location='/Employee/StationImport'"></p>
             <div class="FilterPersonsField">
-                <form name="filter_persons_form" method="post" action="/Employee/doCreateUser">
+                <form name="filter_persons_form" method="post">
                 <strong>筛选/搜索：</strong> <span>部门:
                     <select name="dept_name" style="vertical-align: middle;">
                         <% if (ViewData["deptList"].Equals("nodata"))
@@ -42,7 +42,7 @@
                 </span><span>
                     <input class="SearchKey" name="search_key" size="12" value="登录名/姓名" style="color: #76797C;">
                 </span><span>
-                    <input class="button filterPersons" type="submit" name="filter_persons" value="筛选/搜索"  />
+                    <input class="button filterPersons" type="submit" name="Search" value="筛选/搜索" />
                 </span>
                 </form>
             </div>
