@@ -27,5 +27,7 @@ namespace IDAL
         List<DocumentModel> getAllDocOrderByPubtime();
         List<DocumentModel> getDocByTagId(int tagid);
         Boolean updateDocument(DocumentModel docModel);
+        Boolean ViewNumberIncrement(int docId);
+        Boolean DownloadNumberIncrement(int docId);
     }
 }

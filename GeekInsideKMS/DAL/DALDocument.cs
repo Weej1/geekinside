@@ -406,5 +406,31 @@ namespace DAL
 
             }
         }
+    
+        //ViewNumber自增
+        public Boolean ViewNumberIncrement(int docId) 
+        {
+            geekinsidekmsEntities context = new geekinsidekmsEntities();
+
+            DAL.Document dbDoc = (from doc in context.Documents
+                                  where doc.Id.Equals(docId)
+                                  select doc).FirstOrDefault();
+            dbDoc.ViewNumber = dbDoc.ViewNumber + 1;
+            context.SaveChanges();
+            return true;
+        }
+
+        //DownloadNumber自增
+        public Boolean DownloadNumberIncrement(int docId)
+        {
+            geekinsidekmsEntities context = new geekinsidekmsEntities();
+
+            DAL.Document dbDoc = (from doc in context.Documents
+                                  where doc.Id.Equals(docId)
+                                  select doc).FirstOrDefault();
+            dbDoc.DownloadNumber = dbDoc.DownloadNumber + 1;
+            context.SaveChanges();
+            return true;
+        }
     }
 }
