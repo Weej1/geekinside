@@ -8,7 +8,7 @@ namespace IDAL
 {
     public interface IDALDocument
     {
-        bool CreateDocument(DocumentModel document);
+        int CreateDocument(DocumentModel document);
         List<DocumentModel> getAllCheckedByPublisherNumber(int publisherNumber);
         List<DocumentModel> getAllUncheckedByPublisherNumber(int publisherNumber);
         List<DocumentModel> getAllFavoriteDocListByPublisherNumber(int publisherNumber);

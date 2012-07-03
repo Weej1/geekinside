@@ -23,7 +23,6 @@ namespace DAL
                 }
 
                 List<DAL.Document> docTempList = dbDocList.ToList();
-
                 //生成最终List
                 return gernerateFinalDocumentModelList(docTempList);
             }
@@ -94,7 +93,7 @@ namespace DAL
             }
         }
 
-        public bool CreateDocument(DocumentModel document)
+        public int CreateDocument(DocumentModel document)
         {
             using (geekinsidekmsEntities context = new geekinsidekmsEntities())
             {
@@ -115,13 +114,12 @@ namespace DAL
                 try
                 {
                     context.AddToDocuments(dbDocument);
-                    context.SaveChanges();
+                    context.SaveChanges(false);
                 }
                 catch(Exception e){
                     System.Diagnostics.Debug.WriteLine(e.InnerException.Message);
-                    return false;
                 }
-                return true;
+                return dbDocument.Id;
             }
         }
 

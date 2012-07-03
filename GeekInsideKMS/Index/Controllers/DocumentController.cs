@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using BLL;
 using Model.Models;
 using System.Web.Security;
+using System.Text.RegularExpressions;
 
 namespace Index.Controllers
 {
@@ -128,12 +129,17 @@ namespace Index.Controllers
 
         //提交文件信息
         [Authorize]
-        public JsonResult FileDetail(DocumentModel document)
+        public JsonResult FileDetail(DocumentModel document,  string tags)
         {
+            string[] tagArr = null;
+            if (tags != "")
+            {
+                tagArr = tags.Split(new string[] { " ", "　" }, StringSplitOptions.RemoveEmptyEntries); 
+            }
             BLLDocument bllDoc = new BLLDocument();
             if (User.Identity.Name != null)
             {
-                return Json(bllDoc.AddDocument(document, Convert.ToInt32(User.Identity.Name), Server.MapPath("~")));
+                return Json(bllDoc.AddDocument(document, tagArr, Convert.ToInt32(User.Identity.Name), Server.MapPath("~")));
             }
             return Json(false);
         }
