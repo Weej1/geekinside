@@ -12,10 +12,16 @@ namespace BLL
         IDALSiteNews siteNewsDAL = DALFactory.DataAccess.CreateSiteNewsDAL();
 
         //得到公告列表
-        public List<SiteNewsModel> getAll()
+        //分页：传入页数 暂定每页2个
+        public List<SiteNewsModel> getAll(int pageNumber)
         {
-            List<SiteNewsModel> newsList = siteNewsDAL.getAll();
+            List<SiteNewsModel> newsList = siteNewsDAL.getAll(pageNumber,2);
             return newsList;
+        }
+
+        public int getTotalCount()
+        {
+            return siteNewsDAL.getTotalCount();
         }
 
         //得到某篇公告内容
