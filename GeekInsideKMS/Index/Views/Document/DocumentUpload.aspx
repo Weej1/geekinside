@@ -129,6 +129,19 @@
                   "</td>" +
                  "</tr>" +
                  "<tr>" +
+                   "<th>" +
+                     "<label><font color='red'>*</font>权限</label>" +
+                   "</th>" +
+                  "<td>" +
+                    "<select id='auth_" + file.id + "' style='width:200px'>" +
+                       "<option value='1'>所有人都可以查看和下载</option>" +
+                       "<option value='2'>非本部门人不可以下载</option>" +
+                       "<option value='3'>只有本部门人可以查看和下载</option>" +
+                       "<option value='4'>只有本部门人可以查看</option>" +
+                    "</select>" +
+                  "</td>" +
+                 "</tr>" +
+                 "<tr>" +
                    "<td style='text-align:right' colspan='2'>" +
                      "<input type='hidden' value='0' name='folder' id='type_" + file.id + "'/>" +
                      "<input id='fileD_submit" + file.id + "' type='submit' disabled='disabled' class='submitBtnDisabled'/>" + "<div class='overlay' id='overlay_" + file.id + "'></div>"+
@@ -285,6 +298,7 @@
                             'size': file.size,
                             'description': $("#content" + file_id).val(),
                             'folderId': $("#type_" + file_id).val(),
+                            'authLevel':$("#auth_" + file_id).val(),
                             'tags': tags
                         },
                         success: function (response) {
