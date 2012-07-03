@@ -109,13 +109,13 @@ namespace DAL
                     PublisherName = document.PublisherName,
                     PublisherNumber = document.PublisherNumber,
                     FileTypeId = document.FileTypeId,
-                    FolderId = document.FolderId
-    
+                    FolderId = document.FolderId,
+                    AuthLevel = document.AuthLevel
                 };
                 try
                 {
                     context.AddToDocuments(dbDocument);
-                    context.SaveChanges(false);
+                    context.SaveChanges(System.Data.Objects.SaveOptions.DetectChangesBeforeSave);
                 }
                 catch(Exception e){
                     System.Diagnostics.Debug.WriteLine(e.InnerException.Message);
