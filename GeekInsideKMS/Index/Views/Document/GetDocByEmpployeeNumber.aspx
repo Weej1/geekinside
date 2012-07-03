@@ -51,7 +51,7 @@
                                 </h1>
                                 
                                 <p class="discreet" style="margin: -5pt 0 2px;">
-                                    上传者：<%: doc.PublisherName %>， 上传于 <%: doc.PubTime %> <%: doc.Size %>， 文件位于/文档库/公司管理/1123
+                                    上传者：<%: doc.PublisherName %>， 上传于 <%: doc.PubTime %> 大小：<%: doc.Size %>， 查看次数：<%: doc.ViewNumber %> 下载次数：<%: doc.DownloadNumber %>
                                 </p>
                                 
                             </div>
