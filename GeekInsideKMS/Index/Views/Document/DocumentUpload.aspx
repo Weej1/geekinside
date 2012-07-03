@@ -32,7 +32,7 @@
 
             $("#uploader").plupload({
                 // General settings
-                runtimes: 'html5,silverlight,flash,gears,browserplus',
+                runtimes: 'silverlight,flash,html5,gears,browserplus',
                 url: '/UploadHandler.ashx',
                 max_file_size: '2gb',
                 chunk_size: '128kb',
@@ -131,7 +131,7 @@
                  "<tr>" +
                    "<td style='text-align:right' colspan='2'>" +
                      "<input type='hidden' value='0' name='folder' id='type_" + file.id + "'/>" +
-                     "<input id='fileD_submit" + file.id + "' type='submit' disabled='disabled' class='submitBtnDisabled'/>" +
+                     "<input id='fileD_submit" + file.id + "' type='submit' disabled='disabled' class='submitBtnDisabled'/>" + "<div class='overlay' id='overlay_" + file.id + "'></div>"+
                    "</td>" +
                  "</tr>" +
                "</table>" +
@@ -273,7 +273,10 @@
                     $.each(tagArr, function (i, n) {
                         tagStr += n + " ";
                     });
-        
+                    var overlay = $("#overlay_" + file_id);
+                    overlay.css("width", $("#file_" + file_id).width());
+                    overlay.css("height", $("#file_" + file_id).height() + 15);
+                    overlay.css("display", "block");
                     $.ajax({ url: "/Document/FileDetail",
                         type: 'post',
                         dataType: 'json',
@@ -286,7 +289,7 @@
                         },
                         success: function (response) {
                             if (response) {
-                                alert("文档上传成功");
+                                alert("文件: "+file.name + "\n提交成功");
                                 $("#file_" + file_id).remove();
                                 up.removeFile(up.getFile(file_id));
                                 if (up.files.length == 0) {
@@ -295,6 +298,7 @@
                             } else {
                                 alert("提交失败，请重新提交");
                             }
+                            overlay.css("display", "none");
                         }
                     });
                 }
@@ -331,6 +335,20 @@
             margin-top: 1px;
             padding-top: 4px;
             padding-left: 20px;
+        }
+        
+        .overlay {
+            background: #000 url('/Content/images/loadingAnimation.gif') no-repeat center;
+            filter: alpha(opacity=50); 
+            opacity: 0.5; 
+            display: none;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 300; 
+            display:none;
         }
     </style>
 </asp:Content>
