@@ -139,7 +139,7 @@
                 </table>
                 <p>
                     <input type="button" class="button" value="删除选中" onclick="javascript:document.forms[1].submit();"><span style="margin-left: 10px;"></span><input
-                        type="button" class="button" value="导出所有员工资料"></p>
+                        type="button" class="button" value="导出所有员工资料" ></p>
                 </form>
             </div>
         </div>

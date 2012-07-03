@@ -402,6 +402,7 @@ namespace Admin.Controllers
             }
             return true;
         }
+       
         public class MultiButtonAttribute : ActionNameSelectorAttribute 
         { 
             public string Name { get; set; } 
@@ -418,6 +419,65 @@ namespace Admin.Controllers
                 } 
                 return controllerContext.HttpContext.Request.Form.AllKeys.Contains(this.Name); 
             } 
-        } 
+        }
+        
+        [Authorize]
+        [HttpPost]
+        [MultiButton("Export")]
+        public void ExportMsg()
+        {
+            List <UserEmployeeModel> emps = new BLLUserAccount().GetAllEmployeeDetails();
+            DataTable dt = new DataTable();
+            string strFileName;
+            int cloumns = 8;
+
+            //生成文件名: 当前年月日小时分钟秒+ 随机数
+            Random rd = new Random(int.Parse(DateTime.Now.ToString("MMddhhmmss")));
+            strFileName = DateTime.Now.ToString("yyyyMMdd")
+                + DateTime.Now.Hour
+                + DateTime.Now.Minute
+                + DateTime.Now.Second
+                + rd.Next(999999).ToString()
+                + ".csv";
+            StringWriter sw = new StringWriter();
+
+            string title = string.Empty;
+            string content = string.Empty;
+            string[] titlearray = { "员工号", "姓名", "email", "手机号", "部门id", "是否为经理", "是否为审核员", "是否可用" };
+
+            for(int i = 0; i< titlearray.Count(); i++ ) 
+            {
+                if (i == 0)
+                    title = title + titlearray[i];
+                else
+                    title = title + "," +titlearray[i];
+            }
+            sw.WriteLine(title);
+            for (int i = 0; i < emps.Count(); i++)
+            {
+                content = content + emps[i].EmployeeNumber.ToString();
+                content = content + "," + emps[i].Name;
+                content = content + "," + emps[i].Email;
+                content = content + "," + emps[i].Phone;
+                content = content + "," + emps[i].DepartmentId.ToString();
+                content = content + "," + (emps[i].IsManager == true ? 1 : 0).ToString();
+                content = content + "," + (emps[i].IsChecker == true ? 1 : 0).ToString();
+                content = content + "," + (emps[i].IsAvailable == true ? 1 : 0).ToString();
+                sw.WriteLine(content);
+                content = string.Empty;
+            }
+
+            sw.Close();
+
+            Response.AddHeader("Content-Disposition", "attachment; filename=" + Server.UrlEncode(strFileName));
+
+            Response.ContentType = "vnd.ms-excel.numberformat:yyyy-MM-dd ";
+
+            Response.ContentEncoding = System.Text.Encoding.GetEncoding("GB2312");
+
+            Response.Write(sw);
+
+            Response.End();
+        }
     }
 }
