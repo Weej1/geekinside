@@ -104,7 +104,7 @@
                                             '../../../Scripts/FlexPaperViewer',
                                             'viewerPlaceHolder', {
                                                 config: {
-                                                    SwfFile: "../../../swf/" + "<%=filename %>".split('.')[0]+".swf",
+                                                    SwfFile: "/Document/getfilepath?FileDownloadName=" + "<%=filename %>",
                                                 Scale: 0.6,
                                                 ZoomTransition: 'easeOut',
                                                 ZoomTime: 0.5,

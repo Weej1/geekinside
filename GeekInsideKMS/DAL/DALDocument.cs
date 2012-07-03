@@ -434,5 +434,41 @@ namespace DAL
                 return gernerateFinalDocumentModelList(docTempList);
             }
         }
+
+        public DocumentModel getDocumentByFileDiskName(string fileDiskName)
+        {
+            using (var gikms = new geekinsidekmsEntities())
+            {
+                Document dbDocs = (from d in gikms.Documents
+                                   where d.FileDiskName.Equals(fileDiskName)
+                                   select d).FirstOrDefault();
+                if (dbDocs == null)
+                {
+                    return null;
+                }
+                List<TagModel> tagIdArray = new DALTag().getTagModelListByDocId(dbDocs.Id);
+                return new DocumentModel
+                {
+                    Id = dbDocs.Id,
+                    FileDisplayName = dbDocs.FileDisplayName,
+                    FileDiskName = dbDocs.FileDiskName,
+                    Description = dbDocs.Description,
+                    FileTagIdArray = tagIdArray,
+                    FolderId = dbDocs.FolderId,
+                    FileTypeId = dbDocs.FileTypeId,
+                    FileTypeName = dbDocs.FileTypeReference.Value.TypeName,
+                    PublisherNumber = dbDocs.PublisherNumber,
+                    PublisherName = dbDocs.PublisherName,
+                    PubTime = dbDocs.PubTime,
+                    CheckerNumber = dbDocs.CheckerNumber,
+                    CheckerName = dbDocs.CheckerName,
+                    Size = dbDocs.Size,
+                    ViewNumber = dbDocs.ViewNumber,
+                    DownloadNumber = dbDocs.DownloadNumber,
+                    IsChecked = dbDocs.IsChecked,
+                    AuthLevel = dbDocs.AuthLevel
+                };
+            }
+        }
     }
 }

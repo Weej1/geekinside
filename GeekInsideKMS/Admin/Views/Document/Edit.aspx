@@ -66,7 +66,7 @@
                                 <script type="text/javascript">
                                     var s5 = new SWFObject("../../../Scripts/FlvPlayer201002.swf", "playlist", "675", "450", "7");
                                     s5.addParam("allowfullscreen", "true");
-                                    s5.addVariable("autostart", "true");
+                                    s5.addVariable("autostart", "false");
                                     s5.addVariable("file", "/Document/getfilepath?FileDownloadName=" + "<%=filename %>");
                                     s5.addVariable("width", "675");
                                     s5.addVariable("height", "450");
