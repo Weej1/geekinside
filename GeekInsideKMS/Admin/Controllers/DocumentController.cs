@@ -92,5 +92,22 @@ namespace Admin.Controllers
             return RedirectToAction("Index", "Document");
         }
 
+        [Authorize]
+        public void getFilePath(string FileDownloadName)
+        {
+            HttpContext.Response.AddHeader("content-disposition",
+                "attachment; filename=" + FileDownloadName);
+            string fileType = FileDownloadName.Split('.')[1];
+            string filePath = "";
+            if (fileType.Equals("flv"))
+            {
+                filePath = "D:\\geekinsidekms\\repository\\123\\" + FileDownloadName;
+            }
+            else {
+                filePath = "C:\\Users\\Margaret\\Documents\\Visual Studio 2010\\Projects\\GeekInsideKMS\\Index\\swf\\" + FileDownloadName.Split('.')[0] + ".swf";
+            }
+            
+            HttpContext.Response.TransmitFile(filePath);
+        }
     }
 }

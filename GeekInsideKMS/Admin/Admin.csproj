@@ -163,7 +163,11 @@
     <Content Include="Content\js\editor\skins\default\default.gif" />
     <Content Include="Content\js\editor\skins\default\toolbar.space.gif" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\FlexPaperViewer.swf" />
+    <Content Include="Scripts\flexpaper_flash.js" />
+    <Content Include="Scripts\FlvPlayer201002.swf" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
+    <Content Include="Scripts\swfobject.js" />
     <Content Include="Views\Account\Login.aspx" />
     <Content Include="Views\Auth\Index.aspx" />
     <Content Include="Views\Department\Create.aspx" />

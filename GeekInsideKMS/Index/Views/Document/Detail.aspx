@@ -75,14 +75,12 @@
                         </div>
                         <div class="visualClear" >
                         </div>
-                        <div id="operationTip-previewBody" style="margin-top:30px; margin-bottom:55px;">
-                            <% string docid = docModel.Id.ToString(); %>
-                            <% string filename = docModel.FileDiskName; %>
+                        <div id="operationTip-previewBody">
+                            <% string filename = docModel.FileDiskName;%>
                             <% string fileType = docModel.FileTypeName; %>
                             <% if(fileType.Equals("flv")) {%>
-                            <div style="text-align: center; width: 100%; height: 100%; overflow: auto;" id="previewBody" >
-                                <div align="center">
-                                    <div id="player5" style="width:675px; height:450px margin:0px; border:solid 0px #50031a;color:#000000;">
+                                <div style="text-align: center; width: 100%; height: 100%; overflow: auto; margin-top: 5px;" id="previewBody" >
+                                    <div align="center" style="margin-top: 10px"><div id="player5" style="width:675px; height:450px margin:0px; border:solid 0px #50031a;color:#000000;">
                                         <a href="http://www.89525.net/FlvPlayer/" target="_blank"></a>
                                     </div>
                                 </div>                                
@@ -91,16 +89,15 @@
                                     var s5 = new SWFObject("../../../Scripts/FlvPlayer201002.swf", "playlist", "675", "450", "7");
                                     s5.addParam("allowfullscreen", "true");
                                     s5.addVariable("autostart", "true");
-                                    s5.addVariable("file", "/Document/getfile?docid=" + "<%=docid %>");
+                                    s5.addVariable("file", "/Document/getfilepath?FileDownloadName=" + "<%=filename %>");
                                     s5.addVariable("width", "675");
                                     s5.addVariable("height", "450");
                                     s5.write("player5");
-                                 </script>       
-                             </div>                     
+                                 </script>                            
                             <% }else{ %>
                                 <div align="center">
                                     <script type="text/javascript" src="../../../Scripts/flexpaper_flash.js"></script>
-                                    <a id="viewerPlaceHolder" style="width:850px;height:530px;display:block"></a>    
+                                    <a id="viewerPlaceHolder" style="width:800px;height:550px;display:block"></a>    
                                     <script type="text/javascript">
                                         var fp = new FlexPaperViewer(
                                             '../../../Scripts/FlexPaperViewer',
@@ -132,7 +129,7 @@
                                     </script> 
                                  </div>
                             <% } %>
-                         
+                         </div>
                     </div>
                 </div>
             </div>
@@ -154,7 +151,7 @@
             <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
         
     </div>
-    
+   </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="RightPlaceHolder" runat="server">
     <div class="visualPadding">
