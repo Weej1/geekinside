@@ -34,7 +34,7 @@
                                     <img src="/Content/images/icons/powerpoint.gif">
                                 <% }else if(doc.FileTypeName.Equals("pdf")){ %>
                                     <img src="/Content/images/icons/pdf.gif">
-                                <% }else if(doc.FileTypeName.Equals("wmv")){ %>
+                                <% }else if(doc.FileTypeName.Equals("flv")){ %>
                                     <img src="/Content/images/icons/video.png">
                                 <% }else{ %>
                                     <img src="/Content/images/icons/document.gif">
