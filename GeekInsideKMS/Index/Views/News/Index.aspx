@@ -16,7 +16,19 @@
         <ul class="newslist">
             <% List<Model.Models.SiteNewsModel> newsList = (List<Model.Models.SiteNewsModel>)ViewData["newsList"]; %>
             <% foreach (var news in newsList) { %>
-                <li><a href="/News/Detail?newsid=<%:news.Id %>"><%:news.Title %></a><em><%:news.PubTime.Date %></em></li>
+                <li><a href="/News/Detail?newsid=<%:news.Id %>">
+                    <% if (news.IsOnTop.Equals(true))
+                    {
+                        Response.Write("【置顶】"+news.Title);
+                    } 
+                    else
+                    {
+                        Response.Write(news.Title);
+                    }
+                     %>
+                    
+                    </a><em><%:news.PubTime.Date %></em>
+                </li>
             <% } %>
         </ul>
     </div>
