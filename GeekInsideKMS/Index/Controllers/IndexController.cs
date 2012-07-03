@@ -22,6 +22,9 @@ namespace Index.Controllers
             ViewData["dlTop10Doc"] = dldocList;
             List<TagModel> tagModel = new BLLTag().getTop50TagModelList();
             ViewData["tagModel"] = tagModel;
+            BLLFolder bllFolder = new BLLFolder();
+            List<FolderModel> folders = (List<FolderModel>)bllFolder.GetAllFolders();
+            ViewData["folders"] = folders;
             return View();
         }
 

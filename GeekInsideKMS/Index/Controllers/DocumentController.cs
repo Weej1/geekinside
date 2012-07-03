@@ -263,5 +263,14 @@ namespace Index.Controllers
             return View();
         }
 
+
+        //获取该用户有权限查看的文档
+        [Authorize]
+        public JsonResult GetFolderList(int folderId)
+        {
+            BLLDocument bllDocument = new BLLDocument();
+            List<DocumentModel> documents = bllDocument.getDocByFolderId(Convert.ToInt32(User.Identity.Name), folderId);
+            return Json(documents);
+        }
     }
 }
