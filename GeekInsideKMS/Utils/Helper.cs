@@ -30,5 +30,10 @@ namespace Utils
         {
             Directory.CreateDirectory(REPO_ROOT + dbPath);
         }
+
+        public static void ConvertDocumentToSwf(string documentPath, string swfFolderPath)
+        { 
+            
+        }
     }
 }

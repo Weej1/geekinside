@@ -23,14 +23,16 @@ namespace BLL
             }
         }
 
-        public bool AddDocument(DocumentModel document, int employeeNumber)
+        public bool AddDocument(DocumentModel document, int employeeNumber, string serverDiskPath)
         {
             IDALFileType fileTypeDAL = DALFactory.DataAccess.CreateFileTypeDAL();
             IDALFolder folderDAL = DALFactory.DataAccess.CreateFolderDAL();
             IDALUserAccount userDAL = DALFactory.DataAccess.CreateUserDAL();
             IDALEmployeeDetail employeeDAL = DALFactory.DataAccess.CreateEmployeeDetailDAL();
 
-            document.FileTypeId = fileTypeDAL.GetFileTypeId(document.FileDisplayName.Substring(document.FileDisplayName.LastIndexOf(".")+1));
+            string fileExtention = document.FileDisplayName.Substring(document.FileDisplayName.LastIndexOf(".") + 1);
+
+            document.FileTypeId = fileTypeDAL.GetFileTypeId(fileExtention);
             document.PubTime = System.DateTime.Now;
             document.Size = Utils.FileSizeTransformer.TransformSize(Convert.ToInt32(document.Size));
             document.PublisherNumber = userDAL.getUserByEmployeeNumber(employeeNumber).EmployeeNumber;
@@ -38,7 +40,12 @@ namespace BLL
 
             if (documentDAL.CreateDocument(document))
             {
-                MoveFile(document.FileDiskName, folderDAL.GetFolderById(document.FolderId).PhysicalPath);
+                string newFilePath = MoveFile(document.FileDiskName, folderDAL.GetFolderById(document.FolderId).PhysicalPath);
+                if (fileExtention == "doc" ||
+                    fileExtention == "docx")
+                {
+                    Helper.ConvertDocumentToSwf(newFilePath, Path.Combine(serverDiskPath, "swf"));
+                }
                 return true;
             }
             else
@@ -57,7 +64,7 @@ namespace BLL
             return documentDAL.getAllUncheckedByPublisherNumber(publisherNumber);
         }
 
-        private void MoveFile(string fileName, string physicalPath)
+        private string MoveFile(string fileName, string physicalPath)
         {
             string filePath = Helper.REPO_ROOT + "\\temp\\" + fileName;
             string newFilePath = Helper.REPO_ROOT + physicalPath + "\\" + fileName;
@@ -66,6 +73,7 @@ namespace BLL
                 File.Copy(filePath, newFilePath, false);
                 File.Delete(filePath);
             }
+            return newFilePath;
         }
 
         public DocumentModel getDocumentById(int docid)

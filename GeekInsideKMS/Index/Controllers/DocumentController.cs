@@ -133,7 +133,7 @@ namespace Index.Controllers
             BLLDocument bllDoc = new BLLDocument();
             if (User.Identity.Name != null)
             {
-                return Json(bllDoc.AddDocument(document, Convert.ToInt32(User.Identity.Name)));
+                return Json(bllDoc.AddDocument(document, Convert.ToInt32(User.Identity.Name), Server.MapPath("~")));
             }
             return Json(false);
         }
