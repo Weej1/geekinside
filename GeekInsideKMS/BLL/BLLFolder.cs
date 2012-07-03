@@ -5,6 +5,7 @@ using System.Text;
 using Model.Models;
 using DALFactory;
 using IDAL;
+using Utils;
 
 namespace BLL
 {
@@ -26,6 +27,25 @@ namespace BLL
         public void UpdateFolder(FolderModel folder)
         {
             folderDAL.UpdateFolder(folder);
+        }
+
+        public IList<FolderModel> getAllFoldersByDepartmentId(int deptId)
+        {
+            DepartmentModel deptModel = new BLLDepartment().GetDepartment(deptId);
+            FolderModel parentFolderModel = folderDAL.GetFolderById(deptModel.FolderId);
+            return folderDAL.GetSubFolders(parentFolderModel);
+        }
+
+        public Boolean addFolder(FolderModel folderModel)
+        {
+            FolderModel parentFolder = GetFolderById(folderModel.ParentFolderId);
+            folderModel.PhysicalPath = Helper.CreateNewFolderPath(parentFolder.PhysicalPath+"\\");
+            Helper.CreateDirectory(folderModel.PhysicalPath);    // ´´½¨Ä¿Â¼
+            if (folderDAL.CreateFolder(folderModel) > 0)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -185,9 +185,7 @@ namespace Index.Controllers
             int employeeNumber = Convert.ToInt32(User.Identity.Name);
             UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(employeeNumber);
             ViewData["empModel"] = empModel;
-            BLLDocument bllDocument = new BLLDocument();
-            UserEmployeeModel userEmployeeModel = new BLLUserAccount().GetUserByEmpNumber(employeeNumber);
-            if (userEmployeeModel.IsChecker.Equals(false))
+            if (empModel.IsChecker.Equals(false))
             {
                 //非审核员
                 return RedirectToAction("Index", "Index");
@@ -232,6 +230,63 @@ namespace Index.Controllers
             return View();
         }
 
-        
+        //部门经理中心首页
+        public ActionResult Manager()
+        {
+            int empNumber = Convert.ToInt32(User.Identity.Name);
+            BLLUserAccount bllUserAccount = new BLLUserAccount();
+            UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(empNumber);
+            ViewData["empModel"] = empModel;
+            if (empModel.IsManager.Equals(false))
+            {
+                //非部门经理
+                return RedirectToAction("Index", "Index");
+            }
+            IList<FolderModel> folderModelList = new List<FolderModel>();
+            folderModelList = new BLLFolder().getAllFoldersByDepartmentId(empModel.DepartmentId);
+            if (folderModelList.Count() == 0)
+            {
+                ViewData["folderModelList"] = "nodata";
+            } 
+            else
+            {
+                ViewData["folderModelList"] = folderModelList.ToList<FolderModel>();
+            }
+            
+            return View();
+        }
+
+        //添加文件夹
+        [Authorize]
+        public ActionResult addFolder(int parentId)
+        {
+            int empNumber = Convert.ToInt32(User.Identity.Name);
+            UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(empNumber);
+            ViewData["empModel"] = empModel;
+            BLLFolder bllFolder = new BLLFolder();
+            ViewData["parentFolderModel"] = bllFolder.GetFolderById(parentId);
+            return View();
+        }
+
+        //添加文件夹
+        [HttpPost]
+        [Authorize]
+        public ActionResult doAddFolder()
+        {
+            FolderModel folderModel = new FolderModel();
+            folderModel.FolderName = Request.Form["FolderName"];
+            folderModel.Description = Request.Form["Description"];
+            folderModel.ParentFolderId = Convert.ToInt32(Request.Form["ParentFolderId"]);
+            BLLFolder bllFolder = new BLLFolder();
+            if (bllFolder.addFolder(folderModel))
+            {
+                TempData["successMsg"] = "添加成功。";
+            }
+            else
+            {
+                TempData["errorMsg"] = "添加失败。";
+            }
+            return RedirectToAction("Manager", "User");
+        }
     }
 }

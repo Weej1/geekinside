@@ -158,8 +158,10 @@
     <Content Include="Views\News\Index.aspx" />
     <Content Include="Views\Search\BasicSearchResult.aspx" />
     <Content Include="Views\Search\Index.aspx" />
+    <Content Include="Views\User\addFolder.aspx" />
     <Content Include="Views\User\CheckedByMe.aspx" />
     <Content Include="Views\User\Checker.aspx" />
+    <Content Include="Views\User\Manager.aspx" />
     <Content Include="Views\User\MyFavorite.aspx" />
     <Content Include="Views\User\UnCheckedDocList.aspx" />
     <Content Include="Views\Index\Index.aspx" />
