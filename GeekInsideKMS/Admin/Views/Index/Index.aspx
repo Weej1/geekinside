@@ -55,9 +55,6 @@
             </div>
             <input type="submit" value="保存信息">
             </form>
-            <div class="admin-intro">
-                站点备份</div>
-            点击<a href="#">此处</a>开始备份整个站点的数据
         </div>
     </div>
 </asp:Content>

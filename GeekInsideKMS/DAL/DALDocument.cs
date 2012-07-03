@@ -366,6 +366,7 @@ namespace DAL
                                   select doc).FirstOrDefault();
             dbDoc.FileDisplayName = docModel.FileDisplayName;
             dbDoc.Description = docModel.Description;
+            dbDoc.IsChecked = docModel.IsChecked;
             context.SaveChanges();
             return true;
         }
