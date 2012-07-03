@@ -105,7 +105,7 @@ namespace DAL
                 try
                 {
                     context.AddToTags(dbTag);
-                    context.SaveChanges(false);
+                    context.SaveChanges(System.Data.Objects.SaveOptions.DetectChangesBeforeSave);
                 }catch(Exception e){
                     System.Diagnostics.Debug.WriteLine(e.InnerException.Message);
                 }
