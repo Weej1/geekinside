@@ -231,19 +231,22 @@ namespace Index.Controllers
         }
 
         //部门经理中心首页
+        //文件夹最多三级
         public ActionResult Manager()
         {
             int empNumber = Convert.ToInt32(User.Identity.Name);
             BLLUserAccount bllUserAccount = new BLLUserAccount();
             UserEmployeeModel empModel = new BLLUserAccount().GetUserByEmpNumber(empNumber);
             ViewData["empModel"] = empModel;
+            BLLFolder bllFolder = new BLLFolder();
+            ViewData["outsideFolderId"] = new BLLDepartment().GetDepartment(empModel.DepartmentId).FolderId;
             if (empModel.IsManager.Equals(false))
             {
                 //非部门经理
                 return RedirectToAction("Index", "Index");
             }
-            IList<FolderModel> folderModelList = new List<FolderModel>();
-            folderModelList = new BLLFolder().getAllFoldersByDepartmentId(empModel.DepartmentId);
+            IList<FolderModel> folderModelList = bllFolder.getAllFoldersByDepartmentId(empModel.DepartmentId);
+
             if (folderModelList.Count() == 0)
             {
                 ViewData["folderModelList"] = "nodata";
@@ -287,6 +290,22 @@ namespace Index.Controllers
                 TempData["errorMsg"] = "添加失败。";
             }
             return RedirectToAction("Manager", "User");
+        }
+
+        //删除文件夹
+        public ActionResult deleteFolder(int folderId)
+        {
+            BLLFolder bllFolder = new BLLFolder();
+            if (bllFolder.deleteFolderById(folderId))
+            {
+                TempData["successMsg"] = "删除成功。";
+            }
+            else
+            {
+                TempData["errorMsg"] = "删除失败。";
+            }
+            return RedirectToAction("Manager", "User");
+            return null;
         }
     }
 }
