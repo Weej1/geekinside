@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="discreet">
                                     
-                                    <div style="margin-top: 5px">
+                                    <div style="margin: 5px 0px">
                                         <span>大小：<%:docModel.Size %> 查看次数：<%:docModel.ViewNumber %> 下载次数：<%:docModel.DownloadNumber %> </span>
                                         由 <a href="/Document/GetDocByEmpployeeNumber?empno=<%:docModel.PublisherNumber %>"><%:docModel.PublisherName %></a> 上传于 <%:docModel.PubTime %> 
                                         标签：

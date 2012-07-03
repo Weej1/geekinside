@@ -16,7 +16,12 @@
                     <p class="discreet">
                         下面是您部门的文件夹列表：</p>
                     <% if (ViewData["folderModelList"].Equals("nodata")){ %>
-                        <p style="color:red;">暂无文件夹</p>
+                        <p>财务部
+                            <span class="docListOperation">
+                                <a href="/User/addFolder?parentId=<%:ViewData["outsideFolderId"] %>">添加子文件夹</a>
+                            </span>
+                        </p>
+                        <p style="color:red;">暂无子文件夹</p>
                     <%}else{%>
                         <% List<Model.Models.FolderModel> folderModelList = (List<Model.Models.FolderModel>)ViewData["folderModelList"]; %>
                         <p>财务部
