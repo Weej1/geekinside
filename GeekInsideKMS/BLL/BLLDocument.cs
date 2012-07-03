@@ -162,5 +162,13 @@ namespace BLL
         {
             return documentDAL.getDocByTagId(tagid);
         }
+        public Boolean ViewNumberIncrement(int docId) 
+        {
+            return documentDAL.ViewNumberIncrement(docId);
+        }
+        public Boolean DownloadNumberIncrement(int docId) 
+        {
+            return documentDAL.DownloadNumberIncrement(docId);
+        }
     }
 }
