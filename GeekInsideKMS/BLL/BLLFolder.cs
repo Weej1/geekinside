@@ -33,19 +33,40 @@ namespace BLL
         {
             DepartmentModel deptModel = new BLLDepartment().GetDepartment(deptId);
             FolderModel parentFolderModel = folderDAL.GetFolderById(deptModel.FolderId);
-            return folderDAL.GetSubFolders(parentFolderModel);
+            return folderDAL.GetAllSubFolders(parentFolderModel);
         }
 
         public Boolean addFolder(FolderModel folderModel)
         {
             FolderModel parentFolder = GetFolderById(folderModel.ParentFolderId);
             folderModel.PhysicalPath = Helper.CreateNewFolderPath(parentFolder.PhysicalPath+"\\");
-            Helper.CreateDirectory(folderModel.PhysicalPath);    // ´´½¨Ä¿Â¼
+            Helper.CreateDirectory(folderModel.PhysicalPath);
             if (folderDAL.CreateFolder(folderModel) > 0)
             {
                 return true;
             }
             return false;
+        }
+
+        public Boolean deleteFolderById(int folderId)
+        {
+            folderDAL.DeleteFolder(folderDAL.GetFolderById(folderId));
+            return true;
+        }
+
+        public Boolean deleteFolderCascadeById(int folderId)
+        {
+            if (folderDAL.DeleteFolderCascade(folderDAL.GetFolderById(folderId)) > 0)
+            {
+                return true;
+            }
+            return false ;
+        }
+
+        IList<FolderModel> getSubfoldersByParentFolderId(int parentFolderId)
+        {
+            FolderModel parentFolder = GetFolderById(parentFolderId);
+            return folderDAL.GetAllSubFolders(parentFolder);
         }
     }
 }
