@@ -30,8 +30,18 @@ namespace Index.Controllers
             List<DocumentModel> viewdocList = new BLLDocument().getTopTenDocumentByViewNumber();
             ViewData["viewTop10Doc"] = viewdocList;
             List<DocumentModel> dldocList = new BLLDocument().getTopTenDocumentByDownloadNumber();
-            ViewData["dlTop10Doc"] = dldocList;
+            ViewData["dlTop10Doc"] = dldocList;            
             return View();
+        }
+
+        [Authorize]
+        public void getFile(string FileDownloadName)
+        {
+            HttpContext.Response.AddHeader("content-disposition",
+                    "attachment; filename=" + FileDownloadName);
+
+            string filePath = "D:\\geekinsidekms\\repository\\123\\" + FileDownloadName;
+            HttpContext.Response.TransmitFile(filePath);
         }
 
         [Authorize]

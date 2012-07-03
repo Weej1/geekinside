@@ -69,17 +69,65 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="visualClear">
+                        <div class="visualClear" >
                         </div>
-                        <div id="operationTip-previewBody">
-                            <div style="text-align: center; width: 100%; height: 100%; overflow: auto; margin-top: 5px;"
-                                id="previewBody">
-                                预览区域<br>
-                                预览区域<br>
-                                预览区域<br>
-                                预览区域<br>
-                            </div>
-                        </div>
+                        <div id="operationTip-previewBody" style="margin-top:30px; margin-bottom:55px;">
+                            <% string filename = docModel.FileDiskName; %>
+                            <% string fileType = docModel.FileTypeName; %>
+                            <% if(fileType.Equals("flv")) {%>
+                            <div style="text-align: center; width: 100%; height: 100%; overflow: auto;" id="previewBody" >
+                                <div align="center">
+                                    <div id="player5" style="width:675px; height:450px margin:0px; border:solid 0px #50031a;color:#000000;">
+                                        <a href="http://www.89525.net/FlvPlayer/" target="_blank"></a>
+                                    </div>
+                                </div>                                
+                                <script type="text/javascript" src="../../../Scripts/swfobject.js"></script>
+                                <script type="text/javascript">
+                                    var s5 = new SWFObject("../../../Scripts/FlvPlayer201002.swf", "playlist", "675", "450", "7");
+                                    s5.addParam("allowfullscreen", "true");
+                                    s5.addVariable("autostart", "true");
+                                    s5.addVariable("file", "/Document/getfile?FileDownloadName=" + "<%=filename %>");
+                                    s5.addVariable("width", "675");
+                                    s5.addVariable("height", "450");
+                                    s5.write("player5");
+                                 </script>       
+                             </div>                     
+                            <% }else{ %>
+                                <div align="center">
+                                    <script type="text/javascript" src="../../../Scripts/flexpaper_flash.js"></script>
+                                    <a id="viewerPlaceHolder" style="width:850px;height:530px;display:block"></a>    
+                                    <script type="text/javascript">
+                                        var fp = new FlexPaperViewer(
+                                            '../../../Scripts/FlexPaperViewer',
+                                            'viewerPlaceHolder', {
+                                                config: {
+                                                    SwfFile: "../../../swf/" + "<%=filename %>".split('.')[0]+".swf",
+                                                Scale: 0.6,
+                                                ZoomTransition: 'easeOut',
+                                                ZoomTime: 0.5,
+                                                ZoomInterval: 0.2,
+                                                FitPageOnLoad: false,
+                                                FitWidthOnLoad: true,
+                                                FullScreenAsMaxWindow: true,
+                                                ProgressiveLoading: false,
+                                                MinZoomSize: 0.5,
+                                                MaxZoomSize: 3,
+                                                SearchMatchAll: false,
+                                                InitViewMode: 'Portrait',
+
+						                         ViewModeToolsVisible: true,
+						                         ZoomToolsVisible: true,
+						                         NavToolsVisible: true,
+						                         CursorToolsVisible: false,
+						                         SearchToolsVisible: true,
+
+						                         localeChain: 'en_US'
+						                    }
+						                });
+                                    </script> 
+                                 </div>
+                            <% } %>
+                         
                     </div>
                 </div>
             </div>
@@ -134,4 +182,5 @@
             </dd>
         </dl>
     </div>
+
 </asp:Content>
