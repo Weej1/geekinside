@@ -56,5 +56,24 @@ namespace DAL
                 return tagModel.TagName;
             }
         }
+
+        public List<TagModel> getTop50TagModelList()
+        {
+            using (var gikms = new geekinsidekmsEntities())
+            {
+                var tagList = (from t in gikms.Tags
+                           select t).Take(50).ToList();
+                List<TagModel> tagModelList = new List<TagModel>();
+                foreach (DAL.Tag tag in tagList)
+                {
+                    tagModelList.Add(new TagModel
+                    {
+                        Id = tag.Id,
+                        TagName = tag.TagName
+                    });
+                }
+                return tagModelList;
+            }
+        }
     }
 }

@@ -61,7 +61,7 @@
                                         标签：
                                         <% foreach (Model.Models.TagModel tag in docModel.FileTagIdArray)
                                         {%>
-                                            <a href="/Document/getDocByTagId?tagid=<%:tag.Id %>"><%:tag.TagName %> </a>
+                                            <a href="/Document/getDocByTagId?tagid=<%:tag.Id %>"><%:tag.TagName %></a>
                                         <%}
                                          %>
                                         
