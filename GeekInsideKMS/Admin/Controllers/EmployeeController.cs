@@ -73,14 +73,8 @@ namespace Admin.Controllers
             BLLUserAccount bllUserAccount = new BLLUserAccount();
             UserEmployeeModel userEmployeeModel = new UserEmployeeModel();
             UserEmployeeDetailModel userEmployeeDetailModel = new UserEmployeeDetailModel();
-            if (bllUserAccount.GetMaxEmployeeNumber() == null)
-            {
-                userEmployeeModel.EmployeeNumber = 1000;
-            }
-            else
-            {
-                userEmployeeModel.EmployeeNumber = bllUserAccount.GetMaxEmployeeNumber() + 1;
-            }
+            
+            userEmployeeModel.EmployeeNumber = bllUserAccount.GetMaxEmployeeNumber() + 1;           
             userEmployeeModel.Password = "123456";
             userEmployeeModel.DepartmentId = Convert.ToInt32(Request.Form["dept_name"]);
             userEmployeeModel.IsManager = (Convert.ToInt32(Request.Form["isManager"]) == 0 ? false : true);
@@ -196,13 +190,13 @@ namespace Admin.Controllers
             if (userEmployeeModel.Email == null || !Regex.IsMatch(userEmployeeModel.Email, REGEXP_IS_VALID_EMAIL))
             {
                 TempData["employeeNumberErrorMsg"] = "请输入正确的邮箱地址！";
-                return RedirectToAction("CreateUser", "Employee");
+                return RedirectToAction("Edit", "Employee");
             }
 
             if (userEmployeeModel.Phone == null || !Regex.IsMatch(userEmployeeModel.Phone, REGEXP_IS_VALID_PHONE))
             {
                 TempData["phoneErrorMsg"] = "请输入正确的手机号！";
-                return RedirectToAction("CreateUser", "Employee");
+                return RedirectToAction("Edit", "Employee");
             }
 
             Boolean result = bllUserAccount.UpdateUserAccount(userEmployeeModel);
