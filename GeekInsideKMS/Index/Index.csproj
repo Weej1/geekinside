@@ -100,6 +100,7 @@
     <Content Include="Content\images\icons\pdf.gif" />
     <Content Include="Content\images\icons\trash.gif" />
     <Content Include="Content\images\icons\video.png" />
+    <Content Include="Content\images\loadingAnimation.gif" />
     <Content Include="Content\images\login-left.png" />
     <Content Include="Content\images\login_18.png" />
     <Content Include="Content\images\magnifier.png" />
@@ -185,7 +186,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="uploadfiles\temp\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\Base.Master" />
