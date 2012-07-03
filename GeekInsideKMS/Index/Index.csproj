@@ -178,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="swf\" />
     <Folder Include="uploadfiles\temp\" />
   </ItemGroup>
   <ItemGroup>
