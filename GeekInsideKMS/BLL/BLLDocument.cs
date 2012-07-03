@@ -42,7 +42,6 @@ namespace BLL
             document.Size = Utils.FileSizeTransformer.TransformSize(Convert.ToInt32(document.Size));
             document.PublisherNumber = userDAL.getUserByEmployeeNumber(employeeNumber).EmployeeNumber;
             document.PublisherName = employeeDAL.GetUserEmployeeDetail(employeeNumber).Name;
-            document.AuthLevel = 1;//数据库默认值为1，但发现如果这里不指定，插入的数据为0
 
             //建立分布式事务
             using (TransactionScope scope = new TransactionScope())
