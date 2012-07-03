@@ -42,5 +42,16 @@ namespace BLL
             return siteNewsDAL.deleteNewsById(id);
         }
 
+        //设置为置顶
+        public Boolean setItOnTop(int id)
+        {
+            return siteNewsDAL.setItOnTopById(id);
+        }
+
+        //取消置顶
+        public Boolean setItNotOnTop(int id)
+        {
+            return siteNewsDAL.setItNotOnTopById(id);
+        }
     }
 }

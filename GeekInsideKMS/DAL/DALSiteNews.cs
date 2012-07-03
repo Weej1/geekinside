@@ -49,13 +49,34 @@ namespace DAL
         }
         public Boolean setItOnTopById(int id)
         {
+            geekinsidekmsEntities context = new geekinsidekmsEntities();
+
+            DAL.SiteNews dbNews = (from news in context.SiteNews
+                                   where news.Id.Equals(id)
+                                   select news).FirstOrDefault();
+            dbNews.IsOnTop = true;
+            context.SaveChanges();
             return true;
         }
+
+        public Boolean setItNotOnTopById(int id)
+        {
+            geekinsidekmsEntities context = new geekinsidekmsEntities();
+
+            DAL.SiteNews dbNews = (from news in context.SiteNews
+                                   where news.Id.Equals(id)
+                                   select news).FirstOrDefault();
+            dbNews.IsOnTop = false;
+            context.SaveChanges();
+            return true;
+        }
+        //get all 默认按置顶和时间排序
         public List<SiteNewsModel> getAll()
         {
             using (var gikms = new geekinsidekmsEntities())
             {
                 var siteNewsList = from n in gikms.SiteNews
+                                   orderby n.IsOnTop descending
                                    select n;
                 List<DAL.SiteNews> newsTempList = siteNewsList.ToList();
                 List<SiteNewsModel> newsList = new List<SiteNewsModel>();

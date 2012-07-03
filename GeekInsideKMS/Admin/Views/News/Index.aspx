@@ -68,8 +68,7 @@
                     </tbody>
                 </table>
                 <p>
-                    <input type="button" class="button" value="删除选中" onclick="javascript:document.forms[0].submit();"><span style="margin-left: 10px;"></span><input
-                        type="button" class="button" value="置顶选中"></p>
+                    <input type="button" class="button" value="删除选中" onclick="javascript:document.forms[0].submit();"><span style="margin-left: 10px;"></span>
                 </form>
             </div>
         </div>

@@ -43,9 +43,6 @@ namespace Admin.Controllers
             siteNewsModel.NewsContent = Request.Form["newscontent"];
             siteNewsModel.PubTime = Convert.ToDateTime(Request.Form["pubtime"]);
 
-            //标题不能为空
-            //在前台判断
-
             if (Request.Form["isontop"] != null && Request.Form["isontop"].Contains("on"))
             {
                 siteNewsModel.IsOnTop = true;
