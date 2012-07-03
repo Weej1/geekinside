@@ -25,13 +25,15 @@ namespace Index.Controllers
         [Authorize]
         public ActionResult Detail(int docid)
         {
-            DocumentModel docModel = new BLLDocument().getDocumentById(docid);
+            BLLDocument bllDocument = new BLLDocument();
+            DocumentModel docModel = bllDocument.getDocumentById(docid);
             ViewData["docModel"] = docModel;
-            List<DocumentModel> viewdocList = new BLLDocument().getTopTenDocumentByViewNumber();
+            List<DocumentModel> viewdocList = bllDocument.getTopTenDocumentByViewNumber();
             ViewData["viewTop10Doc"] = viewdocList;
-            List<DocumentModel> dldocList = new BLLDocument().getTopTenDocumentByDownloadNumber();
+            List<DocumentModel> dldocList = bllDocument.getTopTenDocumentByDownloadNumber();
             ViewData["dlTop10Doc"] = dldocList;
             ViewData["canIDownload"] = new BLLAuth().ifEmpCanDownlaodThisDoc(Convert.ToInt32(User.Identity.Name), docid);
+            bllDocument.ViewNumberIncrement(docid);
             return View();
         }
 
@@ -39,6 +41,7 @@ namespace Index.Controllers
         public void getFile(int docid)
         {
             BLLDocument bllDocument = new BLLDocument();
+            bllDocument.DownloadNumberIncrement(docid);
             string FileDownloadName = bllDocument.getDocumentById(docid).FileDiskName;
             string FileFolderPath = new BLLFolder().GetFolderById(bllDocument.getDocumentById(docid).FolderId).PhysicalPath;
             HttpContext.Response.AddHeader("content-disposition",

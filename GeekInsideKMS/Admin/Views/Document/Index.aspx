@@ -15,7 +15,6 @@
                 <p style="color:green;font-weight:bold;"><%: TempData["successMsg"]%></p>
                 <% } %>
                 <p>
-                <input type="button" class="button" value="添加新文档"  onclick= "self.location='/Document/addDocument'"></p>
             <div id="NewsTable">
                 <form name="doc_form" class="DocsForm" method="post" action="/Document/deleteMultiDocs">
                 <table class="listing">
@@ -25,10 +24,10 @@
                                 <a class="SelectAll" href="#">全选</a> <a class="UnSelectAll hidden" href="#">不选</a>
                             </th>
                             <th>
-                                编号
+                                审核
                             </th>
                             <th>
-                                审核
+                                编号
                             </th>
                             <th>
                                 文档标题

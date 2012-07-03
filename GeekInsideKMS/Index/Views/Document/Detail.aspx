@@ -59,8 +59,9 @@
                                     <%:docModel.Description %>
                                 </div>
                                 <div class="discreet">
-                                    <span>大小：<%:docModel.Size %> 查看次数：<%:docModel.ViewNumber %> 下载次数：<%:docModel.DownloadNumber %> </span>
+                                    
                                     <div style="margin-top: 5px">
+                                        <span>大小：<%:docModel.Size %> 查看次数：<%:docModel.ViewNumber %> 下载次数：<%:docModel.DownloadNumber %> </span>
                                         由 <a href="/Document/GetDocByEmpployeeNumber?empno=<%:docModel.PublisherNumber %>"><%:docModel.PublisherName %></a> 上传于 <%:docModel.PubTime %> 
                                         标签：
                                         <% foreach (Model.Models.TagModel tag in docModel.FileTagIdArray)
