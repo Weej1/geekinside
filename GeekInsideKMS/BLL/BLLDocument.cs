@@ -104,6 +104,11 @@ namespace BLL
             return documentDAL.getDocumentById(docid);
         }
 
+        public DocumentModel getDocumentByFileDiskName(string docname)
+        {
+            return documentDAL.getDocumentByFileDiskName(docname);
+        }
+
         public Boolean deleteDocumentById(int docid)
         {
             return documentDAL.deleteDocumentById(docid);

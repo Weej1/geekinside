@@ -13,6 +13,7 @@ namespace IDAL
         List<DocumentModel> getAllUncheckedByPublisherNumber(int publisherNumber);
         List<DocumentModel> getAllFavoriteDocListByPublisherNumber(int publisherNumber);
         DocumentModel getDocumentById(int id);
+        DocumentModel getDocumentByFileDiskName(string fileDiskName);
         Boolean deleteDocumentById(int docid);
         List<DocumentModel> getAllToBeCheckedDoc();
         List<DocumentModel> getToBeCheckedDocByCheckerNumber(int employeeNumber);

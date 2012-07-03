@@ -54,10 +54,24 @@ namespace Index.Controllers
         [Authorize]
         public void getFilePath(string FileDownloadName)
         {
+            BLLDocument bllDocument = new BLLDocument();
+            int docid = bllDocument.getDocumentByFileDiskName(FileDownloadName).Id;
+            string folderPath = new BLLFolder().GetFolderById(bllDocument.getDocumentById(docid).FolderId).PhysicalPath;
+            string fileType = FileDownloadName.Split('.')[1];
+            string filePath = "";
+
             HttpContext.Response.AddHeader("content-disposition",
                 "attachment; filename=" + FileDownloadName);
 
-            string filePath = "D:\\geekinsidekms\\repository\\123\\" + FileDownloadName;
+            if (fileType.Equals("flv"))
+            {
+                filePath = "D:\\geekinsidekms\\repository\\" + folderPath + "\\" + FileDownloadName;
+            }
+            else
+            {
+                filePath = "C:\\Users\\Margaret\\Documents\\Visual Studio 2010\\Projects\\GeekInsideKMS\\Index\\swf\\" + FileDownloadName.Split('.')[0] + ".swf";
+            }
+
             HttpContext.Response.TransmitFile(filePath);
         }
 
