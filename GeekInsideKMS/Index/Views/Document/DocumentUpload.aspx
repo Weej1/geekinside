@@ -89,7 +89,7 @@
                 $.each(folders, function (i, n) {
                     str = str + "<li class='navTreeItem'>" +
                                  "<div class='content_folder'>" +
-                                    "<a href='#file_" + file.id + "' name='folder_" + n.Id + "' name='" + n.Id + "' " + 'onclick="triggerFolderListener(' + n.Id + "," + "'" + file.id + "'," + "'" + n.FolderName + "'" + ', event)">' +
+                                    "<a href='#file_" + file.id + "' id='folder_" + n.Id + "' name='" + n.Id + "' " + 'onclick="triggerFolderListener(' + n.Id + "," + "'" + file.id + "'," + "'" + n.FolderName + "'" + ', event)">' +
                                       "<img src='/Content/images/pl.gif' alt='打开' class='collapseFlag'/>" +
                                       "<img src='/Content/images/mi.gif' alt='关闭' class='expandFlag'/>" +
                                       "<img src='/Content/images/folder.gif' class='folder_icon'/>" +
@@ -213,7 +213,7 @@
                 $(this).parents('.navTreeItem:first').children('ul:first').css('display', 'none');
                 return false;
             });
-        };
+        }
 
         function triggerFolderListener(folder_id, file_id, file_name,e) {
              $("#folder_wrapper_" + file_id).slideUp();
@@ -304,7 +304,7 @@
                 }
                 return false;
             });
-        };
+        }
     </script>
     <style type="text/css">
         #file_D label.error
