@@ -35,10 +35,11 @@ namespace Index.Controllers
         }
 
         [Authorize]
-        public void getFile(string FileDownloadName)
+        public void getFile(int docid)
         {
+            string FileDownloadName = new BLLDocument().getDocumentById(docid).FileDiskName;
             HttpContext.Response.AddHeader("content-disposition",
-                    "attachment; filename=" + FileDownloadName);
+                "attachment; filename=" + FileDownloadName);
 
             string filePath = "D:\\geekinsidekms\\repository\\123\\" + FileDownloadName;
             HttpContext.Response.TransmitFile(filePath);
@@ -212,6 +213,7 @@ namespace Index.Controllers
         //显示某人的所有发布的文档
         public ActionResult GetDocByEmpployeeNumber(int empno)
         {
+            //带权限过滤的
             List<DocumentModel> docList = new BLLDocument().GetDocByEmpployeeNumber(empno);
             UserEmployeeDetailModel empDetailModel = new BLLUserAccount().GetUserDetailByEmpNumber(empno);
             ViewData["empDetailModel"] = empDetailModel;
@@ -230,8 +232,9 @@ namespace Index.Controllers
         //根据标签得到doc
         public ActionResult getDocByTagId(int tagid)
         {
-            List<DocumentModel> docList = new BLLDocument().getDocByTagId(tagid);
+            //带权限过滤的
             UserEmployeeDetailModel empDetailModel = new BLLUserAccount().GetUserDetailByEmpNumber(Convert.ToInt32(User.Identity.Name));
+            List<DocumentModel> docList = new BLLDocument().getDocByTagId(empDetailModel.EmployeeNumber,tagid);
             ViewData["empDetailModel"] = empDetailModel;
             if (docList.Count == 0)
             {
@@ -242,6 +245,13 @@ namespace Index.Controllers
                 ViewData["docList"] = docList;
             }
             return View();
+        }
+
+        //下载
+        [Authorize]
+        public void Download(int docid)
+        {
+            this.getFile(docid);
         }
     }
 }
