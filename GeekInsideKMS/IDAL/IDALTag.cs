@@ -10,7 +10,9 @@ namespace IDAL
     {
         List<TagModel> getTagModelListByDocId(int docid);
         int[] getTagIdArrayByDocId(int docid);
-        string getTagNameByTagId(int tagid);
-        List<TagModel> getTop50TagModelList();
+        string getTagNameByTagId(int tagid);        List<TagModel> getTop50TagModelList();
+        int GetTagIdByTagName(string tagName);
+        int AddTag(string tagName);
+        void AddTagOfDoc(int tagId, int documentId);
     }
 }

@@ -48,7 +48,7 @@
                          { title: "MS Office文档", extensions: "doc,docx,ppt,pptx,xls,xlsx,vsd,rtf" },
                          { title: "Adobe PDF", extensions: "pdf" },
                          { title: "文本文件", extensions: "txt" },
-                         { title: "视频文件", extensions: "wmv" },
+                         { title: "视频文件", extensions: "flv" },
                     ],
 
                 multiple_queues: true,
@@ -115,7 +115,17 @@
                    "<td>" +
                     "<textarea id='content" + file.id + "'name='content' rows='10' cols='70' class='required'></textarea>" +
                     "<br/>" +
-                    "<label for='content' class='error' style='display:none' id='content_label" + file.id + "'></label>" +
+                    "<label for='content" + file.id +  "' class='error' style='display:none' id='content_label" + file.id + "'></label>" +
+                  "</td>" +
+                 "</tr>" +                 
+                 "<tr>" +
+                   "<th>" +
+                    "<label><font color='red'></font>标签</label>" +
+                   "</th>" +
+                   "<td>" +
+                    "<input type='text' id='tag" + file.id + "' style='width:300px' />" +
+                    "<br/>" +
+                    "<label for='tag" + file.id  + "' class='tags' id='content_label" + file.id + "'>" + "多个标签请以空格分开" + "</label>" +
                   "</td>" +
                  "</tr>" +
                  "<tr>" +
@@ -248,14 +258,31 @@
                 var fileName = file.name;
                 var str = fileName.substring(fileName.lastIndexOf("."));
                 if (isLegal) {
+                    var tags = $("#tag" + file_id).val();
+                    tagArr = tags.split(/\s+/);
+                    var tagStr = "";
+
+                    for (var i = 0; i < tagArr.length; i++) {
+                        for (var j = i + 1; j < tagArr.length; j++) {
+                            if (tagArr[j] === tagArr[i]) {
+                                tagArr.splice(j, 1);
+                                j--;
+                            }
+                        }
+                    }
+                    $.each(tagArr, function (i, n) {
+                        tagStr += n + " ";
+                    });
+        
                     $.ajax({ url: "/Document/FileDetail",
                         type: 'post',
                         dataType: 'json',
-                        data: { 'fileDiskName': file.id + str,
+                        data: { 'fileDiskName': file_id + str,
                             'fileDisplayName': file.name,
                             'size': file.size,
                             'description': $("#content" + file_id).val(),
-                            'folderId': $("#type_" + file_id).val()
+                            'folderId': $("#type_" + file_id).val(),
+                            'tags': tags
                         },
                         success: function (response) {
                             if (response) {
@@ -283,6 +310,21 @@
             font-size: 11px;
             font: red;
             background: #fbfcda url('/Content/images/cancel.png') no-repeat left;
+            border: 1px solid #dbdbd3;
+            width: 200px !important;
+            height: 20px !important;
+            margin-top: 1px;
+            padding-top: 4px;
+            padding-left: 20px;
+        }
+        
+        #file_D label.tags
+        {
+            display: -moz-inline-box;
+            display: inline-block;
+            font-size: 11px;
+            font: red;
+            background: #fbfcda;
             border: 1px solid #dbdbd3;
             width: 200px !important;
             height: 20px !important;
@@ -342,7 +384,7 @@
                                 视频
                             </td>
                             <td>
-                                <span class="icon wmv"></span>wmv
+                                <span class="icon wmv"></span>flv
                             </td>
                         </tr>
                     </tbody>

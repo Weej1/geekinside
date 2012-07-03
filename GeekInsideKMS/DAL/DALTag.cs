@@ -75,5 +75,63 @@ namespace DAL
                 return tagModelList;
             }
         }
+        public int GetTagIdByTagName(string tagName)
+        {
+            using (var gikms = new geekinsidekmsEntities())
+            {
+
+                try
+                {
+                    var tagId = (from tn in gikms.Tags
+                               where tn.TagName.Equals(tagName)
+                               select tn.Id).FirstOrDefault();
+                    return tagId;
+                }catch(Exception e){
+                    System.Diagnostics.Debug.WriteLine(e.InnerException.Message);
+                    return 0;
+                }
+            }
+        }
+
+
+        public int AddTag(string tagName)
+        {
+            using (geekinsidekmsEntities context = new geekinsidekmsEntities())
+            {
+                Tag dbTag = new Tag
+                {
+                    TagName = tagName
+                };
+                try
+                {
+                    context.AddToTags(dbTag);
+                    context.SaveChanges(false);
+                }catch(Exception e){
+                    System.Diagnostics.Debug.WriteLine(e.InnerException.Message);
+                }
+                return dbTag.Id;
+            }
+        }
+
+        public void AddTagOfDoc(int tagId, int documentId)
+        {
+            using (geekinsidekmsEntities context = new geekinsidekmsEntities())
+            {
+                DocumentTag dbTagDoc = new DocumentTag
+                {
+                    TagId = tagId,
+                    DocumentId = documentId
+                };
+                try
+                {
+                    context.AddToDocumentTags(dbTagDoc);
+                    context.SaveChanges(false);
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine(e.InnerException.Message);
+                }
+            }
+        }
     }
 }

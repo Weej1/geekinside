@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Transactions;
 using Model.Models;
 using IDAL;
 using Utils;
@@ -23,12 +24,16 @@ namespace BLL
             }
         }
 
-        public bool AddDocument(DocumentModel document, int employeeNumber, string serverDiskPath)
+        //将文档信息插入数据库
+        public bool AddDocument(DocumentModel document, string[] tags, int employeeNumber, string serverDiskPath)
         {
             IDALFileType fileTypeDAL = DALFactory.DataAccess.CreateFileTypeDAL();
             IDALFolder folderDAL = DALFactory.DataAccess.CreateFolderDAL();
             IDALUserAccount userDAL = DALFactory.DataAccess.CreateUserDAL();
             IDALEmployeeDetail employeeDAL = DALFactory.DataAccess.CreateEmployeeDetailDAL();
+            IDALTag tagDAL = DALFactory.DataAccess.CreateTagDAL();
+            int documentId;
+            int tagId;
 
             string fileExtention = document.FileDisplayName.Substring(document.FileDisplayName.LastIndexOf(".") + 1);
 
@@ -38,19 +43,36 @@ namespace BLL
             document.PublisherNumber = userDAL.getUserByEmployeeNumber(employeeNumber).EmployeeNumber;
             document.PublisherName = employeeDAL.GetUserEmployeeDetail(employeeNumber).Name;
 
-            if (documentDAL.CreateDocument(document))
+            //建立分布式事务
+            using (TransactionScope scope = new TransactionScope())
             {
-                string newFilePath = MoveFile(document.FileDiskName, folderDAL.GetFolderById(document.FolderId).PhysicalPath);
-                if (fileExtention == "doc" ||
-                    fileExtention == "docx")
+                if (( documentId = documentDAL.CreateDocument(document)) != 0 )
                 {
-                    Helper.ConvertDocumentToSwf(newFilePath, serverDiskPath);
+                    if (tags != null)
+                    {
+                        foreach (string tag in tags)
+                        {
+                            if ((tagId = tagDAL.GetTagIdByTagName(tag)) == 0)
+                            {
+                                tagId = tagDAL.AddTag(tag);
+                            }
+                            tagDAL.AddTagOfDoc(tagId, documentId);
+                        }
+                    }
+                    string newFilePath = MoveFile(document.FileDiskName, folderDAL.GetFolderById(document.FolderId).PhysicalPath);
+                    if (fileExtention == "doc" ||
+                        fileExtention == "docx")
+                    {
+                        //转换文件
+                        Helper.ConvertDocumentToSwf(newFilePath, serverDiskPath);
+                    }
+                    scope.Complete();
+                    return true;
                 }
-                return true;
-            }
-            else
-            {
-                return false;
+                else
+                {
+                    return false;
+                }           
             }
         }
 
@@ -70,7 +92,7 @@ namespace BLL
             string newFilePath = Helper.REPO_ROOT + physicalPath + "\\" + fileName;
             if (File.Exists(filePath))
             {
-                File.Copy(filePath, newFilePath, false);
+                File.Copy(filePath, newFilePath, true);
                 File.Delete(filePath);
             }
             return newFilePath;
