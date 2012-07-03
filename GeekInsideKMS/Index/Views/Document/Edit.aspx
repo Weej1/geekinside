@@ -35,7 +35,7 @@
                 <% }else if(docModel.FileTypeName.Equals("pdf")){ %>
                     <img src="/Content/images/icons/pdf.gif">
                 <% }else if(docModel.FileTypeName.Equals("wmv")){ %>
-                    <img src="/Content/images/icons/video.gif">
+                    <img src="/Content/images/icons/video.png">
                 <% }else{ %>
                     <img src="/Content/images/icons/document.gif">
                 <% } %>
