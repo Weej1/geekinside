@@ -14,10 +14,16 @@ namespace Admin.Controllers
         BLLSiteNews bllSiteNews = new BLLSiteNews();
 
         [Authorize]
-        public ActionResult Index()
+        public ActionResult Index(int pageNumber=1)
         {
-            //List<SiteNewsModel> newsList = bllSiteNews.getAll();
-            //ViewData["newsList"] = newsList;
+            List<SiteNewsModel> newsList;
+            newsList = bllSiteNews.getAll(pageNumber);
+            ViewData["newsList"] = newsList;
+            PageModel pageModel = new PageModel();
+            pageModel.TotalCount = bllSiteNews.getTotalCount();
+            pageModel.pageNumber = pageNumber;
+            pageModel.pageSize = 2;
+            ViewData["pageModel"] = pageModel;
             return View();
         }
 
