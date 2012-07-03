@@ -24,9 +24,6 @@
         <div id="content">
             <div class="admin-intro">
                 编写员工信息</div>
-            <p>
-                <input type="button" class="button" value="添加员工"><span style="margin-left: 10px;"></span><input
-                    type="button" class="button" value="批量添加员工"></p>
             <div class="FilterPersonsField">
                  <form action="/Employee/doCreateUser" name="form" method="post">                 
                 员工编号：<span>
@@ -107,8 +104,7 @@
                     </tbody>
                 </table>
                 <p>
-                <input type="submit" class="button" value="添加员工" onclick="return EmailValidate()"><span style="margin-left: 10px;"></span><input
-                    type="button" class="button" value="批量添加员工"></p>
+                <input type="submit" class="button" value="添加员工" onclick="return EmailValidate()"><span style="margin-left: 10px;"></span></p>
                 </form>
             </div>
         </div>

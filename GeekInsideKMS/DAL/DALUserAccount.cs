@@ -159,7 +159,12 @@ namespace DAL
 
             var allEmp = from emp in context.UserEmployees select emp;
 
-            int maxEmpNumber = (from max in allEmp select max.EmployeeNumber).Max();
+            int maxEmpNumber = 999;
+
+            if (allEmp.Count() != 0) 
+            { 
+                maxEmpNumber = (from max in allEmp select max.EmployeeNumber).Max();
+            }
 
             return maxEmpNumber;
         }
