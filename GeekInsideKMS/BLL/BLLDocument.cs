@@ -44,7 +44,7 @@ namespace BLL
                 if (fileExtention == "doc" ||
                     fileExtention == "docx")
                 {
-                    Helper.ConvertDocumentToSwf(newFilePath, Path.Combine(serverDiskPath, "swf"));
+                    Helper.ConvertDocumentToSwf(newFilePath, serverDiskPath);
                 }
                 return true;
             }
