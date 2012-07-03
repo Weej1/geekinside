@@ -27,12 +27,6 @@
                        }
                     %>>
                 <%: Html.ActionLink("人员管理", "Index", "Employee")%></li>
-            <li <% if (ViewContext.Controller.ToString().EndsWith("AuthController")) 
-                       {
-                           Response.Write("class=\"selected\""); 
-                       }
-                    %>>
-                <%: Html.ActionLink("权限控制", "Index", "Auth")%></li>
             <li <% if (ViewContext.Controller.ToString().EndsWith("DocumentController")) 
                        {
                            Response.Write("class=\"selected\""); 
