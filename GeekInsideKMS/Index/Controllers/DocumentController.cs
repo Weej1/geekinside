@@ -49,6 +49,16 @@ namespace Index.Controllers
         }
 
         [Authorize]
+        public void getFilePath(string FileDownloadName)
+        {
+            HttpContext.Response.AddHeader("content-disposition",
+                "attachment; filename=" + FileDownloadName);
+
+            string filePath = "D:\\geekinsidekms\\repository\\123\\" + FileDownloadName;
+            HttpContext.Response.TransmitFile(filePath);
+        }
+
+        [Authorize]
         public ActionResult Upload()
         {
             string employeeNumber = User.Identity.Name;
