@@ -288,7 +288,7 @@ namespace Admin.Controllers
                 string fileEx = System.IO.Path.GetExtension(filename);//获取上传文件的扩展名
                 string NoFileName = System.IO.Path.GetFileNameWithoutExtension(filename);//获取无扩展名的文件名
                 int Maxsize = 4000 * 1024;//定义上传文件的最大空间大小为4M
-                string FileType = ".xls,.xlsx";//定义上传文件的类型字符串
+                string FileType = ".xls,.xlsx,.cvs";//定义上传文件的类型字符串
 
                 FileName = NoFileName + DateTime.Now.ToString("yyyyMMddhhmmss") + fileEx;
                 if (!FileType.Contains(fileEx))
@@ -301,7 +301,7 @@ namespace Admin.Controllers
                     ViewData["errorMsg"] = "上传文件超过4M，不能上传";
                     return View();
                 }
-                string path = AppDomain.CurrentDomain.BaseDirectory + "uploads\\excel\\";
+                string path = AppDomain.CurrentDomain.BaseDirectory + "Content\\uploads\\excel\\";
                 if (!Directory.Exists(Path.GetDirectoryName(path)))
                 {
                     Directory.CreateDirectory(Path.GetDirectoryName(path));
