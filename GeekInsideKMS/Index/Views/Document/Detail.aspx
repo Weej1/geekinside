@@ -72,6 +72,7 @@
                         <div class="visualClear" >
                         </div>
                         <div id="operationTip-previewBody" style="margin-top:30px; margin-bottom:55px;">
+                            <% string docid = docModel.Id.ToString(); %>
                             <% string filename = docModel.FileDiskName; %>
                             <% string fileType = docModel.FileTypeName; %>
                             <% if(fileType.Equals("flv")) {%>
@@ -86,7 +87,7 @@
                                     var s5 = new SWFObject("../../../Scripts/FlvPlayer201002.swf", "playlist", "675", "450", "7");
                                     s5.addParam("allowfullscreen", "true");
                                     s5.addVariable("autostart", "true");
-                                    s5.addVariable("file", "/Document/getfile?FileDownloadName=" + "<%=filename %>");
+                                    s5.addVariable("file", "/Document/getfile?docid=" + "<%=docid %>");
                                     s5.addVariable("width", "675");
                                     s5.addVariable("height", "450");
                                     s5.write("player5");

@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLLAdminAccount.cs" />
+    <Compile Include="BLLAuth.cs" />
     <Compile Include="BLLDepartment.cs" />
     <Compile Include="BLLDocument.cs" />
     <Compile Include="BLLFavorite.cs" />

@@ -13,7 +13,7 @@ namespace BLL
     public class BLLDocument
     {
         IDALDocument documentDAL = DALFactory.DataAccess.CreateDocumentDAL();
-
+        BLLAuth bllAuth = new BLLAuth();
         public void DeleteTempFile(string id, string fileName)
         {
             string extension = fileName.Substring(fileName.LastIndexOf('.'));
@@ -78,7 +78,8 @@ namespace BLL
 
         public List<DocumentModel> getMyCheckedDocList(int publisherNumber)
         {
-            return documentDAL.getAllCheckedByPublisherNumber(publisherNumber);
+            //带权限过滤的
+            return bllAuth.documentFilter(publisherNumber, documentDAL.getAllCheckedByPublisherNumber(publisherNumber));
         }
 
         public List<DocumentModel> getMyUnheckedDocList(int publisherNumber)
@@ -145,12 +146,14 @@ namespace BLL
 
         public List<DocumentModel> GetDocByEmpployeeNumber(int empno)
         {
-            return documentDAL.getAllCheckedByPublisherNumber(empno);
+            //带权限过滤的
+            return bllAuth.documentFilter(empno, documentDAL.getAllCheckedByPublisherNumber(empno));
         }
 
-        public List<DocumentModel> getAllDocOrderByPubtime()
+        public List<DocumentModel> getAllDocOrderByPubtime(int empno)
         {
-            return documentDAL.getAllDocOrderByPubtime();
+            //带权限过滤的
+            return bllAuth.documentFilter(empno, documentDAL.getAllDocOrderByPubtime());
         }
 
         public Boolean updateDocument(DocumentModel docModel)
@@ -158,9 +161,10 @@ namespace BLL
             return documentDAL.updateDocument(docModel);
         }
 
-        public List<DocumentModel> getDocByTagId(int tagid)
+        public List<DocumentModel> getDocByTagId(int empno,int tagid)
         {
-            return documentDAL.getDocByTagId(tagid);
+            //带权限过滤的
+            return bllAuth.documentFilter(empno, documentDAL.getDocByTagId(tagid));
         }
         public Boolean ViewNumberIncrement(int docId) 
         {

@@ -24,5 +24,6 @@ namespace Model.Models
         public int ViewNumber { get; set; }
         public int DownloadNumber { get; set; }
         public Boolean IsChecked { get; set; }
+        public int AuthLevel { get; set; }
     }
 }
