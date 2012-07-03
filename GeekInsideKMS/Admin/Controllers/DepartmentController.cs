@@ -20,6 +20,7 @@ namespace Admin.Controllers
         public ActionResult Index()
         {
             IList<DepartmentModel> depts = departmentBL.GetAllDepartments();
+            BLLUserAccount bllUserAccount = new BLLUserAccount();
             var viewRows = from d in depts
                         select new DepartmentRow
                         {
@@ -27,7 +28,22 @@ namespace Admin.Controllers
                             DepartmentName = d.DepartmentName,
                             FolderPath = Helper.REPO_ROOT + folderBL.GetFolderById(d.FolderId).PhysicalPath
                         };
-            return View(viewRows.ToArray());
+            var results = new List<DepartmentRow>();
+            foreach (var element in viewRows) 
+            {
+                var dept = element;
+                List<string> managers = new List<string>();
+                List<UserEmployeeModel> emps = bllUserAccount.GetUserDetailsByDeptId(dept.Id);
+                foreach (var e in emps) 
+                {                    
+                    if (e.IsManager == true)
+                        managers.Add(e.Name);
+                }
+                dept.ManagerName = managers;
+                results.Add(dept);
+            }
+            return View(results.ToArray());
+            //return View(viewRows.ToArray());
         }
 
         //
