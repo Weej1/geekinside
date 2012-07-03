@@ -88,7 +88,8 @@ namespace DAL
                     Size = dbDocs.Size,
                     ViewNumber = dbDocs.ViewNumber,
                     DownloadNumber = dbDocs.DownloadNumber,
-                    IsChecked = dbDocs.IsChecked
+                    IsChecked = dbDocs.IsChecked,
+                    AuthLevel = dbDocs.AuthLevel
                  };
             }
         }
@@ -350,7 +351,8 @@ namespace DAL
                     Size = doc.Size,
                     ViewNumber = doc.ViewNumber,
                     DownloadNumber = doc.DownloadNumber,
-                    IsChecked = doc.IsChecked
+                    IsChecked = doc.IsChecked,
+                    AuthLevel = doc.AuthLevel
                 });
             }
             return docList;
@@ -417,6 +419,20 @@ namespace DAL
             dbDoc.DownloadNumber = dbDoc.DownloadNumber + 1;
             context.SaveChanges();
             return true;
+        }
+
+        //根据folderid得到doc
+        public List<DocumentModel> getDocByFolderId(int folderid)
+        {
+            using (var gikms = new geekinsidekmsEntities())
+            {
+                List<DAL.Document> docTempList = new List<DAL.Document>();
+                docTempList = (from d in gikms.Documents
+                               where d.FolderId.Equals(folderid)
+                               select d).ToList();
+                //生成最终List
+                return gernerateFinalDocumentModelList(docTempList);
+            }
         }
     }
 }

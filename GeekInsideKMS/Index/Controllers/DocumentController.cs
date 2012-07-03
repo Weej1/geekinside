@@ -30,18 +30,21 @@ namespace Index.Controllers
             List<DocumentModel> viewdocList = new BLLDocument().getTopTenDocumentByViewNumber();
             ViewData["viewTop10Doc"] = viewdocList;
             List<DocumentModel> dldocList = new BLLDocument().getTopTenDocumentByDownloadNumber();
-            ViewData["dlTop10Doc"] = dldocList;            
+            ViewData["dlTop10Doc"] = dldocList;
+            ViewData["canIDownload"] = new BLLAuth().ifEmpCanDownlaodThisDoc(Convert.ToInt32(User.Identity.Name), docid);
             return View();
         }
 
         [Authorize]
         public void getFile(int docid)
         {
-            string FileDownloadName = new BLLDocument().getDocumentById(docid).FileDiskName;
+            BLLDocument bllDocument = new BLLDocument();
+            string FileDownloadName = bllDocument.getDocumentById(docid).FileDiskName;
+            string FileFolderPath = new BLLFolder().GetFolderById(bllDocument.getDocumentById(docid).FolderId).PhysicalPath;
             HttpContext.Response.AddHeader("content-disposition",
                 "attachment; filename=" + FileDownloadName);
 
-            string filePath = "D:\\geekinsidekms\\repository\\123\\" + FileDownloadName;
+            string filePath = "D:\\geekinsidekms\\repository\\" + FileFolderPath + "\\" + FileDownloadName;
             HttpContext.Response.TransmitFile(filePath);
         }
 
@@ -247,11 +250,5 @@ namespace Index.Controllers
             return View();
         }
 
-        //下载
-        [Authorize]
-        public void Download(int docid)
-        {
-            this.getFile(docid);
-        }
     }
 }

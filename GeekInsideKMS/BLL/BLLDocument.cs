@@ -42,6 +42,7 @@ namespace BLL
             document.Size = Utils.FileSizeTransformer.TransformSize(Convert.ToInt32(document.Size));
             document.PublisherNumber = userDAL.getUserByEmployeeNumber(employeeNumber).EmployeeNumber;
             document.PublisherName = employeeDAL.GetUserEmployeeDetail(employeeNumber).Name;
+            document.AuthLevel = 1;//数据库默认值为1，但发现如果这里不指定，插入的数据为0
 
             //建立分布式事务
             using (TransactionScope scope = new TransactionScope())
@@ -166,13 +167,22 @@ namespace BLL
             //带权限过滤的
             return bllAuth.documentFilter(empno, documentDAL.getDocByTagId(tagid));
         }
+
         public Boolean ViewNumberIncrement(int docId) 
         {
             return documentDAL.ViewNumberIncrement(docId);
         }
+
         public Boolean DownloadNumberIncrement(int docId) 
         {
             return documentDAL.DownloadNumberIncrement(docId);
+        }
+
+        //根据folderid和empno得到已按权限过滤的docModelList
+        public List<DocumentModel> getDocByFolderId(int empno, int folder)
+        {
+            //带权限过滤的
+            return bllAuth.documentFilter(empno, documentDAL.getDocByFolderId(folder));
         }
     }
 }

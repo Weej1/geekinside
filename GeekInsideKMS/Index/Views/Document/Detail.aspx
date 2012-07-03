@@ -26,8 +26,12 @@
                 </div>
                 <div class="contentbar_right">
                     <div class="button-group mini">
-                        <button class="KSSActionServer KSSLoad button" onclick= "self.location='/Document/Download?docid=<%:docModel.Id %>">
+                        <% if (ViewData["canIDownload"].Equals(true))
+                        {%>
+                        <button class="KSSActionServer KSSLoad button" onclick= "javascript:window.open('/Document/getFile?docid=<%:docModel.Id %>','_self')">
                             下载</button>
+                        <%}
+                         %>
                         <button class="KSSActionServer KSSLoad button" onclick= "self.location='/User/addFavorite?docid=<%:docModel.Id %>&returnURL=MyFavorite'">
                             收藏</button>
                         <!-- 上传者可见 -->
