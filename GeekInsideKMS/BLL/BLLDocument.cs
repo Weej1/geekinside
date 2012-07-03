@@ -151,10 +151,10 @@ namespace BLL
             return bllAuth.documentFilter(empno, documentDAL.getAllCheckedByPublisherNumber(empno));
         }
 
-        public List<DocumentModel> getAllDocOrderByPubtime(int empno)
+        public List<DocumentModel> getAllDocOrderByPubtime()
         {
-            //带权限过滤的
-            return bllAuth.documentFilter(empno, documentDAL.getAllDocOrderByPubtime());
+            //不带权限过滤 这个函数是给管理员用的
+            return documentDAL.getAllDocOrderByPubtime();
         }
 
         public Boolean updateDocument(DocumentModel docModel)

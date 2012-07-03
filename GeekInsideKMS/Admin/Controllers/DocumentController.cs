@@ -16,8 +16,7 @@ namespace Admin.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            //带权限过滤的
-            List<DocumentModel> docList = new BLLDocument().getAllDocOrderByPubtime(Convert.ToInt32(User.Identity.Name));
+            List<DocumentModel> docList = new BLLDocument().getAllDocOrderByPubtime();
             ViewData["docList"] = docList;
             return View();
         }
