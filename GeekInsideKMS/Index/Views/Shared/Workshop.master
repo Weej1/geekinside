@@ -35,6 +35,19 @@
                     </dd>
                 </dl>
                 <% Model.Models.UserEmployeeModel empModel = (Model.Models.UserEmployeeModel)ViewData["empModel"]; %>
+                
+                <% if (empModel.IsChecker.Equals(true))
+                   {%>
+                <dl class="portlet portlet-navigation-tree">
+                    <dt class="portletHeader">部门经理</dt>
+                    <dd class="portletItem">
+                        <ul class="portletNavigationTree navTreeLevel0" id="Ul2">
+                            <li class="navTreeItem"><a href="/User/Manager">
+                                <img src="/Content/images/icons/file.gif" class="iconimg">管理部门文件夹</a></li>
+                        </ul>
+                    </dd>
+                </dl>
+                <%} %>
                 <% if (empModel.IsChecker.Equals(true))
                    {%>
                 <dl class="portlet portlet-navigation-tree">
@@ -49,6 +62,7 @@
                     </dd>
                 </dl>
                 <%} %>
+                
             </div>
         </div>
     </td>
