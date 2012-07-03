@@ -46,6 +46,7 @@
     <Compile Include="BLLFavorite.cs" />
     <Compile Include="BLLFolder.cs" />
     <Compile Include="BLLSearch.cs" />
+    <Compile Include="BLLTag.cs" />
     <Compile Include="BLLUserAccount.cs" />
     <Compile Include="BLLSiteNews.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

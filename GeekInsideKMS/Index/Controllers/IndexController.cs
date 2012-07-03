@@ -20,6 +20,8 @@ namespace Index.Controllers
             ViewData["viewTop10Doc"] = viewdocList;
             List<DocumentModel> dldocList = new BLLDocument().getTopTenDocumentByDownloadNumber();
             ViewData["dlTop10Doc"] = dldocList;
+            List<TagModel> tagModel = new BLLTag().getTop50TagModelList();
+            ViewData["tagModel"] = tagModel;
             return View();
         }
 

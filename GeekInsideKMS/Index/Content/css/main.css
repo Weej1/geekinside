@@ -586,7 +586,19 @@ table.listing img {
     margin-left: 10px;
     color: #999;
 }
-
+.tag_href
+{
+    font-size: 12px;
+    background: #EEE;
+    padding: 0 5px;
+    margin-right:5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.tag_href:hover{
+    background: #ccc;
+}
 #footer {
 	text-align: center;
 	color: gray;

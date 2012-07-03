@@ -132,23 +132,12 @@
                 </div>
             </dt>
             <dd class="portletItem KSSShowHideTarget_1">
-                <p>132</p>
-            </dd>
-        </dl>
-        <dl class="portlet transparentPortlet">
-            <dt class="portletHeader deltaPortletHeader">
-                <div class="portletHeaderContent portletHeaderContent_2">
-                    <span class="KSSShowHideAction"><span class="downwardDelta"></span><span class="rightwardDelta hidden">
-                    </span><span>必读文档</span> </span>
-                </div>
-            </dt>
-            <dd class="portletItem KSSShowHideTarget_2">
-                <p class="discreet">
-                    必读文档</p>
-                <p class="discreet">
-                    必读文档</p>
-                <p class="discreet">
-                    必读文档</p>
+                    <%List<Model.Models.TagModel> tagModel = (List<Model.Models.TagModel>)ViewData["tagModel"]; %>
+                    <% foreach (Model.Models.TagModel tag in tagModel)
+                    {%>
+                         <span><a href="/Document/getDocByTagId?tagid=<%:tag.Id %>" class="tag_href"><%:tag.TagName %>  </a></span>  
+                    <%}
+                     %>
             </dd>
         </dl>
         <dl class="portlet transparentPortlet">

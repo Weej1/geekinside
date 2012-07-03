@@ -11,5 +11,6 @@ namespace IDAL
         List<TagModel> getTagModelListByDocId(int docid);
         int[] getTagIdArrayByDocId(int docid);
         string getTagNameByTagId(int tagid);
+        List<TagModel> getTop50TagModelList();
     }
 }
