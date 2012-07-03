@@ -47,12 +47,11 @@
             </tr>
             <tr style="height:50px;">
                 <td>标签：</td>
-                <td><%
-                        foreach (Model.Models.TagModel tag in docModel.FileTagIdArray)
-                        {
-                            Response.Write(tag.TagName+", ");
-                        }
-                %></td>
+                <td><% foreach (Model.Models.TagModel tag in docModel.FileTagIdArray)
+                                        {%>
+                                            <a href="/Document/getDocByTagId?tagid=<%:tag.Id %>"><%:tag.TagName %></a>
+                                        <%}
+                 %></td>
             </tr>
             <tr style="height:50px;">
                 <td>预览：</td>

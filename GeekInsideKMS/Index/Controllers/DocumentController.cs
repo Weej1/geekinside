@@ -78,6 +78,7 @@ namespace Index.Controllers
             docModel.Id = Convert.ToInt32(Request.Form["id"]);
             docModel.FileDisplayName = Request.Form["filedisplayname"];
             docModel.Description = Request.Form["description"];
+            docModel.IsChecked = false;
             if (new BLLDocument().updateDocument(docModel))
             {
                 TempData["successMsg"] = "更新成功。";

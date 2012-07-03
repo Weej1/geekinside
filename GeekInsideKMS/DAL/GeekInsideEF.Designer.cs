@@ -24,6 +24,7 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("geekinsidekmsModel", "FK_DocumentTag_Document", "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Document), "DocumentTag", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.DocumentTag), true)]
 [assembly: EdmRelationshipAttribute("geekinsidekmsModel", "FK_Favorite_Document", "Document", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Document), "Favorite", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Favorite), true)]
 [assembly: EdmRelationshipAttribute("geekinsidekmsModel", "FK_DocumentTag_Tag", "Tag", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Tag), "DocumentTag", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.DocumentTag), true)]
+[assembly: EdmRelationshipAttribute("geekinsidekmsModel", "FK_Department_Folder", "Folder", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(DAL.Folder), "Department", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(DAL.Department), true)]
 
 #endregion
 
@@ -502,6 +503,44 @@ namespace DAL
                 }
             }
         }
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("geekinsidekmsModel", "FK_Department_Folder", "Folder")]
+        public Folder Folder
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Folder>("geekinsidekmsModel.FK_Department_Folder", "Folder").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Folder>("geekinsidekmsModel.FK_Department_Folder", "Folder").Value = value;
+            }
+        }
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Folder> FolderReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Folder>("geekinsidekmsModel.FK_Department_Folder", "Folder");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Folder>("geekinsidekmsModel.FK_Department_Folder", "Folder", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -534,7 +573,8 @@ namespace DAL
         /// <param name="viewNumber">ViewNumber 属性的初始值。</param>
         /// <param name="downloadNumber">DownloadNumber 属性的初始值。</param>
         /// <param name="isChecked">IsChecked 属性的初始值。</param>
-        public static Document CreateDocument(global::System.Int32 id, global::System.String fileDisplayName, global::System.String fileDiskName, global::System.String description, global::System.Int32 folderId, global::System.Int32 fileTypeId, global::System.Int32 publisherNumber, global::System.String publisherName, global::System.DateTime pubTime, global::System.Int32 checkerNumber, global::System.String checkerName, global::System.String size, global::System.Int32 viewNumber, global::System.Int32 downloadNumber, global::System.Boolean isChecked)
+        /// <param name="authLevel">AuthLevel 属性的初始值。</param>
+        public static Document CreateDocument(global::System.Int32 id, global::System.String fileDisplayName, global::System.String fileDiskName, global::System.String description, global::System.Int32 folderId, global::System.Int32 fileTypeId, global::System.Int32 publisherNumber, global::System.String publisherName, global::System.DateTime pubTime, global::System.Int32 checkerNumber, global::System.String checkerName, global::System.String size, global::System.Int32 viewNumber, global::System.Int32 downloadNumber, global::System.Boolean isChecked, global::System.Int32 authLevel)
         {
             Document document = new Document();
             document.Id = id;
@@ -552,6 +592,7 @@ namespace DAL
             document.ViewNumber = viewNumber;
             document.DownloadNumber = downloadNumber;
             document.IsChecked = isChecked;
+            document.AuthLevel = authLevel;
             return document;
         }
 
@@ -920,6 +961,30 @@ namespace DAL
         private global::System.Boolean _IsChecked;
         partial void OnIsCheckedChanging(global::System.Boolean value);
         partial void OnIsCheckedChanged();
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 AuthLevel
+        {
+            get
+            {
+                return _AuthLevel;
+            }
+            set
+            {
+                OnAuthLevelChanging(value);
+                ReportPropertyChanging("AuthLevel");
+                _AuthLevel = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("AuthLevel");
+                OnAuthLevelChanged();
+            }
+        }
+        private global::System.Int32 _AuthLevel;
+        partial void OnAuthLevelChanging(global::System.Int32 value);
+        partial void OnAuthLevelChanged();
 
         #endregion
     
@@ -1661,6 +1726,28 @@ namespace DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Document>("geekinsidekmsModel.FK_Document_Folder", "Document", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// 没有元数据文档可用。
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("geekinsidekmsModel", "FK_Department_Folder", "Department")]
+        public EntityCollection<Department> Departments
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Department>("geekinsidekmsModel.FK_Department_Folder", "Department");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Department>("geekinsidekmsModel.FK_Department_Folder", "Department", value);
                 }
             }
         }
