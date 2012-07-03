@@ -44,6 +44,7 @@
     <Compile Include="Models\DocumentModel.cs" />
     <Compile Include="Models\FavoriteModel.cs" />
     <Compile Include="Models\FolderModel.cs" />
+    <Compile Include="Models\PageModel.cs" />
     <Compile Include="Models\SearchFilterModel.cs" />
     <Compile Include="Models\SiteConfigModel.cs" />
     <Compile Include="Models\SiteNewsModel.cs" />

@@ -13,10 +13,16 @@ namespace Index.Controllers
         BLLSiteNews bllSiteNews = new BLLSiteNews();
 
         //公告列表
-        public ActionResult Index()
+        public ActionResult Index(int pageNumber=1)
         {
-            List<SiteNewsModel> newsList = bllSiteNews.getAll();
+            List<SiteNewsModel> newsList;
+            newsList = bllSiteNews.getAll(pageNumber);
             ViewData["newsList"] = newsList;
+            PageModel pageModel = new PageModel();
+            pageModel.TotalCount = bllSiteNews.getTotalCount();
+            pageModel.pageNumber = pageNumber;
+            pageModel.pageSize = 2;
+            ViewData["pageModel"] = pageModel;
             return View();
         }
 

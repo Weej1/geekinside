@@ -71,14 +71,19 @@ namespace DAL
             return true;
         }
         //get all 默认按置顶和时间排序
-        public List<SiteNewsModel> getAll()
+        public List<SiteNewsModel> getAll(int pageNumber,int pageSize)
         {
             using (var gikms = new geekinsidekmsEntities())
             {
                 var siteNewsList = from n in gikms.SiteNews
                                    orderby n.IsOnTop descending
                                    select n;
-                List<DAL.SiteNews> newsTempList = siteNewsList.ToList();
+
+                int totalCount = siteNewsList.Count();
+                var siteNewsListPaged = (from n in siteNewsList
+                                         select n).Skip((pageNumber-1)*pageSize).Take(pageSize);
+
+                List<DAL.SiteNews> newsTempList = siteNewsListPaged.ToList();
                 List<SiteNewsModel> newsList = new List<SiteNewsModel>();
                 foreach (DAL.SiteNews nm in newsTempList)
                 {
@@ -110,6 +115,19 @@ namespace DAL
                     IsOnTop = dbNews.IsOnTop,
                     PubTime = dbNews.PubTime
                 };
+            }
+        }
+
+        public int getTotalCount()
+        {
+            using (var gikms = new geekinsidekmsEntities())
+            {
+                var siteNewsList = from n in gikms.SiteNews
+                                   orderby n.IsOnTop descending
+                                   select n;
+
+                int totalCount = siteNewsList.Count();
+                return totalCount;
             }
         }
     }

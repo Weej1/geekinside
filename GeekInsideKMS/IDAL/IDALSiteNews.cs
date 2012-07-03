@@ -13,7 +13,8 @@ namespace IDAL
         Boolean deleteNewsById(int id);
         Boolean setItOnTopById(int id);
         Boolean setItNotOnTopById(int id);
-        List<SiteNewsModel> getAll();
+        List<SiteNewsModel> getAll(int pageNumber,int pageSize);
         SiteNewsModel getNewsById(int id);
+        int getTotalCount();
     }
 }

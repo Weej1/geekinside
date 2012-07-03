@@ -16,8 +16,8 @@ namespace Admin.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            List<SiteNewsModel> newsList = bllSiteNews.getAll();
-            ViewData["newsList"] = newsList;
+            //List<SiteNewsModel> newsList = bllSiteNews.getAll();
+            //ViewData["newsList"] = newsList;
             return View();
         }
 
