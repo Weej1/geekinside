@@ -67,6 +67,9 @@
                                 部门岗位
                             </th>
                             <th>
+                                审核员
+                            </th>
+                            <th>
                                 操作
                             </th>
                         </tr>
@@ -111,6 +114,16 @@
                                   else
                                   {
                                       Response.Write("员工");
+                                  }%>
+                            </td>
+                            <td>
+                                <%if (empDetail.IsChecker == true)
+                                  {
+                                      Response.Write("是");
+                                  }
+                                  else
+                                  {
+                                      Response.Write("否");
                                   }%>
                             </td>
                             <td>
