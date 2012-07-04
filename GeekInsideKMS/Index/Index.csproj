@@ -85,9 +85,11 @@
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\css\upload.css" />
+    <Content Include="Content\images\act_btn.png" />
     <Content Include="Content\images\bg-login.gif" />
     <Content Include="Content\images\cancel.png" />
     <Content Include="Content\images\folder.gif" />
+    <Content Include="Content\images\icons.gif" />
     <Content Include="Content\images\icons\document.gif" />
     <Content Include="Content\images\icons\download.gif" />
     <Content Include="Content\images\icons\edit.png" />
@@ -136,6 +138,7 @@
     <Content Include="Scripts\i18n\sv.js" />
     <Content Include="Scripts\jquery-1.2.6.min.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
+    <Content Include="Scripts\jquery-mousewheel.js" />
     <Content Include="Scripts\jquery.ui.plupload\css\jquery.ui.plupload.css" />
     <Content Include="Scripts\jquery.ui.plupload\img\plupload-bw.png" />
     <Content Include="Scripts\jquery.ui.plupload\img\plupload.png" />

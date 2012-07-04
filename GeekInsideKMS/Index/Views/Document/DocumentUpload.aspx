@@ -35,7 +35,7 @@
                 runtimes: 'silverlight,flash,html5,gears,browserplus',
                 url: '/UploadHandler.ashx',
                 max_file_size: '2gb',
-                chunk_size: '128kb',
+                chunk_size: '1mb',
                 max_file_count: 10,
                 multipart: true,
                 multipart_params: { id: '1' },
@@ -45,9 +45,8 @@
 
                 // Specify what files to browse for
                 filters: [
-                         { title: "MS Office文档", extensions: "doc,docx,ppt,pptx,xls,xlsx,vsd,rtf" },
+                         { title: "MS Office文档", extensions: "doc,docx,ppt,pptx,xls,xlsx" },
                          { title: "Adobe PDF", extensions: "pdf" },
-                         { title: "文本文件", extensions: "txt" },
                          { title: "视频文件", extensions: "flv" },
                     ],
 
@@ -391,8 +390,7 @@
                             </td>
                             <td valign="top">
                                 <span class="icon doc"></span>doc,docx &nbsp;&nbsp; <span class="icon ppt"></span>
-                                ppt,pptx &nbsp;&nbsp; <span class="icon xls"></span>xls,xlsx &nbsp;&nbsp; <span class="icon vsd">
-                                </span>vsd &nbsp;&nbsp; <span class="icon rtf"></span>rtf &nbsp;&nbsp;
+                                ppt,pptx &nbsp;&nbsp; <span class="icon xls"></span>xls,xlsx &nbsp;&nbsp; 
                             </td>
                         </tr>
                         <tr>
@@ -401,14 +399,6 @@
                             </td>
                             <td>
                                 <span class="icon pdf"></span>pdf
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="r">
-                                纯文本
-                            </td>
-                            <td>
-                                <span class="icon txt"></span>txt
                             </td>
                         </tr>
                         <tr>

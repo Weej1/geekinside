@@ -285,10 +285,10 @@ namespace Index.Controllers
 
         //获取该用户有权限查看的文档
         [Authorize]
-        public JsonResult GetFolderList(int folderId)
+        public JsonResult GetFolderList(int folderId, int page)
         {
             BLLDocument bllDocument = new BLLDocument();
-            List<DocumentModel> documents = bllDocument.getDocByFolderId(Convert.ToInt32(User.Identity.Name), folderId);
+            List<DocumentModel> documents = bllDocument.getDocByFolderId(Convert.ToInt32(User.Identity.Name), folderId, page);
             return Json(documents);
         }
     }
