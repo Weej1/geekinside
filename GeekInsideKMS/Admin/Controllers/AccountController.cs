@@ -24,7 +24,7 @@ namespace Admin.Controllers
             Boolean result = bllAdminAccount.CheckAdminLogin(userAdminModel);
             if (result == true)
             {
-                FormsAuthentication.SetAuthCookie(userAdminModel.Username, true);
+                FormsAuthentication.SetAuthCookie(userAdminModel.Username, false);
                 return RedirectToAction("Index", "Index");
             } 
             else

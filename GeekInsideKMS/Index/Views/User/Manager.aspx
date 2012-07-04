@@ -24,7 +24,7 @@
                         <p style="color:red;">暂无子文件夹</p>
                     <%}else{%>
                         <% List<Model.Models.FolderModel> folderModelList = (List<Model.Models.FolderModel>)ViewData["folderModelList"]; %>
-                        <p>财务部
+                        <p><%:ViewData["outsideFolderName"]%>
                             <span class="docListOperation">
                                 <a href="/User/addFolder?parentId=<%:ViewData["outsideFolderId"] %>">添加子文件夹</a>
                             </span>
