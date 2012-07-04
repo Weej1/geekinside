@@ -37,8 +37,8 @@
             date = date.replace("/", "");
             now.setTime(date);
             var year = now.getFullYear();
-            var month = now.getMonth();
-            var day = now.getDay();
+            var month = now.getMonth() + 1;
+            var day = now.getDate();
             var time = year + "-" + month + "-" + day;
             return time;
         }
