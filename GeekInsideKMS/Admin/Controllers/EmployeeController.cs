@@ -83,13 +83,13 @@ namespace Admin.Controllers
             userEmployeeModel.Email = Request.Form["email"];
             userEmployeeModel.Phone = Request.Form["phone"];
 
-            if (userEmployeeModel.Email == null)
+            if (userEmployeeModel.Email == null || !isEmail(userEmployeeModel.Email))
             {
                 TempData["employeeNumberErrorMsg"] = "请输入正确的邮箱地址！";
                 return RedirectToAction("CreateUser", "Employee");
             }
 
-            if (userEmployeeModel.Phone == null)
+            if (userEmployeeModel.Phone == null ||!isPhone(userEmployeeModel.Phone))
             {
                 TempData["phoneErrorMsg"] = "请输入正确的手机号！";
                 return RedirectToAction("CreateUser", "Employee");
@@ -183,13 +183,13 @@ namespace Admin.Controllers
             userEmployeeModel.Email = Request.Form["email"];
             userEmployeeModel.Phone = Request.Form["phone"];
 
-            if (userEmployeeModel.Email == "")
+            if (userEmployeeModel.Email == "" || !isEmail(userEmployeeModel.Email))
             {
                 TempData["employeeNumberErrorMsg"] = "请输入正确的邮箱地址！";
                 return RedirectToAction("Edit", "Employee", userEmployeeModel.EmployeeNumber);
             }
 
-            if (userEmployeeModel.Phone == "")
+            if (userEmployeeModel.Phone == "" || !isPhone(userEmployeeModel.Phone))
             {
                 TempData["phoneErrorMsg"] = "请输入正确的手机号！";
                 return RedirectToAction("Edit", "Employee", userEmployeeModel.EmployeeNumber);
@@ -401,7 +401,28 @@ namespace Admin.Controllers
             }
             return true;
         }
-       
+
+        private bool isEmail(string str) 
+        {
+            if(!str.Contains("@"))
+                return false;
+            return true;
+        }
+
+        private bool isPhone(string str) 
+        {
+            if (str.Count() == 11 || str.Count() == 13)
+            {
+                foreach (char element in str)
+                {
+                    if (element < 48 || element > 57)
+                        return false;
+                }
+                return true;
+            }
+            return false;
+        }
+
         public class MultiButtonAttribute : ActionNameSelectorAttribute 
         { 
             public string Name { get; set; } 
