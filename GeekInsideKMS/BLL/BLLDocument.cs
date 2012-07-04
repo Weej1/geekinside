@@ -25,7 +25,7 @@ namespace BLL
         }
 
         //将文档信息插入数据库
-        public bool AddDocument(DocumentModel document, string[] tags, int employeeNumber, string serverDiskPath)
+        public bool AddDocument(DocumentModel document, string[] tags, int employeeNumber)
         {
             IDALFileType fileTypeDAL = DALFactory.DataAccess.CreateFileTypeDAL();
             IDALFolder folderDAL = DALFactory.DataAccess.CreateFolderDAL();
@@ -64,7 +64,7 @@ namespace BLL
                         fileExtention == "docx")
                     {
                         //转换文件
-                        Helper.ConvertDocumentToSwf(newFilePath, serverDiskPath);
+                        Helper.ConvertDocumentToSwf(newFilePath);
                     }
                     scope.Complete();
                     return true;
