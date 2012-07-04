@@ -251,14 +251,7 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="MiddlePlaceHolder" runat="server">
     <div id="viewlet-above-content" class="KSSTabArea KSSShowHideArea">
-        <div id="above-content-bar">
-            <div class="contentbar_content contentbarcontent clearfix">
-                <div class="contentbar_left">
-                    <span style="font-size: 12px; margin-left: -2px">路径：</span> <span style="font-size: 11px;
-                        color: #555">/ </span><a href="#s" style="font-size: 12px">文档库</a>
-                </div>
-            </div>
-        </div>
+
     </div>
     <div id="region-content" class="documentContent">
         <div id="content">
@@ -271,7 +264,7 @@
                                     <span class="KSSHoverHilight">文档库</span>
                                 </h1>
                                 <div>
-                                    <span class="discreet">集中管理文件的区域，多层子文件管理，文件预览、播放等</span>
+                                    <span class="discreet">在这里可以浏览系统内的文件和文件夹</span>
                                 </div>
                             </div>
                         </div>

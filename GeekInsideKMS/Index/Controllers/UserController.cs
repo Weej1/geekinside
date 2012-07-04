@@ -240,6 +240,7 @@ namespace Index.Controllers
             ViewData["empModel"] = empModel;
             BLLFolder bllFolder = new BLLFolder();
             ViewData["outsideFolderId"] = new BLLDepartment().GetDepartment(empModel.DepartmentId).FolderId;
+            ViewData["outsideFolderName"] = new BLLDepartment().GetDepartment(empModel.DepartmentId).DepartmentName;
             if (empModel.IsManager.Equals(false))
             {
                 //非部门经理
@@ -305,7 +306,6 @@ namespace Index.Controllers
                 TempData["errorMsg"] = "删除失败。";
             }
             return RedirectToAction("Manager", "User");
-            return null;
         }
     }
 }

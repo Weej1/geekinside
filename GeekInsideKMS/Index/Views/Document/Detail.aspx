@@ -7,10 +7,10 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $(".portletHeaderContent_1").click(function () {
-                $(".KSSShowHideTarget_1").toggle();
+                $(".KSSShowHideTarget_1").toggle("fast");
             });
             $(".portletHeaderContent_2").click(function () {
-                $(".KSSShowHideTarget_2").toggle();
+                $(".KSSShowHideTarget_2").toggle("fast");
             });
         });
     </script>
