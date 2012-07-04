@@ -132,6 +132,12 @@ namespace BLL
             return documentDAL.getAllToBeCheckedDoc();
         }
 
+        //重载getAllToBeCheckedDoc 审核员不能看到自己发布的
+        public List<DocumentModel> getAllToBeCheckedDoc(int employeeNumber)
+        {
+            return documentDAL.getAllToBeCheckedDoc(employeeNumber);
+        }
+
         public List<DocumentModel> getHaveCheckedDocByCheckerNumber(int employeeNumber)
         {
             return documentDAL.getHaveCheckedDocByCheckerNumber(employeeNumber);

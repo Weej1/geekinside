@@ -166,7 +166,7 @@
             <dd class="portletItem KSSShowHideTarget_1">
                 <% List<Model.Models.DocumentModel> viewTop10Doc = (List<Model.Models.DocumentModel>)ViewData["viewTop10Doc"]; %>
                 <% foreach (var doc in viewTop10Doc){%>
-                    <p class="discreet toplist"><a href="/Document/Detail?docid=<%:doc.Id %>"><%:doc.FileDisplayName %>.<%:doc.FileTypeName %></a></p>
+                    <p class="discreet toplist"><a href="/Document/Detail?docid=<%:doc.Id %>"><%:doc.FileDisplayName %></a></p>
                 <% }%>
             </dd>
         </dl>
@@ -180,7 +180,7 @@
             <dd class="portletItem KSSShowHideTarget_2">
                 <% List<Model.Models.DocumentModel> dlTop10Doc = (List<Model.Models.DocumentModel>)ViewData["dlTop10Doc"]; %>
                 <% foreach (var doc in dlTop10Doc){%>
-                    <p class="discreet toplist"><a href="/Document/Detail?docid=<%:doc.Id %>"><%:doc.FileDisplayName %>.<%:doc.FileTypeName %></a></p>
+                    <p class="discreet toplist"><a href="/Document/Detail?docid=<%:doc.Id %>"><%:doc.FileDisplayName %></a></p>
                 <% }%>
             </dd>
         </dl>
