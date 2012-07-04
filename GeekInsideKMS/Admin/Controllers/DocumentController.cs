@@ -11,6 +11,8 @@ namespace Admin.Controllers
 {
     public class DocumentController : Controller
     {
+        public static readonly string REPO_ROOT = "D:\\geekinsidekms\\repository\\";
+
         BLLDocument bllDocument = new BLLDocument();
 
         [Authorize]
@@ -104,10 +106,11 @@ namespace Admin.Controllers
 
             if (fileType.Equals("flv"))
             {
-                filePath = "D:\\geekinsidekms\\repository\\" + folderPath + "\\" + FileDownloadName;
+                filePath = REPO_ROOT + folderPath + "\\" + FileDownloadName;
             }
             else {
-                filePath = "C:\\Users\\Margaret\\Documents\\Visual Studio 2010\\Projects\\GeekInsideKMS\\Index\\swf\\" + FileDownloadName.Split('.')[0] + ".swf";
+                //filePath = "C:\\Users\\Margaret\\Documents\\Visual Studio 2010\\Projects\\GeekInsideKMS\\Index\\swf\\" + FileDownloadName.Split('.')[0] + ".swf";
+                filePath = REPO_ROOT + "swf\\" + FileDownloadName.Split('.')[0] + ".swf";
             }
             
             HttpContext.Response.TransmitFile(filePath);

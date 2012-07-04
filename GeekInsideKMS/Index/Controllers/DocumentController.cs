@@ -12,6 +12,7 @@ namespace Index.Controllers
 {
     public class DocumentController : Controller
     {
+        public static readonly string REPO_ROOT = "D:\\geekinsidekms\\repository\\";
         //
         // GET: /Document/
 
@@ -47,7 +48,7 @@ namespace Index.Controllers
             HttpContext.Response.AddHeader("content-disposition",
                 "attachment; filename=" + FileDownloadName);
 
-            string filePath = "D:\\geekinsidekms\\repository\\" + FileFolderPath + "\\" + FileDownloadName;
+            string filePath = REPO_ROOT + FileFolderPath + "\\" + FileDownloadName;
             HttpContext.Response.TransmitFile(filePath);
         }
 
@@ -65,11 +66,14 @@ namespace Index.Controllers
 
             if (fileType.Equals("flv"))
             {
-                filePath = "D:\\geekinsidekms\\repository\\" + folderPath + "\\" + FileDownloadName;
+                //flv文件存放路径
+                filePath = REPO_ROOT + folderPath + "\\" + FileDownloadName;
             }
             else
             {
-                filePath = "C:\\Users\\Margaret\\Documents\\Visual Studio 2010\\Projects\\GeekInsideKMS\\Index\\swf\\" + FileDownloadName.Split('.')[0] + ".swf";
+                //swf文件存放路径
+                //filePath = "C:\\Users\\Margaret\\Documents\\Visual Studio 2010\\Projects\\GeekInsideKMS\\Index\\swf\\" + FileDownloadName.Split('.')[0] + ".swf";
+                filePath = REPO_ROOT + "swf\\"+ FileDownloadName.Split('.')[0] + ".swf";
             }
 
             HttpContext.Response.TransmitFile(filePath);
