@@ -16,6 +16,7 @@ namespace IDAL
         DocumentModel getDocumentByFileDiskName(string fileDiskName);
         Boolean deleteDocumentById(int docid);
         List<DocumentModel> getAllToBeCheckedDoc();
+        List<DocumentModel> getAllToBeCheckedDoc(int employeeNumber);
         List<DocumentModel> getToBeCheckedDocByCheckerNumber(int employeeNumber);
         List<DocumentModel> getHaveCheckedDocByCheckerNumber(int employeeNumber);
         Boolean setDocUncheckedById(int docid);

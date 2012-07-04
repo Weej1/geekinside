@@ -151,6 +151,22 @@ namespace DAL
             }
         }
 
+        //重载getAllToBeCheckedDoc 审核员不能看到自己发布的
+        public List<DocumentModel> getAllToBeCheckedDoc(int employeeNumber)
+        {
+            using (var gikms = new geekinsidekmsEntities())
+            {
+                var dbDocList = from d in gikms.Documents
+                                where d.IsChecked.Equals(false) && !d.PublisherNumber.Equals(employeeNumber)
+                                select d;
+                List<DAL.Document> docTempList = dbDocList.ToList();
+
+                //生成最终List
+                return gernerateFinalDocumentModelList(docTempList);
+            }
+        }
+
+
         public List<DocumentModel> getToBeCheckedDocByCheckerNumber(int employeeNumber)
         {
             using (var gikms = new geekinsidekmsEntities())

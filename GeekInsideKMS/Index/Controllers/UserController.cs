@@ -191,7 +191,7 @@ namespace Index.Controllers
                 return RedirectToAction("Index", "Index");
             }
             List<DocumentModel> docList = new List<DocumentModel>();
-            docList = new BLLDocument().getAllToBeCheckedDoc();
+            docList = new BLLDocument().getAllToBeCheckedDoc(employeeNumber);//传入employeeNumber：自己不能审核自己的
             if (docList.Count == 0)
             {
                 ViewData["docList"] = "nodata";
