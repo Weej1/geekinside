@@ -78,7 +78,7 @@
                             <% }else{ %>
                                 <div align="left">
                                     <script type="text/javascript" src="../../../Scripts/flexpaper_flash.js"></script>
-                                    <a id="viewerPlaceHolder" style="width:680px;height:580px;display:block"></a>    
+                                    <a id="viewerPlaceHolder" style="width:680px;height:550px;display:block"></a>    
                                     <script type="text/javascript">
                                         var fp = new FlexPaperViewer(
                                             '../../../Scripts/FlexPaperViewer',
