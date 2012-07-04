@@ -113,6 +113,7 @@ namespace Index.Controllers
             docModel.Id = Convert.ToInt32(Request.Form["id"]);
             docModel.FileDisplayName = Request.Form["filedisplayname"];
             docModel.Description = Request.Form["description"];
+            //改完后需重新审核
             docModel.IsChecked = false;
             if (new BLLDocument().updateDocument(docModel))
             {
