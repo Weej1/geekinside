@@ -47,7 +47,7 @@
                 </form>
             </div>
             <div id="PersonsTable">
-                <form name="persons_form" class="PersonsForm" method="post" action="/Employee/deleteMultiEmps">
+                <form name="persons_form" class="PersonsForm" method="post">
                 <table class="listing">
                     <thead>
                         <tr>
@@ -138,8 +138,8 @@
                     </tbody>
                 </table>
                 <p>
-                    <input type="button" class="button" value="删除选中" onclick="javascript:document.forms[1].submit();"><span style="margin-left: 10px;"></span><input
-                        type="button" class="button" value="导出所有员工资料" ></p>
+                    <input type="submit" class="button" value="删除选中" name="deleteMultiEmps"" onclick="javascript:document.forms[1].submit();"><span style="margin-left: 10px;"></span><input
+                        type="submit" class="button" value="导出所有员工资料" name="Export" ></p>
                 </form>
             </div>
         </div>

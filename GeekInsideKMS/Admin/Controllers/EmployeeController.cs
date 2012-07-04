@@ -214,6 +214,7 @@ namespace Admin.Controllers
         //批量删除员工
         [HttpPost]
         [Authorize]
+        [MultiButton("deleteMultiEmps")]
         public ActionResult deleteMultiEmps(string[] selected_emps)
         {
             Boolean result = true;
