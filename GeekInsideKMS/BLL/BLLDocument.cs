@@ -60,8 +60,16 @@ namespace BLL
                         }
                     }
                     string newFilePath = MoveFile(document.FileDiskName, folderDAL.GetFolderById(document.FolderId).PhysicalPath);
+                    if (fileExtention == "pdf")
+                    {
+                        Helper.ConvertPdfToSwf(newFilePath);
+                    }
                     if (fileExtention == "doc" ||
-                        fileExtention == "docx")
+                        fileExtention == "docx"||
+                        fileExtention == "xls" ||
+                        fileExtention == "xlsx"||
+                        fileExtention == "ppt" ||
+                        fileExtention == "pptx")
                     {
                         //转换文件
                         Helper.ConvertDocumentToSwf(newFilePath);
