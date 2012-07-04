@@ -161,9 +161,14 @@ namespace Index.Controllers
             }
             BLLDocument bllDocument = new BLLDocument();
             DocumentModel docModel = bllDocument.getDocumentById(docid);
-            if (employeeNumber == "" || docModel == null || docModel.PublisherNumber != Convert.ToInt32(employeeNumber))
+            if (employeeNumber == "" || docModel == null )
             {
                 TempData["errorMsg"] = "您无权进行添加收藏操作，请重新登录。";
+                return RedirectToAction(returnURL, "User");
+            }
+            if (docModel.PublisherNumber == Convert.ToInt32(employeeNumber))
+            {
+                TempData["errorMsg"] = "您不能收藏自己发布的文档。";
                 return RedirectToAction(returnURL, "User");
             }
             BLLFavorite bllFavorite = new BLLFavorite();

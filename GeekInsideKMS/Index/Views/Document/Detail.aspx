@@ -32,9 +32,14 @@
                             下载</button>
                         <%}
                          %>
+                         <!-- 上传者不可见收藏 -->
+                         <% if (!docModel.PublisherNumber.Equals(Convert.ToInt32(Page.User.Identity.Name)))
+                        {%>
                         <button class="KSSActionServer KSSLoad button" onclick= "self.location='/User/addFavorite?docid=<%:docModel.Id %>&returnURL=MyFavorite'">
                             收藏</button>
-                        <!-- 上传者可见 -->
+                        <%}
+                         %>
+                        <!-- 上传者可见编辑 -->
                         <% if (docModel.PublisherNumber.Equals(Convert.ToInt32(Page.User.Identity.Name)))
                         {%>
                         <button class="KSSActionServer KSSLoad button" onclick= "self.location='/Document/Edit?docid=<%:docModel.Id %>'">编辑信息</button>
