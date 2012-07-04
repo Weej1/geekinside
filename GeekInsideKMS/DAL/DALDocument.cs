@@ -428,7 +428,8 @@ namespace DAL
             {
                 List<DAL.Document> docTempList = new List<DAL.Document>();
                 docTempList = (from d in gikms.Documents
-                               where d.FolderId.Equals(folderid)
+                               where d.FolderId.Equals(folderid) && d.IsChecked.Equals(true)
+                               orderby d.PubTime descending
                                select d).ToList();
                 //生成最终List
                 return gernerateFinalDocumentModelList(docTempList);
@@ -442,7 +443,8 @@ namespace DAL
             {
                 List<DAL.Document> docTempList = new List<DAL.Document>();
                 docTempList = (from d in gikms.Documents
-                               where d.FolderId.Equals(folderid)
+                               where d.FolderId.Equals(folderid) && d.IsChecked.Equals(true)
+                               orderby d.PubTime descending
                                select d).ToList();
                 //分页
                 int totalCount = docTempList.Count();
