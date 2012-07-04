@@ -389,8 +389,8 @@
                                 MS Office文档
                             </td>
                             <td valign="top">
-                                <span class="icon doc"></span>doc,docx &nbsp;&nbsp; <span class="icon ppt"></span>
-                                ppt,pptx &nbsp;&nbsp; <span class="icon xls"></span>xls,xlsx &nbsp;&nbsp; 
+                                <span class="icon doc"></span>doc,docx<span class="icon ppt"></span>
+                                ppt,pptx<span class="icon xls"></span>xls,xlsx
                             </td>
                         </tr>
                         <tr>

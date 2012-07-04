@@ -39,7 +39,7 @@
             var year = now.getFullYear();
             var month = now.getMonth();
             var day = now.getDay();
-            var time = year + "-" + month + "-" + day
+            var time = year + "-" + month + "-" + day;
             return time;
         }
 
@@ -240,7 +240,6 @@
                 data: { 'folderId': folderCurrent, 'page': page },
                 success: function (data) {
                     $.each(data, function (i, m) {
-                        alert(m.PublisherName);
                         dnumber++;
                         var content = "<div class='contentItem'>" +
                                 "<div class='itemIcon'>";
