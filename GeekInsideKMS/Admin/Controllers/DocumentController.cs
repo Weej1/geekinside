@@ -82,6 +82,7 @@ namespace Admin.Controllers
             docModel.Id = Convert.ToInt32(Request.Form["id"]);
             docModel.FileDisplayName = Request.Form["filedisplayname"];
             docModel.Description = Request.Form["description"];
+            docModel.AuthLevel = Convert.ToInt32(Request.Form["auth_"]);
             if (bllDocument.updateDocument(docModel))
             {
                 TempData["successMsg"] = "更新成功。";

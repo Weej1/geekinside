@@ -21,7 +21,7 @@
         	<tr style="height:50px;">
         		<td style="width:170px;">
                 标题：</td>
-                <td><input type="text" name="filedisplayname" value="<%:docModel.FileDisplayName %>"/>.<%:docModel.FileTypeName %>
+                <td><input type="text" name="filedisplayname" value="<%:docModel.FileDisplayName %>"/>
                 <%if(docModel.FileTypeName.Equals("doc") || docModel.FileTypeName.Equals("docx")) {%>
                     <img src="/Content/images/icons/word.gif">
                 <% }else if(docModel.FileTypeName.Equals("xls") || docModel.FileTypeName.Equals("xlsx")){ %>
@@ -49,6 +49,15 @@
                             Response.Write(tag.TagName+", ");
                         }
                 %></td>
+            </tr>                
+            <tr style="height:50px;">
+                <td>权限：</td>
+                <td> <select name="auth_" style="width:200px" >
+                       <option value='1'>所有人都可以查看和下载</option>
+                       <option value='2'>非本部门人不可以下载</option>
+                       <option value='3'>只有本部门人可以查看和下载</option>
+                       <option value='4'>只有本部门人可以查看</option>
+                    </select></td>
             </tr>
             <tr style="height:50px;">
                 <td>预览：</td>
