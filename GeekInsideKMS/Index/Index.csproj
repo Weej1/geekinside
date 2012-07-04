@@ -153,7 +153,6 @@
     <Content Include="Scripts\plupload.silverlight.xap" />
     <Content Include="Scripts\slides.jquery.js" />
     <Content Include="Scripts\swfobject.js" />
-    <Content Include="swf\pdf2swf.exe" />
     <Content Include="Views\Document\Detail.aspx" />
     <Content Include="Views\Document\DocumentUpload.aspx" />
     <Content Include="Views\Document\Edit.aspx" />
