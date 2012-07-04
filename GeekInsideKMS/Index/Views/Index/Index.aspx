@@ -5,7 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <link type="text/css" rel="Stylesheet" href="/Content/css/folder.css"/>
-    <script type="text/javascript" src="/Scripts/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/Scripts/jquery-1.7.2.min.js"></script>   
     <script type="text/javascript">
         $(document).ready(function () {
             $(".portletHeaderContent_1").click(function () {
@@ -24,6 +24,9 @@
     </script>
     <script type="text/javascript">
         var folders;
+        var isAnyFolderChoose = false;
+        var page = 1;
+        var folderCurrent = 0;
 
         function dateFormat(date) {
             var now = new Date();
@@ -101,10 +104,11 @@
                     triggerFolderListener(m.Id, m.SubFolders, e);
                 });
             });
+            page = 1;
             $.ajax({ url: "/Document/GetFolderList",
                 type: 'post',
                 dataType: 'json',
-                data: { 'folderId': folder_id },
+                data: { 'folderId': folder_id, 'page': 1 },
                 success: function (data) {
                     $.each(data, function (i, m) {
                         var content = "<div class='contentItem'>" +
@@ -127,7 +131,7 @@
                                     "<h1>" +
                                         "<a href='/Document/Detail?docid=" + m.Id +"' class='title clean'>" + m.FileDisplayName + "</a></h1>" +
                                    "<p class='discreet' style='margin: -5pt 0 2px;'>" +
-                                       "上传者：" + m.PublisherName + ",上传于 " + dateFormat(m.PubTime) + " " + m.Size + "， 文件位于/文档库/公司管理/1123" +
+                                                                             "上传者：" + m.PublisherName + ",上传于 " + dateFormat(m.PubTime) + " " + m.Size + "， 查看次数：" + m.ViewNumber + " 下载次数：" + m.DownloadNumber +
                                    "</p>" +
                                    "<div class='visualClear'>" +
                                    "</div>" +
@@ -137,6 +141,9 @@
                     });
                 }
             });
+
+            folderCurrent = folder_id;
+            isAnyFolderChoose = true;
         }
 
         function triggerSubFolders(subFolders) {
@@ -225,6 +232,73 @@
             triggerAnimate();
 
         });
+        function requestMoreDocument(p) {
+            var dnumber = 0;
+            $.ajax({ url: "/Document/GetFolderList",
+                type: 'post',
+                dataType: 'json',
+                data: { 'folderId': folderCurrent, 'page': page },
+                success: function (data) {
+                    $.each(data, function (i, m) {
+                        alert(m.PublisherName);
+                        dnumber++;
+                        var content = "<div class='contentItem'>" +
+                                "<div class='itemIcon'>";
+                        if (m.FileTypeName === "doc" || m.FileTypeName == "docx") {
+                            content += "<img src='/Content/images/icons/word.gif'/>";
+                        } else if (m.FileTypeName == "xls" || m.FileTypeName == "xlsx") {
+                            content += "<img src='/Content/images/icons/excel.gif'/>";
+                        } else if (m.FileTypeName == "ppt" || m.FileTypeName == "pptx") {
+                            content += "<img src='/Content/images/icons/powerpoint.gif'/>";
+                        } else if (m.FileTypeName == "pdf") {
+                            content += "<img src='/Content/images/icons/pdf.gif'/>";
+                        } else if (m.FileTypeName == "flv") {
+                            content += "<img src='/Content/images/icons/video.png'/>";
+                        } else {
+                            content += "<img src='/Content/images/icons/document.gif'/>";
+                        }
+                        content += "</div>" +
+                                "<div class='itemInfo'>" +
+                                    "<h1>" +
+                                        "<a href='/Document/Detail?docid=" + m.Id + "' class='title clean'>" + m.FileDisplayName + "</a></h1>" +
+                                   "<p class='discreet' style='margin: -5pt 0 2px;'>" +
+                                       "上传者：" + m.PublisherName + ",上传于 " + dateFormat(m.PubTime) + " " + m.Size + "， 查看次数：" + m.ViewNumber + " 下载次数：" + m.DownloadNumber +
+                                   "</p>" +
+                                   "<div class='visualClear'>" +
+                                   "</div>" +
+                               "</div>" +
+                            "</div>";
+                        $("#previewBody").append(content);
+                    });
+                    $(".overlay").css("display", "none");
+                    if (dnumber == 0) {
+                        $(".al").css("display", "block");
+                    }
+                }
+            });
+        }
+
+        $(function () {
+            $(window).scroll(function (e) {
+                total = $("#previewBody").height();
+                scorll = $(window).scrollTop();
+                rate = scorll / total;
+                if (rate > 0.6) {
+                    if (isAnyFolderChoose) {
+                        overlay = $(".overlay");
+                        al = $(".al");
+                        overlay.css("width", $("#previewBody").width());
+                        overlay.css("height", "100px");
+                        al.css("width", $("#previewBody").width());
+                        al.css("height", "60px");
+                        al.css("display", "none");
+                        overlay.css("display", "block");
+                        requestMoreDocument(++page);
+                    }
+                }
+            });
+        });
+        
     </script>
     <style type="text/css">
         .folder_wrapper
@@ -233,6 +307,38 @@
             width: 195px;
             margin-left: -7px;
             margin-top: -21px;
+        }
+        .overlay {
+            background: #000 url('/Content/images/loadingAnimation.gif') no-repeat center;
+            filter: alpha(opacity=70); 
+            opacity: 0.7; 
+            display: none;
+            position: relative;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 300; 
+            display:none;
+        }
+        .al 
+        {
+            margin-top:10px; 
+            display: none;
+            position: relative;
+            top: 0px;
+            left: 0px;
+            width: 900px;
+            height: 60px;
+            z-index: 300; 
+            display:none;
+            text-align:center;
+            font-size:20px;
+            font-weight: bold;
+            border: 1px solid #CEE1EE;
+            background-color: #F0F5F8;
+            color:#369;
+            line-height: 60px;
         }
     </style>
 </asp:Content>
@@ -273,6 +379,13 @@
                         <div class="listingContents" id="previewBody">
          
      
+                        </div>
+                        <div>
+                          <div class="overlay">
+                          </div>
+                          <div class="al">
+                             没有更多文档
+                          </div>
                         </div>
                     </div>
                 </div>
