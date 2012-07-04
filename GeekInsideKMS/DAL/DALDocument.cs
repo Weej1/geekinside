@@ -385,6 +385,7 @@ namespace DAL
             dbDoc.FileDisplayName = docModel.FileDisplayName;
             dbDoc.Description = docModel.Description;
             dbDoc.IsChecked = docModel.IsChecked;
+            dbDoc.AuthLevel = docModel.AuthLevel;
             context.SaveChanges();
             return true;
         }
