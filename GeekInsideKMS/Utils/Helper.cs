@@ -33,13 +33,13 @@ namespace Utils
             Directory.CreateDirectory(REPO_ROOT + dbPath);
         }
 
-        public static void ConvertDocumentToSwf(string documentPath, string serverPath)
+        public static void ConvertDocumentToSwf(string documentPath)
         {
             FileInfo originalFile = new FileInfo(documentPath);
-            string outputPdfFolder = Path.Combine(serverPath, @"uploadfiles\temp");
-            string outputSwfFolder = Path.Combine(serverPath, @"swf");
+            string outputPdfFolder = Path.Combine(REPO_ROOT, @"pdf");
+            string outputSwfFolder = Path.Combine(REPO_ROOT, @"swf");
 
-            // 第一步，将word转成pdf，存放在uploadfiles\temp目录下
+            // 第一步，将word转成pdf，存放在pdf目录下
             // Create a new Microsoft Word application object
             Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
 
