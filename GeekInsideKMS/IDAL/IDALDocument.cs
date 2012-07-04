@@ -28,6 +28,7 @@ namespace IDAL
         List<DocumentModel> getAllDocOrderByPubtime();
         List<DocumentModel> getDocByTagId(int tagid);
         List<DocumentModel> getDocByFolderId(int folderid);
+        List<DocumentModel> getDocByFolderId(int folderid, int pageNumber, int pageSize);
         Boolean updateDocument(DocumentModel docModel);
         Boolean ViewNumberIncrement(int docId);
         Boolean DownloadNumberIncrement(int docId);
