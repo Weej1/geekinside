@@ -188,5 +188,13 @@ namespace BLL
             //带权限过滤的
             return bllAuth.documentFilter(empno, documentDAL.getDocByFolderId(folder));
         }
+
+        //根据folderid、empno和页数（第几页）得到已按权限过滤的docModelList
+        public List<DocumentModel> getDocByFolderId(int empno, int folder, int pageNumber)
+        {
+            //带权限过滤的
+            int pageSize = 20;//默认每页20个
+            return bllAuth.documentFilter(empno, documentDAL.getDocByFolderId(folder,pageNumber,pageSize));
+        }
     }
 }

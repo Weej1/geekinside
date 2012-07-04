@@ -435,6 +435,26 @@ namespace DAL
             }
         }
 
+        //根据folderid和分页参数得到doc
+        public List<DocumentModel> getDocByFolderId(int folderid, int pageNumber, int pageSize)
+        {
+            using (var gikms = new geekinsidekmsEntities())
+            {
+                List<DAL.Document> docTempList = new List<DAL.Document>();
+                docTempList = (from d in gikms.Documents
+                               where d.FolderId.Equals(folderid)
+                               select d).ToList();
+                //分页
+                int totalCount = docTempList.Count();
+                List<DAL.Document> docListPaged = new List<DAL.Document>();
+                docListPaged = (from n in docTempList
+                                select n).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+                //生成最终List
+                return gernerateFinalDocumentModelList(docListPaged);
+            }
+        }
+
+
         public DocumentModel getDocumentByFileDiskName(string fileDiskName)
         {
             using (var gikms = new geekinsidekmsEntities())
